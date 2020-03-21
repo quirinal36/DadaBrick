@@ -44,31 +44,6 @@ public class HomeController extends KseeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, ModelAndView mv,
 			HttpServletRequest req, Authentication authentication) {
-		Popup pp = new Popup();
-		pp.setToday(LocalDate.now().toString());
-		pp.setLang(locale.getLanguage());
-		
-		List<Popup> popupList = popupService.select(pp);
-		mv.addObject("popups", popupList);
-		
-		Board notice = Board.newInstance(0, Board.TYPE_NOTICE);
-		notice.setLanguage(locale.getLanguage());
-		notice.setTotalCount(boardService.count(notice));
-		List<Board> noticeList = boardService.select(notice);
-		mv.addObject("noticeList", noticeList);
-		
-		Board freeBoard = Board.newInstance(0, Board.TYPE_FREE);
-		freeBoard.setLanguage(locale.getLanguage());
-		freeBoard.setTotalCount(boardService.count(freeBoard));
-		List<Board> freeBoardList = boardService.select(freeBoard);
-		mv.addObject("freeBoardList", freeBoardList);
-		
-		Board newsBoard = Board.newInstance(0, Board.TYPE_NEWS);
-		newsBoard.setLanguage(locale.getLanguage());
-		newsBoard.setTotalCount(boardService.count(newsBoard));
-		List<Board> newsBoardList = boardService.select(newsBoard);
-		mv.addObject("newsBoardList", newsBoardList);
-		mv.addObject("locale", locale);
 		
 		mv.setViewName("index");
 		return mv;
