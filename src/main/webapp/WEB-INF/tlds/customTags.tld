@@ -9,7 +9,7 @@
  
     <function>
         <name>removeTag</name>
-        <function-class>www.ksee.kr.util.StringUtil</function-class>
+        <function-class>dada.brick.com.util.StringUtil</function-class>
         <function-signature>
             java.lang.String removeTag(java.lang.String)
         </function-signature>
@@ -17,7 +17,7 @@
     
     <function>
         <name>phone</name>
-        <function-class>www.ksee.kr.util.StringUtil</function-class>
+        <function-class>dada.brick.com.util.StringUtil</function-class>
         <function-signature>
             java.lang.String phone(java.lang.String)
         </function-signature>
@@ -25,7 +25,7 @@
     
     <function>
         <name>getDayOfWeek</name>
-        <function-class>www.ksee.kr.util.StringUtil</function-class>
+        <function-class>dada.brick.com.util.StringUtil</function-class>
         <function-signature>
             java.lang.String getDayOfWeek(java.lang.String)
         </function-signature>

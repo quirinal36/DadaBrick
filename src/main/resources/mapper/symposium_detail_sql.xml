@@ -48,7 +48,7 @@
 				LEFT JOIN users u 			on d.writer = u.id
 		<where>
 			symposiumId = ${symposiumId}
-			<if test="@www.ksee.kr.util.StringUtil@notEmpty(lang)">
+			<if test="@dada.brick.com.util.StringUtil@notEmpty(lang)">
 				and
 				d.lang = '${lang}'
 			</if>

@@ -99,12 +99,12 @@
 		FROM Apply
 		<where>
 			sympId = ${sympId}
-			<if test="@www.ksee.kr.util.StringUtil@notEmpty(username)">
+			<if test="@dada.brick.com.util.StringUtil@notEmpty(username)">
 				and (
 					username = '${username}'
 				)
 			</if>
-			<if test="@www.ksee.kr.util.StringUtil@notEmpty(telephone)">
+			<if test="@dada.brick.com.util.StringUtil@notEmpty(telephone)">
 				and (
 					telephone = '${telephone}'
 				)

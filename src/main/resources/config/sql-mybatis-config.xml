@@ -4,18 +4,18 @@
 
 <configuration>
     <typeAliases>
-		<typeAlias type="www.ksee.kr.vo.UserVO" alias="user"/>
-		<typeAlias type="www.ksee.kr.vo.UserRole" alias="user_role"/>
-		<typeAlias type="www.ksee.kr.vo.PhotoInfo" alias="photoinfo"/>
-		<typeAlias type="www.ksee.kr.vo.FileInfo" alias="fileinfo"/>
-		<typeAlias type="www.ksee.kr.vo.Board" alias="board"/>
-		<typeAlias type="www.ksee.kr.vo.Menus" alias="menus"/>
-		<typeAlias type="www.ksee.kr.vo.Symposium" alias="symposium"/>
-		<typeAlias type="www.ksee.kr.vo.EmailToken" alias="token"/>
-		<typeAlias type="www.ksee.kr.vo.SymposiumTypes" alias="symposium_type"/>
-		<typeAlias type="www.ksee.kr.vo.SymposiumDetail" alias="symposium_detail"/>
-		<typeAlias type="www.ksee.kr.vo.ApplyVO" alias="apply"/>
-		<typeAlias type="www.ksee.kr.vo.Reply" alias="reply"/>
-		<typeAlias type="www.ksee.kr.vo.Popup" alias="popup"/>
+		<typeAlias type="dada.brick.com.vo.UserVO" alias="user"/>
+		<typeAlias type="dada.brick.com.vo.UserRole" alias="user_role"/>
+		<typeAlias type="dada.brick.com.vo.PhotoInfo" alias="photoinfo"/>
+		<typeAlias type="dada.brick.com.vo.FileInfo" alias="fileinfo"/>
+		<typeAlias type="dada.brick.com.vo.Board" alias="board"/>
+		<typeAlias type="dada.brick.com.vo.Menus" alias="menus"/>
+		<typeAlias type="dada.brick.com.vo.Symposium" alias="symposium"/>
+		<typeAlias type="dada.brick.com.vo.EmailToken" alias="token"/>
+		<typeAlias type="dada.brick.com.vo.SymposiumTypes" alias="symposium_type"/>
+		<typeAlias type="dada.brick.com.vo.SymposiumDetail" alias="symposium_detail"/>
+		<typeAlias type="dada.brick.com.vo.ApplyVO" alias="apply"/>
+		<typeAlias type="dada.brick.com.vo.Reply" alias="reply"/>
+		<typeAlias type="dada.brick.com.vo.Popup" alias="popup"/>
     </typeAliases>
 </configuration>

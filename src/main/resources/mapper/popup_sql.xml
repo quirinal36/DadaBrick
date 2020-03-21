@@ -74,7 +74,7 @@
 				SELECT url FROM PhotoInfo WHERE
 				id = 
 				<choose>
-					<when test="@www.ksee.kr.util.StringUtil@notEmpty(lang) and lang.equalsIgnoreCase('ko') ">
+					<when test="@dada.brick.com.util.StringUtil@notEmpty(lang) and lang.equalsIgnoreCase('ko') ">
 						fileId
 					</when>
 					<otherwise>
@@ -90,7 +90,7 @@
 			porder
 		FROM popup
 		<where>
-			<if test="@www.ksee.kr.util.StringUtil@notEmpty(today)">
+			<if test="@dada.brick.com.util.StringUtil@notEmpty(today)">
 				<![CDATA[
 				startDate <= '${today}'
 				AND
@@ -111,7 +111,7 @@
 				SELECT url FROM PhotoInfo WHERE
 				id = 
 				<choose>
-					<when test="@www.ksee.kr.util.StringUtil@notEmpty(lang) and lang.equalsIgnoreCase('ko') ">
+					<when test="@dada.brick.com.util.StringUtil@notEmpty(lang) and lang.equalsIgnoreCase('ko') ">
 						fileId
 					</when>
 					<otherwise>
