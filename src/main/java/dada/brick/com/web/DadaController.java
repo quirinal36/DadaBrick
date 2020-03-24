@@ -11,12 +11,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import dada.brick.com.security.AuthenticationFacade;
-import dada.brick.com.service.ApplyService;
-import dada.brick.com.service.BoardService;
 import dada.brick.com.service.FileInfoService;
-import dada.brick.com.service.MenuService;
 import dada.brick.com.service.PhotoInfoService;
-import dada.brick.com.service.SymposiumService;
 import dada.brick.com.service.TokenService;
 import dada.brick.com.service.UserService;
 import dada.brick.com.vo.Menus;
@@ -40,15 +36,7 @@ public class DadaController {
 	@Autowired
 	protected FileInfoService fileInfoService;
 	@Autowired
-	protected BoardService boardService;
-	@Autowired
-	protected MenuService menuService;
-	@Autowired
 	protected TokenService tokenService;
-	@Autowired
-	protected SymposiumService sympService;
-	@Autowired
-	protected ApplyService applyService;
 	protected UserVO getUser() {
 		String authUser = authenticationFacade.getAuthentication().getName();
 		
@@ -85,7 +73,6 @@ public class DadaController {
 	protected Menus getCurMenus(String currentUrl) {
 		Menus curMenu = new Menus();
 		curMenu.setUrl(currentUrl);
-		curMenu = menuService.selectOne(curMenu);
 		return curMenu;
 	}
 	/**

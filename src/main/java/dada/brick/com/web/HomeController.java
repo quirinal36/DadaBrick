@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
@@ -25,19 +24,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import dada.brick.com.Config;
-import dada.brick.com.service.PopupService;
 import dada.brick.com.vo.Board;
-import dada.brick.com.vo.Paging;
-import dada.brick.com.vo.Popup;
-import dada.brick.com.vo.Symposium;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController extends DadaController {
-	@Autowired
-	PopupService popupService;
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -51,58 +44,6 @@ public class HomeController extends DadaController {
 	@RequestMapping(value="/search")
 	public ModelAndView getCompanyView(Locale locale, ModelAndView mv,
 			Board board) {
-		mv.addObject("title", "검색");
-		
-		List<Integer> boardTypes = new ArrayList<Integer>();
-		boardTypes.add(Board.TYPE_NOTICE);
-		boardTypes.add(Board.TYPE_NEWS);
-		boardTypes.add(Board.TYPE_MEMBER);
-		boardTypes.add(Board.TYPE_SPEAKER);
-		boardTypes.add(Board.TYPE_FREE);
-		
-		List<List<Board>> listOfBoardList = new ArrayList<List<Board>>();
-		Iterator<Integer> boardTypeIter = boardTypes.iterator();
-		while(boardTypeIter.hasNext()) {	
-			int boardType = boardTypeIter.next();
-			if(board.getPageNo() == 0) {
-				board.setPageNo(1);
-			}
-			board.setPageSize(Paging.PAGE_SIZE_LIST);
-			board.setBoardType(boardType);
-			board.setLanguage(locale.getLanguage());
-			int count = boardService.count(board);
-			board.setTotalCount(count);
-			List<Board> boardList = boardService.select(board);
-			listOfBoardList.add(boardList);
-		}
-		mv.addObject("boardList", listOfBoardList);
-		
-		List<List<Symposium>> listOfSympList = new ArrayList<List<Symposium>>();
-		List<Integer> sympTypes = new ArrayList<Integer>();
-		sympTypes.add(Symposium.SYMP_TYPE_DOMESTIC);
-		sympTypes.add(Symposium.SYMP_TYPE_INTERNATIONAL);
-		Iterator<Integer> sympTypeIter = sympTypes.iterator();
-		while(sympTypeIter.hasNext()) {
-			Integer sympType = sympTypeIter.next();
-			Symposium symposium = new Symposium();
-			symposium.setQuery(board.getQuery());
-			if(board.getPageNo() == 0) {
-				symposium.setPageNo(1);
-			}else {
-				symposium.setPageNo(board.getPageNo());
-			}
-			symposium.setSympType(sympType);
-			symposium.setPageSize(Paging.PAGE_SIZE_LIST);
-			int count = sympService.count(symposium);
-			symposium.setTotalCount(count);
-			
-			List<Symposium> sympList = sympService.select(symposium);
-			listOfSympList.add(sympList);
-		}
-		mv.addObject("sympList", listOfSympList);
-		mv.addObject("paging", board);
-		mv.addObject("today", LocalDate.now().toString());
-		mv.addObject("locale", locale);
 		
 		mv.setViewName("/home");
 		return mv;
