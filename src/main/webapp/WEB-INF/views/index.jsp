@@ -37,15 +37,23 @@
 <body>
     <div id="wrap">
         <div id="tab">
-            <input type="button" value="시안1" class="on">
-            <input type="button" value="시안2">
+            <input type="button" value="메인 페이지" class="on">
+            <input type="button" value="메인 페이지 - 가이드">
+            <input type="button" value="목록 페이지">
+            <input type="button" value="목록 페이지 - 가이드">
         </div>
         <div id="cont">
             <div>
-                <img src="<c:url value="/resources/img/img1.png"/>" alt="시안1">
+                <img src="<c:url value="/resources/img/img3.png"/>" alt="메인">
             </div>
             <div>
-                <img src="<c:url value="/resources/img/img2.png"/>" alt="시안2">
+                <img src="<c:url value="/resources/img/img3_guide.png"/>" alt="메인 가이드">
+            </div>
+            <div>
+                <img src="<c:url value="/resources/img/img3sub.png"/>" alt="목록">
+            </div>
+            <div>
+                <img src="<c:url value="/resources/img/img3sub_guide.png"/>" alt="목록 가이드">
             </div>
         </div>
     </div>

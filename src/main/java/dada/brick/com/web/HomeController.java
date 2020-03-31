@@ -31,6 +31,7 @@ import dada.brick.com.vo.Board;
  */
 @Controller
 public class HomeController extends DadaController {
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
