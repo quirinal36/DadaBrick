@@ -12,8 +12,8 @@
     <title>다다벽돌</title>
     <style>
         * { margin: 0; padding: 0; }
-        #tab { padding: 20px 0; border-bottom: 1px solid #000; text-align: center; }
-        #tab input[type="button"] { display: inline-block; margin: 0 5px; padding: 10px 20px; border: 0; border-radius: 100px; background: #ddd; font-size: 14px; cursor: pointer; }
+        #tab { padding: 15px 0; border-bottom: 1px solid #000; text-align: center; }
+        #tab input[type="button"] { display: inline-block; margin: 5px; padding: 10px 20px; border: 0; border-radius: 100px; background: #ddd; font-size: 14px; cursor: pointer; }
         #tab input[type="button"]:focus { outline: none; }
         #tab input[type="button"].on { background: #5e4736; color: #fff; }
         #cont { background: #ddd; text-align: center; }
