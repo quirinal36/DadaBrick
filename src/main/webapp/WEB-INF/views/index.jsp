@@ -1,61 +1,84 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="su" uri="/WEB-INF/tlds/customTags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>다다벽돌</title>
-    <style>
-        * { margin: 0; padding: 0; }
-        #tab { padding: 15px 0; border-bottom: 1px solid #000; text-align: center; }
-        #tab input[type="button"] { display: inline-block; margin: 5px; padding: 10px 20px; border: 0; border-radius: 100px; background: #ddd; font-size: 14px; cursor: pointer; }
-        #tab input[type="button"]:focus { outline: none; }
-        #tab input[type="button"].on { background: #5e4736; color: #fff; }
-        #cont { background: #ddd; text-align: center; }
-        #cont > div { display: none; }
-        #cont > div:first-child { display: block; }
-        #cont img { width: 100%; }
-    </style>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script>
-        $(function(){
-            $("#tab > input").click(function(){
-                var idx = $(this).index();
-                $("#tab > input").removeClass("on");
-                $(this).addClass("on");
-                $("#cont > div").hide();
-                $("#cont > div:eq("+ idx +")").show();
-            });
-        });
-    </script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>${title }</title>
+<c:import url="/inc/head"></c:import>
 </head>
 <body>
-    <div id="wrap">
-        <div id="tab">
-            <input type="button" value="메인 페이지" class="on">
-            <input type="button" value="메인 페이지 - 가이드">
-            <input type="button" value="목록 페이지">
-            <input type="button" value="목록 페이지 - 가이드">
-        </div>
-        <div id="cont">
-            <div>
-                <img src="<c:url value="/resources/img/img3.png"/>" alt="메인">
-            </div>
-            <div>
-                <img src="<c:url value="/resources/img/img3_guide.png"/>" alt="메인 가이드">
-            </div>
-            <div>
-                <img src="<c:url value="/resources/img/img3sub.png"/>" alt="목록">
-            </div>
-            <div>
-                <img src="<c:url value="/resources/img/img3sub_guide.png"/>" alt="목록 가이드">
-            </div>
-        </div>
-    </div>
+<div id="wrap">
+	<c:import url="/inc/header"></c:import>
+	<div id="containerWrap">
+		<div id="container">
+			<!-- 
+			<c:import url="/inc/lnb_wrap">
+				<c:param name="id">${curMenu.id }</c:param>
+			</c:import>
+			<c:import url="/inc/contentsTitle">
+				<c:param name="id">${curMenu.id }</c:param>
+			</c:import>
+			-->
+			<div id="contentsPrint">
+				<div class="idx_main_wrap">
+					<div class="idx_main">
+						<a href="#" class="item" style="background-image: url(/resources/img/temp/1.png);">제품</a>
+						<a href="#" class="item" style="background-image: url(/resources/img/temp/1.png);">제품</a>
+						<a href="#" class="item" style="background-image: url(/resources/img/temp/1.png);">제품</a>
+					</div>
+				</div>
+				<div class="idx_products_wrap">
+					<strong>Products</strong>
+					<div class="idx_products">
+						<div class="item">
+							<a href="#" class="image" style="background-image: url(/resources/img/temp/2.png);">사진</a>
+							<a href="#" class="name">점토벽돌</a>
+						</div>
+						<div class="item">
+							<a href="#" class="image" style="background-image: url(/resources/img/temp/2.png);">사진</a>
+							<a href="#" class="name">타일벽돌</a>
+						</div>
+						<div class="item">
+							<a href="#" class="image" style="background-image: url(/resources/img/temp/2.png);">사진</a>
+							<a href="#" class="name">고벽돌</a>
+						</div>
+						<div class="item">
+							<a href="#" class="image" style="background-image: url(/resources/img/temp/2.png);">사진</a>
+							<a href="#" class="name">화산석</a>
+						</div>
+						<div class="item">
+							<a href="#" class="image" style="background-image: url(/resources/img/temp/2.png);">사진</a>
+							<a href="#" class="name">화강석</a>
+						</div>
+						<div class="item">
+							<a href="#" class="image" style="background-image: url(/resources/img/temp/2.png);">사진</a>
+							<a href="#" class="name">바닥벽돌</a>
+						</div>
+					</div>
+				</div>
+				<div class="idx_insta_wrap">
+					<strong>Instagram</strong>
+					<div class="idx_insta">
+						<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+						<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+						<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+						<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+						<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+						<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+						<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+						<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+						<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+						<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+						<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+						<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<c:import url="/inc/footer"></c:import>
+</div>
 </body>
 </html>

@@ -1,7 +1,0 @@
-.popup_write_img ul { text-align: left; font-size: 0; }
-.popup_write_img ul li { position: relative; display: inline-block; width: 624px; height: 337px; margin: 0 0 20px 2%; box-sizing: border-box; border: 1px solid #eee; background-repeat: no-repeat; background-position: 50% 50%; background-size: cover; }
-.popup_write_img ul li:first-child { margin-left: 0; }
-.popup_write_img ul li:nth-child(6n-5) { margin-left: 0; }
-.popup_write_img ul li:nth-child(-n+5) { margin-top: 0; }
-.popup_write_img ul li .bt_del_img { display: none; position: absolute; top: 0; left: auto; right: 0; width: 40px; height: 40px; background: rgba(0, 0, 0, 0.5) url(/resources/img/contents/board_img_del.png) no-repeat 50% 50%; background-size: 10px; text-indent: -1000px; overflow: hidden; }
-.popup_write_img ul li:hover .bt_del_img { display: block; }
