@@ -75,6 +75,74 @@
 						<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
 					</div>
 				</div>
+				<!-- 콘텐츠페이지 상단 이미지 -->
+				<div id="contentsTop">
+					<div style="background-image: url(/resources/img/temp/4.png);"></div>
+				</div>
+				<div id="contentsTitle">
+					<h2>점토벽돌</h2>
+					<ul>
+						<li class="on"><a href="#">점토벽돌<span>(60)</span></a></li>
+						<li><a href="#">전돌벽돌<span>(54)</span></a></li>
+						<li><a href="#">수입벽돌<span>(21)</span></a></li>
+						<li><a href="#">수공예벽돌<span>(34)</span></a></li>
+					</ul>
+				</div>
+				<div id="contentsSearch">
+					<div>
+						<div class="text">[유로] 검색 결과입니다.</div>
+						<div class="search_area">
+							<form>
+								<input type="text" placeholder="검색어 입력">
+								<input type="button" value="검색">
+							</form>
+						</div>
+					</div>
+				</div>
+				<div id="products_list_wrap">
+					<ul>
+						<li>
+							<a href="#" class="image" style="background-image: url(/resources/img/temp/5.png);">사진</a>
+							<p>[CT-001] 500 x 95 x 40T 1㎡ = 33장</p>
+							<a href="#" class="name">유로화이트</a>
+						</li>
+						<li>
+							<a href="#" class="image" style="background-image: url(/resources/img/temp/6.png);">사진</a>
+							<p>[CT-001] 500 x 95 x 40T 1㎡ = 33장</p>
+							<a href="#" class="name">유로화이트</a>
+						</li>
+						<li>
+							<a href="#" class="image" style="background-image: url(/resources/img/temp/5.png);">사진</a>
+							<p>[CT-001] 500 x 95 x 40T 1㎡ = 33장</p>
+							<a href="#" class="name">유로화이트</a>
+						</li>
+						<li>
+							<a href="#" class="image" style="background-image: url(/resources/img/temp/6.png);">사진</a>
+							<p>[CT-001] 500 x 95 x 40T 1㎡ = 33장</p>
+							<a href="#" class="name">유로화이트</a>
+						</li>
+						<li>
+							<a href="#" class="image" style="background-image: url(/resources/img/temp/5.png);">사진</a>
+							<p>[CT-001] 500 x 95 x 40T 1㎡ = 33장</p>
+							<a href="#" class="name">유로화이트</a>
+						</li>
+						<li>
+							<a href="#" class="image" style="background-image: url(/resources/img/temp/6.png);">사진</a>
+							<p>[CT-001] 500 x 95 x 40T 1㎡ = 33장</p>
+							<a href="#" class="name">유로화이트</a>
+						</li>
+						<li>
+							<a href="#" class="image" style="background-image: url(/resources/img/temp/5.png);">사진</a>
+							<p>[CT-001] 500 x 95 x 40T 1㎡ = 33장</p>
+							<a href="#" class="name">유로화이트</a>
+						</li>
+						<li>
+							<a href="#" class="image" style="background-image: url(/resources/img/temp/6.png);">사진</a>
+							<p>[CT-001] 500 x 95 x 40T 1㎡ = 33장</p>
+							<a href="#" class="name">유로화이트</a>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>
