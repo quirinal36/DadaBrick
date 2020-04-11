@@ -17,6 +17,15 @@ $(function(){
 		slideMargin: 60,
 		moveSlides: 1
 	});
+	// detail_slider
+	$(".detail_slider").bxSlider({
+		mode: "fade",
+		controls: true,
+		auto: true,
+		pager: true,
+		pause: 5000,
+		pagerCustom: ".detail_slider_pager"
+	});
 });
 
 

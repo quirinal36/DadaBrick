@@ -3,11 +3,6 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <script>
-
-var startDate = "2020년 2월 21일"
-var endDate = "사회적 거리두기 종료일"
-console.log("전주코딩학원은 " + startDate + "부터 " + endDate + "까지 휴원합니다.");
-
 // header 상단 고정
 $(window).scroll(function(){
 	var sPosition = $(window).scrollTop();

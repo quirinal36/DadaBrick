@@ -7,17 +7,17 @@
 a.bt1,
 input.bt1 {
 	display: inline-block;
-	min-width: 100px;
+	min-width: 110px;
 	margin-left: 5px;
-	padding: 6px 10px;
+	padding: 7px 10px;
 	box-sizing: border-box;
 	border-radius: 2px;
-	border: 1px solid #325cb2;
+	border: 1px solid #b5a488;
 	background: transparent;
 	text-align: center;
-	font-size: 16px;
+	font-size: 15px;
 	font-weight: 400;
-	color: #325cb2;
+	color: #b5a488;
 }
 a.bt1:first-child,
 input.bt1:first-child {
@@ -25,7 +25,7 @@ input.bt1:first-child {
 }
 a.bt1.on,
 input.bt1.on {
-	background-color: #325cb2 !important;
+	background-color: #b5a488 !important;
 	color: #fff;
 }
 a.bt2,
@@ -35,12 +35,12 @@ input.bt2 {
 	padding: 3px 7px 4px 7px;
 	box-sizing: border-box;
 	border-radius: 2px;
-	border: 1px solid #325cb2;
+	border: 1px solid #b5a488;
 	background: #fff;
 	text-align: center;
 	font-size: 14px;
 	font-weight: 400;
-	color: #325cb2;
+	color: #b5a488;
 }
 a.bt2:first-child,
 input.bt2:first-child {
@@ -48,7 +48,7 @@ input.bt2:first-child {
 }
 a.bt2.on,
 input.bt2.on {
-	background-color: #325cb2 !important;
+	background-color: #b5a488 !important;
 	color: #fff;
 }
 a.bt2.off,
@@ -72,7 +72,7 @@ input.bt3 {
 }
 a.bt3.on,
 input.bt3.on {
-	background: #325cb2;
+	background: #b5a488;
 }
 
 .bt3_item2 { font-size: 0; }
@@ -86,8 +86,17 @@ input.bt3.on {
 	margin-left: 0;
 }
 
-input.ipt1 { padding: 0 10px 10px 10px; box-sizing: border-box; border-bottom: 1px solid #333; font-size: 15px; }
-input.ipt2 { padding: 10px; box-sizing: border-box; border: 1px solid #ddd; font-size: 15px; }
+input.ipt1 {
+	padding: 10px;
+	border-radius: 5px;
+	background: #f5f5f5;
+	font-size: 15px;
+}
+
+input.w80 {
+	width: 80%;
+}
+
 @media ( max-width: 800px ) {
 	a.bt1,
 	input.bt1 {
@@ -121,17 +130,34 @@ input.ipt2 { padding: 10px; box-sizing: border-box; border: 1px solid #ddd; font
 .search_ipt_all input[type="button"] { position: absolute; top: 15px; right: 15px; display: inline-block; width: 21px; height: 21px; vertical-align: middle; background: transparent url(/resources/img/comm/gnb_search.png) no-repeat 0 0; text-indent: -1000px; overflow: hidden; }
 .search_ipt_all input[type="submit"] { position: absolute; top: 15px; right: 15px; display: inline-block; width: 21px; height: 21px; vertical-align: middle; background: transparent url(/resources/img/comm/gnb_search.png) no-repeat 0 0; text-indent: -1000px; overflow: hidden; }
 /* 표 */
-.tbl1 { width: 100%; border-top: 1px solid #325cb2; }
-.tbl1 tr { border-bottom: 1px solid #ddd; }
-.tbl1 th, .tbl1 td { padding: 10px; font-size: 15px; }
-.tbl1 th { background: #f5f5f5; }
-.td_center td { text-align: center; }
+.tbl1 {
+	width: 100%;
+	border-top: 2px solid #b5a488;
+}
+
+.tbl1 th,
+.tbl1 td {
+	border: 1px solid #ddd;
+	font-size: 15px;
+}
+
+.tbl1 th {
+	padding: 10px;
+	background: #f5f5f5;
+	font-weight: 400;
+}
+
+.tbl1 td {
+	padding: 10px 15px;
+	font-weight: 300;
+}
+
 
 
 /* 메시지 */
 .message { margin-top: 10px; font-size: 14px; color: #000; display:none;}
 .message.error { color: red; }
-.message.confirm { color: #325cb2; }
+.message.confirm { color: #b5a488; }
 
 /* 체크박스, 라디오버튼 */
 .chk1,
@@ -158,24 +184,10 @@ input.ipt2 { padding: 10px; box-sizing: border-box; border: 1px solid #ddd; font
 /* 셀렉트박스 */
 .select1 {
 	display: inline-block;
-	padding: 3px 27px 4px 7px;
+	padding: 10px 27px 10px 10px;
 	box-sizing: border-box;
-	border-radius: 2px;
-	border: 1px solid #ddd;
-	background: #fff url(/resources/img/comm/select1_arrow.png) no-repeat 100% 50%;
-	background-size: 20px;
-	font-size: 14px;
-	font-weight: 400;
-}
-.select2 {
-	display: inline-block;
-	max-width: 100%;
-	padding: 5px 30px 6px 10px;
-	box-sizing: border-box;
-	border-radius: 2px;
-	border: 1px solid #ddd;
-	background: #fff url(/resources/img/comm/select1_arrow.png) no-repeat 100% 50%;
-	background-size: 20px;
+	border-radius: 5px;
+	background: #f5f5f5 url(/resources/img/comm/select1_arrow.png) no-repeat 100% 50% /20px;
 	font-size: 15px;
 	font-weight: 400;
 }
