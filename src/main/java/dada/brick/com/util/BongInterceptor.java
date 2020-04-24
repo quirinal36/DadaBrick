@@ -18,7 +18,8 @@ public class BongInterceptor implements HandlerInterceptor{
 	SqlSessionTemplate sqlSession;
 	
 	@Override
-	public boolean preHandle(HttpServletRequest request, 
+	public boolean preHandle(
+				HttpServletRequest request, 
 			HttpServletResponse response, Object handler)
 			throws Exception {
 		Map<String, String[]> parameters = request.getParameterMap();

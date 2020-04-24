@@ -1,6 +1,9 @@
 package dada.brick.com.vo;
 
 import java.sql.Date;
+import java.util.UUID;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +18,21 @@ public class PhotoInfo implements Cloneable{
 		result.setBoardId(boardId);
 		return result;
 	}
-	
+	public static PhotoInfo newInstance(MultipartFile mpf) {
+		PhotoInfo result = new PhotoInfo();
+		
+		String newFilenameBase = UUID.randomUUID().toString();
+        String originalFileExtension = mpf.getOriginalFilename().substring(mpf.getOriginalFilename().lastIndexOf("."));
+        String newFilename = newFilenameBase + originalFileExtension;
+		String contentType = mpf.getContentType();
+		
+		result.setName(mpf.getOriginalFilename());
+		result.setNewFilename(newFilename);
+		result.setSize((int)mpf.getSize());
+		result.setContentType(contentType);
+        
+		return result;
+	}
 	int id;
 	int uploader;
 	Date wdate;

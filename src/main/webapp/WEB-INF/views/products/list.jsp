@@ -2,11 +2,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<jsp:useBean id="today" class="java.util.Date" />
+<fmt:formatDate value="${today}" pattern="yyyyMMdd-HHmm" var="nowDate"/>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>${title }</title>
 <c:import url="/inc/head"></c:import>
+<script type="text/javascript" src="<c:url value="/resources/js/list.js"><c:param name="dt" value="${nowDate }"/></c:url>"></script>
 </head>
 <body>
 <div id="wrap">
@@ -19,67 +23,38 @@
 					<div style="background-image: url(/resources/img/temp/4.png);"></div>
 				</div>
 				<div id="contentsTitle">
-					<h2>점토벽돌</h2>
+					<h2>${current.name }</h2>
 					<ul>
-						<li class="on"><a href="#">점토벽돌<span>(60)</span></a></li>
-						<li><a href="#">전돌벽돌<span>(54)</span></a></li>
-						<li><a href="#">수입벽돌<span>(21)</span></a></li>
-						<li><a href="#">수공예벽돌<span>(34)</span></a></li>
+						<c:forEach items="${tabs }" var="item">
+							<li <c:if test="${item.menuNum eq current.menuNum}">class="on"</c:if>>
+								<a href="${item.url }${item.id}">${item.name }<span>(${item.total })</span></a>
+							</li>
+						</c:forEach>
 					</ul>
 				</div>
 				<div id="contentsSearch">
 					<div>
-						<div class="text">[유로] 검색 결과입니다.</div>
+						<c:if test="${not empty query}">
+							<div class="text">[유로] 검색 결과입니다.</div>
+						</c:if>
 						<div class="search_area">
-							<form>
-								<input type="text" placeholder="검색어 입력">
-								<input type="button" value="검색">
+							<form action="<c:url value="${listUrl }"/>">
+								<input type="text" placeholder="검색어 입력" name="query" <c:if test="${not empty paging.query}">value="${paging.query}"</c:if>>
+								<input type="hidden" name="pageNo" value="${paging.pageNo }"/>
+								<input type="button" value="검색" onclick="javascript:search(this.form);">
 							</form>
 						</div>
 					</div>
 				</div>
 				<div id="products_list_wrap">
 					<ul>
-						<li>
-							<a href="#" class="image" style="background-image: url(/resources/img/temp/5.png);">사진</a>
-							<p>[CT-001] 500 x 95 x 40T 1㎡ = 33장</p>
-							<a href="#" class="name">유로화이트</a>
-						</li>
-						<li>
-							<a href="#" class="image" style="background-image: url(/resources/img/temp/6.png);">사진</a>
-							<p>[CT-001] 500 x 95 x 40T 1㎡ = 33장</p>
-							<a href="#" class="name">유로화이트</a>
-						</li>
-						<li>
-							<a href="#" class="image" style="background-image: url(/resources/img/temp/5.png);">사진</a>
-							<p>[CT-001] 500 x 95 x 40T 1㎡ = 33장</p>
-							<a href="#" class="name">유로화이트</a>
-						</li>
-						<li>
-							<a href="#" class="image" style="background-image: url(/resources/img/temp/6.png);">사진</a>
-							<p>[CT-001] 500 x 95 x 40T 1㎡ = 33장</p>
-							<a href="#" class="name">유로화이트</a>
-						</li>
-						<li>
-							<a href="#" class="image" style="background-image: url(/resources/img/temp/5.png);">사진</a>
-							<p>[CT-001] 500 x 95 x 40T 1㎡ = 33장</p>
-							<a href="#" class="name">유로화이트</a>
-						</li>
-						<li>
-							<a href="#" class="image" style="background-image: url(/resources/img/temp/6.png);">사진</a>
-							<p>[CT-001] 500 x 95 x 40T 1㎡ = 33장</p>
-							<a href="#" class="name">유로화이트</a>
-						</li>
-						<li>
-							<a href="#" class="image" style="background-image: url(/resources/img/temp/5.png);">사진</a>
-							<p>[CT-001] 500 x 95 x 40T 1㎡ = 33장</p>
-							<a href="#" class="name">유로화이트</a>
-						</li>
-						<li>
-							<a href="#" class="image" style="background-image: url(/resources/img/temp/6.png);">사진</a>
-							<p>[CT-001] 500 x 95 x 40T 1㎡ = 33장</p>
-							<a href="#" class="name">유로화이트</a>
-						</li>
+						<c:forEach items="${products}" var="item">
+							<li>
+								<a href="<c:url value="/products/detail/${item.id }"/>" class="image" style="background-image: url(/resources/img/temp/5.png);">사진</a>
+								<p>[${item.primaryId}] ${item.size }</p>
+								<a href="<c:url value="/products/detail/${item.id }"/>" class="name">${item.name }</a>
+							</li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>

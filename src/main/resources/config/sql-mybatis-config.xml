@@ -17,5 +17,6 @@
 		<typeAlias type="dada.brick.com.vo.ApplyVO" alias="apply"/>
 		<typeAlias type="dada.brick.com.vo.Reply" alias="reply"/>
 		<typeAlias type="dada.brick.com.vo.Popup" alias="popup"/>
+		<typeAlias type="dada.brick.com.vo.ProductsVO" alias="products"/>
     </typeAliases>
 </configuration>

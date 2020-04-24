@@ -7,9 +7,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-@ToString
 @Getter
 @Setter
 public class UserVO extends Paging{
@@ -21,7 +19,7 @@ public class UserVO extends Paging{
 	String password_confirm;
 	String username;
 	String phone;
-	String email;
+	
 	String domain;
 	String classification;
 	String level;
@@ -31,19 +29,24 @@ public class UserVO extends Paging{
 	String role_name_kr;
 	String telephone;
 	Date mdate;
-	Date udate;
-	String sortBy;
+	
+	/* KAKAO LOGIN PROPERTIES */
+	String kakaoId;
+	String email;
+	String thumbnail_image_url;
+	String profile_image_url;
+	String nickname;
 	
 	public static final int ROLE_ADMIN = 1;
-	public static final int ROLE_STUDENT = 2;
+	public static final int ROLE_USER = 2;
 	public static final int ROLE_GENERAL = 3;
 	public static final int ROLE_COMPANY = 4;
 	public static final String ADMIN = "ROLE_ADMIN";
-	public static final String STUDENT = "ROLE_STUDENT";
+	public static final String USER = "ROLE_USER";
 	public static final String GENERAL = "ROLE_GENERAL";
 	public static final String COMPANY = "ROLE_COMPANY";
 	
-	public static final String[] ROLES = {"", ADMIN, STUDENT, GENERAL, COMPANY};
+	public static final String[] ROLES = {"", ADMIN, USER, GENERAL, COMPANY};
 	
 	public UserVO () {
 		
@@ -53,7 +56,9 @@ public class UserVO extends Paging{
 		user.setId(id);
 		return user;
 	}
-	public String toJsonString() {
+	
+	@Override
+	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
 	}
 }

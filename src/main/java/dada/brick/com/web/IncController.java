@@ -1,15 +1,22 @@
 package dada.brick.com.web;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import dada.brick.com.service.MenuService;
 import dada.brick.com.vo.Menus;
 
 @RequestMapping("/inc")
@@ -19,6 +26,27 @@ public class IncController extends DadaController{
 	@RequestMapping(value = "/header", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView getHeaderView(Locale locale, ModelAndView mv,
 			HttpServletRequest req, Authentication authentication) {
+		// 상단에 표시될 메뉴들
+		Menus parent = new Menus();
+		parent.setParentId(0);
+		List<Menus> parents = menuService.select(parent);
+		
+		// 자식메뉴들
+		Map<Integer, List<Menus>> map = new HashMap<Integer, List<Menus>>();
+		List<Menus> children = menuService.select(parents);
+		Iterator<Menus> iter = children.iterator();
+		while(iter.hasNext()) {
+			Menus menu = iter.next();
+			if(!map.containsKey(menu.getParentId())) {
+				map.put(menu.getParentId(), new ArrayList<Menus>());
+			}
+			map.get(menu.getParentId()).add(menu);
+		}
+		
+		for(Menus menu : parents) {
+			menu.setChildren(map.get(menu.getId()));
+		}
+		mv.addObject("parents", parents);
 		
 		mv.setViewName("/inc/header");
 		return mv;

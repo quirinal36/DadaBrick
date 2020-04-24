@@ -3,191 +3,45 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="user_sql">
-	<insert id="insert" parameterType="user">
+	<insert id="insert" parameterType="user" keyProperty="id" useGeneratedKeys="true">
 		INSERT INTO users
 		(
-			user_role,
-			login,
-			password,
-			username,
-			phone,
+			kakaoId,
 			email,
-			classification,
-			level,
-			address,
-			telephone,
-			domain,
-			addressDetail
+			thumbnail_image_url,
+			profile_image_url,
+			nickname
 		)
 		VALUES
 		(
-			${user_role},
-			'${login}',
-			'${password}',
-			'${username}',
-			'${phone}',
+			'${kakaoId}',
 			'${email}',
-			'${classification}',
-			'${level}',
-			'${address}',
-			'${telephone}',
-			'${domain}',
-			'${addressDetail}'
+			'${thumbnail_image_url}',
+			'${profile_image_url}',
+			'${nickname}'
 		)
-		
-	</insert> 
-	<select id="select" parameterType="user" resultType="user">
-		SELECT * FROM users
-		<where>
-		login = '${login}'
-		</where>
-	</select>
-	<select id="search" parameterType="user" resultType="user">
-		SELECT 
-			u.*, r.role_name, r.role_name_kr 
-		FROM 
-			users u LEFT JOIN roles r on (u.user_role = r.id)
-		<where>
-			<if test="query != ''">
-				and
-				(
-					u.username like '%${query}%'
-				)
-			</if>
-		</where>
-		<choose>
-			<when test="sortBy != null and sortBy.equals('user_role')">
-				ORDER BY u.user_role
-			</when>
-			<when test="sortBy != null and sortBy.equals('username')">
-				ORDER BY u.username
-			</when>
-			<when test="sortBy != null and sortBy.equals('classification')">
-				ORDER BY u.classification
-			</when>
-			<when test="sortBy != null and sortBy.equals('level')">
-				ORDER BY u.level
-			</when>
-			<when test="sortBy != null and sortBy.equals('email')">
-				ORDER BY u.email
-			</when>
-			<otherwise>
-				ORDER BY u.id DESC
-			</otherwise>
-		</choose>
-		LIMIT ${from}, ${pageSize}
-	</select>
+	</insert>
+	
 	<select id="select_one" parameterType="user" resultType="user">
-		SELECT u.*, r.role_name, r.role_name_kr FROM 
-		users u 
-			LEFT JOIN roles r on (u.user_role = r.id)
-		<where>
-			<choose>
-				<when test="id > 0">
-					u.id = ${id}
-				</when>
-				<otherwise>
-					u.login = '${login}'
-				</otherwise>
-			</choose>
-		</where>
-	</select>
-	<select id="select_findid" parameterType="user" resultType="user">
-		SELECT u.*, r.role_name, r.role_name_kr FROM 
-		users u 
-			LEFT JOIN roles r on (u.user_role = r.id)
-		<where>
-			u.username = '${username}'
-			and
-			u.phone = '${phone}'
-		</where>
-	</select>
-	<select id="select_no_pwd_user" parameterType="user" resultType="user">
-		SELECT u.*, r.role_name FROM 
-		users u 
-			LEFT JOIN roles r on (u.user_role = r.id)
-		<where>
-		login = '${login}'
-		</where>
+		SELECT 
+			u.*,
+			r.role_name
+		FROM users u LEFT JOIN roles r ON u.user_role = r.id
+		WHERE
+			u.kakaoId = '${kakaoId}'
+			or
+			u.id = ${id}
 	</select>
 	
 	<update id="update" parameterType="user">
 		UPDATE users
 		<set>
-			<if test="user_role > 0">
-				user_role = ${user_role},
-			</if>
-			<if test="password != null and !password.equals('')">
-				password = '${password}',
-			</if>
-			<if test="phone != null and !phone.equals('')">
-				phone = '${phone}',
-			</if>
-			<if test="email != null and !email.equals('')">
-				email = '${email}',
-			</if>
-			<if test="classification != null and !classification.equals('')">
-				classification = '${classification}',
-			</if>
-			<if test="level != null and !level.equals('')">
-				level = '${level}',
-			</if>
-			<if test="address != null and !address.equals('')">
-				address = '${address}',
-			</if>
-			<if test="domain != null and !domain.equals('')">
-				domain = '${domain}',
-			</if>
-			<if test="addressDetail != null and !addressDetail.equals('')">
-				addressDetail = '${addressDetail}',
+			<if test="@www.mansung.com.util.StringUtil@notEmpty(nickname)">
+				nickname = '${nickname}'
 			</if>
 		</set>
 		<where>
-			id = ${id}
+			kakaoId = '${kakaoId}'
 		</where>
 	</update>
-	
-	<select id="count" parameterType="user" resultType="int">
-		SELECT COUNT(*) FROM users
-		<where>
-			<if test="query != ''">
-				and
-				(
-					username like '%${query}%'
-				)
-			</if>
-		</where>
-	</select>
-	
-	<delete id="delete" parameterType="user">
-		DELETE FROM users
-		<where>
-			id = ${id}
-		</where>
-	</delete>
-	
-	<select id="roles" resultType="user_role">
-		SELECT * FROM roles
-	</select>
-	
-	<select id="select_all" resultType="user">
-		
-		SELECT u.*, r.role_name, r.role_name_kr FROM 
-		users u 
-			LEFT JOIN roles r on (u.user_role = r.id)
-		<where>
-			u.user_role <![CDATA[<]]> 4;
-		</where>
-	</select>
-	
-	<select id="select_by_id" parameterType="java.util.List" resultType="user">
-		SELECT *
-		FROM users
-		<where>
-			id IN
-			<foreach collection="list" item="item" open="(" separator="," close=")">
-				${item.id}
-			</foreach>
-		</where>
-	</select>
 </mapper>

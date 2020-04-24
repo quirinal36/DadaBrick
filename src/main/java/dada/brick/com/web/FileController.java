@@ -108,6 +108,7 @@ public class FileController extends DadaController {
 			
 			File newFile = new File(srcPath + File.separator + newFilename);
 			
+			
             try {
                 mpf.transferTo(newFile);
                 
@@ -181,11 +182,15 @@ public class FileController extends DadaController {
 		param.setId(id);
 
         PhotoInfo image = photoInfoService.selectOne(param);
-        String srcPath = new FileUtil().makeUserPath();
+        // String srcPath = new FileUtil().makeUserPath();
         //request.getSession().getServletContext().getRealPath("/upload");
-        File imageFile = new File(srcPath+"/"+image.getNewFilename());
+        // File imageFile = new File(srcPath+"/"+image.getNewFilename());
+        File imageFile = new File(getImageUploadPath()+File.separator+image.getNewFilename());
         response.setContentType(image.getContentType());
         response.setContentLength(image.getSize());
+        
+        logger.info(imageFile.getAbsolutePath());
+        
         try {
             InputStream is = new FileInputStream(imageFile);
             IOUtils.copy(is, response.getOutputStream());
@@ -277,5 +282,53 @@ public class FileController extends DadaController {
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@ResponseBody 
+	@RequestMapping(value = "/upload/sized/image", method = {RequestMethod.POST})
+    public Map uploadSizedImage(MultipartHttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Iterator<String> itr = request.getFileNames();
+        if (itr.hasNext()) {
+        	String filename = itr.next();
+        	logger.info("1 >> " + filename);
+        	MultipartFile mpf = request.getFile(filename);
+        	PhotoInfo photo = PhotoInfo.newInstance(mpf);
+        	
+        	File newFile = new File(getImageUploadPath() + File.separator + photo.getNewFilename());
+        	logger.info("2 >> " + newFile.getAbsolutePath());
+        	try {
+				mpf.transferTo(newFile);
+				
+				File thumbnailFile = new FileUtil().resizeTo(newFile);
+    			photo.setThumbnailFilename(thumbnailFile.getName());
+    			photo.setThumbnailSize((int)thumbnailFile.length());
+    			
+    			int result = photoInfoService.insert(photo);
+            	if(result > 0) {
+            		photo.setUrl(getWebappDir(request) +"/picture/"+photo.getId());
+                    photo.setThumbnailUrl(getWebappDir(request) + "/thumbnail/"+photo.getId());
+                    
+                    result = photoInfoService.update(photo);
+            	}
+            	
+            	map.put("file", photo);
+			} catch (IllegalStateException e1) {
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+        }
+		return map;
+	}
+	
+	private String getImageUploadPath() {
+		String srcPath = System.getProperty("catalina.home");
+        File uploadDir = new File(srcPath + File.separator + "upload");
+        if(!uploadDir.exists()) {
+        	uploadDir.mkdirs();
+        }
+        
+        return uploadDir.getAbsolutePath();
 	}
 }

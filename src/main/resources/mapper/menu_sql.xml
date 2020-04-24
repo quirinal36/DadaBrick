@@ -4,23 +4,27 @@
 
 <mapper namespace="menu_sql">
 	<select id="select" parameterType="menus" resultType="menus">
-		SELECT * FROM Menus
+		SELECT * FROM menus
 		<where>
 			<choose>
-				<when test="parent lte 0">
-					parent is null
+				<when test="parentId lte 0">
+					parentId is null
 				</when>
 				<otherwise>
-					parent = ${parent}
+					parentId = ${parentId}
 				</otherwise>
 			</choose>
 		</where>
 	</select>
 	
 	<select id="select_list" parameterType="java.util.List" resultType="menus">
-		SELECT * FROM Menus
+		SELECT 
+			menu.*,
+			(SELECT COUNT(1) FROM products WHERE menuId = menu.id) AS total
+		FROM 
+			menus menu
 		<where>
-			parent IN
+			menu.parentId IN
 			<foreach collection="list" separator="," open="(" close=")" item="item">
 				${item.id}
 			</foreach>
@@ -28,7 +32,7 @@
 	</select>
 	
 	<select id="select_one" parameterType="menus" resultType="menus">
-		SELECT * FROM Menus
+		SELECT * FROM menus
 		<where>
 			<choose>
 				<when test="id gt 0">
@@ -42,9 +46,9 @@
 	</select>
 	
 	<select id="select_siblings" parameterType="menus" resultType="menus">
-		SELECT * FROM Menus
+		SELECT * FROM menus
 		<where>
-			parent = (SELECT parent FROM Menus WHERE id = ${id})
+			parent = (SELECT parentId FROM Menus WHERE id = ${id})
 		</where>
 	</select>
 </mapper>

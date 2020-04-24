@@ -14,6 +14,7 @@ public class UserDAO implements DataAccess<UserVO> {
 	@Autowired
 	SqlSessionTemplate sqlSession;
 	final String namespace = "user_sql";
+	
 	@Override
 	public int insert(UserVO input) {
 		return sqlSession.insert(namespace+".insert", input);

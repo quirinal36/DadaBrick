@@ -16,7 +16,7 @@
 			<div id="contentsPrint">
 				<!-- 상세 페이지 상단 -->
 				<div id="contentsTitle">
-					<h2>레드미장</h2>
+					<h2>${product.name }</h2>
 				</div>
 				<!-- 상세 페이지 슬라이드 -->
 				<div class="detail_slider_wrap">
@@ -47,27 +47,27 @@
 						<tbody>
 							<tr>
 								<th>제품명</th>
-								<td>레드미장</td>
+								<td>${product.name }</td>
 								<th>카테고리</th>
-								<td>점토벽돌</td>
+								<td>${product.menuName }</td>
 							</tr>
 							<tr>
 								<th>제품번호</th>
-								<td>EH_D20129</td>
+								<td>${product.primaryId}</td>
 								<th>규격</th>
-								<td>(190 x 90 x 57T ) 1㎡ = 75장</td>
+								<td>${product.size}</td>
 							</tr>
 							<tr>
 								<th>포장</th>
-								<td>파렛트 포장</td>
+								<td>${product.packaging }</td>
 								<th>배송</th>
-								<td>화물</td>
+								<td>${product.delivery }</td>
 							</tr>
 						</tbody>
 					</table>
 					<div class="bt_wrap">
 						<a href="#" class="bt1">문의하기</a>
-						<a href="#" class="bt1 on">목록</a>
+						<a href="<c:url value="/products/list/${product.menuId }"/>" class="bt1 on">목록</a>
 					</div>
 				</div>
 			</div>

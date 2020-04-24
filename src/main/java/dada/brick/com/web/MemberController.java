@@ -1,5 +1,6 @@
 package dada.brick.com.web;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -10,46 +11,110 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sendgrid.SendGridException;
 
+import dada.brick.com.Config;
+import dada.brick.com.util.RestUtil;
 import dada.brick.com.vo.EmailToken;
+import dada.brick.com.vo.KakaoLogin;
 import dada.brick.com.vo.UserVO;
 
 @RequestMapping("/member")
 @Controller
 public class MemberController extends DadaController{
 	
-	@RequestMapping("/login")
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView getLoginView(ModelAndView mv,
 			HttpServletRequest request,
-			@RequestParam(value = "loginRedirect", required = false) String redirectUrl) {
-		final String currentUrl = "/member/login";
-		mv.addObject("curMenu", getCurMenus(currentUrl));
+			@RequestParam(value = "loginRedirect", required = false) String redirectUrl,
+			HttpSession session) throws IOException {
+		String accessToken = (String)session.getAttribute("access_token");
 		
-		String refererUrl = request.getHeader("Referer");
-		if (redirectUrl != null) {
-			mv.addObject("loginRedirect", redirectUrl);
+		if(accessToken != null && accessToken.length()>0) {
+			RestUtil util = new RestUtil();
+			JSONObject response = util.post("v2/user/me", accessToken);
+			if(response != null) {
+				JSONObject accountObj = response.getJSONObject("kakao_account");
+				UserVO user = new UserVO();
+				user.setKakaoId(String.valueOf(response.getInt("id")));
+				
+				if(accountObj.has("email")) {
+					user.setEmail(accountObj.getString("email"));
+				}
+				
+				mv.setViewName("redirect:"+redirectUrl);
+			}
 		}else {
-			mv.addObject("loginRedirect", refererUrl);
+			File file = ResourceUtils.getFile("classpath:kakao.env");
+			String apiKey = FileUtils.readFileToString(file, Config.ENCODING);
+			mv.addObject("loginRedirect", redirectUrl);
+			mv.addObject("apiKey", apiKey);
+			mv.setViewName("/member/login");
 		}
-		mv.setViewName("/member/login");
 		return mv;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/login/complete", method=RequestMethod.POST)
+	public String postSignupView(@RequestBody KakaoLogin kakao, HttpServletRequest request,
+			HttpSession session) throws IOException {
+		session.setAttribute("access_token", kakao.getAccess_token());
+		
+		RestUtil util = new RestUtil();
+		
+		JSONObject response = util.post("v2/user/me", kakao.getAccess_token());
+		JSONObject accountObj = response.getJSONObject("kakao_account");
+		
+		JSONObject profileObj = accountObj.getJSONObject("profile");
+		UserVO user = new UserVO();
+		user.setKakaoId(String.valueOf(response.getInt("id")));
+		if(accountObj.has("email")) {
+			user.setEmail(accountObj.getString("email"));
+		}
+		user.setNickname(profileObj.getString("nickname"));
+		user.setThumbnail_image_url(profileObj.getString("thumbnail_image_url"));
+		user.setProfile_image_url(profileObj.getString("profile_image_url"));
+
+		UserVO selectUser = userService.selectOne(user);
+		if(selectUser != null) {
+			login(selectUser.getKakaoId(), "", request);
+			return selectUser.toString();
+		}else {
+			int insertResult = userService.insert(user);
+			logger.info(user.toString());
+			
+			if(insertResult > 0) {
+				login(user.getKakaoId(), "", request);
+			}
+			return user.toString();
+		}
+	}
+	
+	private void login(String login, String inputPwd, HttpServletRequest request) {
+		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(login, inputPwd);
+		authToken.setDetails(new WebAuthenticationDetails(request));
+		Authentication authentication = authenticationManager.authenticate(authToken);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+	}
+	
 	@RequestMapping(value= {"/signup", "/signup/{complete}"}, method = RequestMethod.GET)
 	public ModelAndView getSignupView(ModelAndView mv,
 			HttpServletRequest request, @PathVariable(value="complete")Optional<String> complete) {
@@ -89,12 +154,7 @@ public class MemberController extends DadaController{
 		json.put("result", result);
 		return json.toString();
 	}
-	private void login(String login, String inputPwd, HttpServletRequest request) {
-		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(login, inputPwd);
-		authToken.setDetails(new WebAuthenticationDetails(request));
-		Authentication authentication = authenticationManager.authenticate(authToken);
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-	}
+	
 	/**
 	 * 중복 아이디가 존재하는지 
 	 * @param user

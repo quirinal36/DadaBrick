@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="products_sql">
+	<insert id="insert" parameterType="products" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO products
+		(
+			menuId,
+			name,
+			primaryId,
+			size,
+			packaging,
+			delivery
+		)
+		values
+		(
+			${menuId},
+			'${name}',
+			'${primaryId}',
+			'${size}',
+			'${packaging}',
+			'${delivery}'
+		)
+	</insert>
+	<update id="update" parameterType="products">
+		UPDATE products
+		<set>
+			menuId = ${menuId},
+			name = '${name}',
+			primaryId = '${primaryId}',
+			size = '${size}',
+			packaging = '${packaging}',
+			delivery = '${delivery}'
+		</set>
+		<where>
+			id=${id}
+		</where>
+	</update>
+	<select id="select" parameterType="products" resultType="products">
+		SELECT 
+			p.*,
+			menu.name AS menuName
+		FROM 
+			products p LEFT JOIN menus menu ON (p.menuId = menu.id)
+		<where>
+			p.menuId = ${menuId}
+			<if test="query != ''">
+			and 
+				(
+				p.name like '%${query}%'
+				or
+				p.primaryId like '%${query}%'
+				)
+			</if>
+		</where>
+		order by p.id desc
+		LIMIT ${from}, ${pageSize}
+	</select>
+	
+	<select id="count" parameterType="products" resultType="int">
+		SELECT COUNT(*) FROM products
+	</select>
+	
+	<select id="select_one" parameterType="products" resultType="products">
+		SELECT 
+			p.*,
+			menu.name AS menuName,
+			menu.parentId AS parentId
+		FROM 
+			products p LEFT JOIN menus menu ON (p.menuId = menu.id)
+		<where>
+			p.id = ${id}
+		</where>
+	</select>
+	
+	<delete id="delete" parameterType="products">
+		DELETE FROM products
+		<where>
+			id = ${id}		
+		</where>
+	</delete>
+</mapper>

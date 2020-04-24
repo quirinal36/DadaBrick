@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import dada.brick.com.security.AuthenticationFacade;
 import dada.brick.com.service.FileInfoService;
+import dada.brick.com.service.MenuService;
 import dada.brick.com.service.PhotoInfoService;
 import dada.brick.com.service.TokenService;
 import dada.brick.com.service.UserService;
@@ -37,6 +38,8 @@ public class DadaController {
 	protected FileInfoService fileInfoService;
 	@Autowired
 	protected TokenService tokenService;
+	@Autowired
+	protected MenuService menuService;
 	protected UserVO getUser() {
 		String authUser = authenticationFacade.getAuthentication().getName();
 		

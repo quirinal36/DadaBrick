@@ -25,70 +25,16 @@ $(window).scroll(function(){
 				</h1>
 				<div id="gnbWrap">
 					<ul class="dep1">
+						<c:forEach items="${parents}" var="item">
 						<li>
-							<a href="#">점토벽돌</a>
+							<a href="${item.url }${item.menuNum}">${item.name }</a>
 							<ul class="dep2">
-								<li><a href="#">점토벽돌</a></li>
-								<li><a href="#">전돌벽돌</a></li>
-								<li><a href="#">수입벽돌</a></li>
-								<li><a href="#">수공예벽돌</a></li>
+								<c:forEach items="${item.children }" var="menu">
+									<li><a href="${menu.url }${menu.id}">${menu.name }</a></li>
+								</c:forEach>
 							</ul>
 						</li>
-						<li>
-							<a href="#">타일벽돌</a>
-							<ul class="dep2">
-								<li><a href="#">모노타일/브릭</a></li>
-								<li><a href="#">점토타일</a></li>
-								<li><a href="#">고벽돌타일</a></li>
-								<li><a href="#">청고벽돌타일</a></li>
-								<li><a href="#">디자인블록</a></li>
-							</ul>
-						</li>
-						<li>
-							<a href="#">고벽돌</a>
-							<ul class="dep2">
-								<li><a href="#">고벽돌</a></li>
-								<li><a href="#">고벽돌타일</a></li>
-								<li><a href="#">청고벽돌</a></li>
-								<li><a href="#">청고벽돌타일</a></li>
-							</ul>
-						</li>
-						<li>
-							<a href="#">화산석</a>
-							<ul class="dep2">
-								<li><a href="#">화산석타일</a></li>
-								<li><a href="#">화산석판재</a></li>
-								<li><a href="#">화산석부정형</a></li>
-								<li><a href="#">화산석벽돌</a></li>
-							</ul>
-						</li>
-						<li>
-							<a href="#">화강석</a>
-							<ul class="dep2">
-								<li><a href="#">화강석판재</a></li>
-								<li><a href="#">화강석타일</a></li>
-								<li><a href="#">화강석공예</a></li>
-								<li><a href="#">아트월타일</a></li>
-							</ul>
-						</li>
-						<li>
-							<a href="#">바닥벽돌</a>
-							<ul class="dep2">
-								<li><a href="#">점토바닥벽돌</a></li>
-								<li><a href="#">벽돌타일(바닥)</a></li>
-								<li><a href="#">장애인바닥벽돌</a></li>
-								<li><a href="#">인터노킹</a></li>
-							</ul>
-						</li>
-						<li>
-							<a href="#">고객센터</a>
-							<ul class="dep2">
-								<li><a href="#">공지사항</a></li>
-								<li><a href="#">질문과 답변</a></li>
-								<li><a href="#">회사소개</a></li>
-								<li><a href="#">자료실</a></li>
-							</ul>
-						</li>
+						</c:forEach>
 					</ul>
 				</div>
 				<div class="right">

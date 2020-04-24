@@ -16,10 +16,11 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
 @Component("customAuthenticationSuccessHandler")
-public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler{
+public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler{
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
@@ -28,12 +29,11 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	
 	private String defaultUrl;
 	
-	private boolean useReferer;
-
 	public CustomAuthenticationSuccessHandler() {
+		super();
 		targetUrlParameter = "loginRedirect";
-		defaultUrl = "/";
-		useReferer = false;
+		// defaultUrl = "/";
+		setUseReferer(true);
 	}
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse resp, Authentication auth)
@@ -62,9 +62,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 		      HttpServletResponse response, Authentication authentication, String targetUrl)
 		      throws IOException {
 		if(targetUrl==null || targetUrl.length() == 0) {
-			// targetUrl = determineTargetUrl(authentication);
+			targetUrl = "/";// determineTargetUrl(authentication);
 		}
-		
+		logger.info("targetUrl : " + targetUrl);
         if (response.isCommitted()) {
             logger.debug(
               "Response has already been committed. Unable to redirect to "
@@ -99,13 +99,14 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             throw new IllegalStateException();
         }
     }
-	protected void clearAuthenticationAttributes(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
+	
+	private void clearAuthenticationAttribute(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
         if (session == null) {
             return;
         }
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
-    }
+	}
 	public String getTargetUrlParameter() {
 		return targetUrlParameter;
 	}
@@ -117,11 +118,5 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	}
 	public void setDefaultUrl(String defaultUrl) {
 		this.defaultUrl = defaultUrl;
-	}
-	public boolean isUseReferer() {
-		return useReferer;
-	}
-	public void setUseReferer(boolean useReferer) {
-		this.useReferer = useReferer;
 	}
 }
