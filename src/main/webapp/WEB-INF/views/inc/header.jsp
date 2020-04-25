@@ -38,7 +38,7 @@ $(window).scroll(function(){
 					</ul>
 				</div>
 				<div class="right">
-					<input type="button" value="검색" class="bt_search">
+					<a href="#" class="bt_search"><img src="/resources/img/comm/bt_search.png" alt="검색"></a>
 					<a href="#" target="_blank" class="bt_insta"><img src="/resources/img/comm/bt_insta.png" alt="인스타그램"></a>
 				</div>
 			</div>

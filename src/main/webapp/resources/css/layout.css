@@ -117,16 +117,16 @@ html, body, #wrap { min-height: 100%; }
 #header .bt_search,
 #header .bt_insta {
 	display: inline-block;
+	vertical-align: middle;
 	font-size: 0;	
 }
 
 #header .bt_search {
-	width: 24px;
-	height: 24px;
 	margin-right: 30px;
-	background: url(/resources/img/comm/bt_search.png) no-repeat 0 0 /24px;
-	text-indent: -200px;
-	overflow: hidden;
+}
+
+#header .bt_search img {
+	width: 24px;
 }
 
 #header .bt_insta img {
