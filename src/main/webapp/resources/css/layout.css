@@ -208,6 +208,84 @@ html, body, #wrap { min-height: 100%; }
 	margin-left: 0;
 }
 
+.popupWrap {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: block;
+	text-align: center;
+	z-index: 1;
+}
+
+.popupWrap .bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.popupWrap .popup_view_wrap {
+	position: relative;
+	display: table;
+	width: 100%;
+	height: 100%;
+}
+
+.popupWrap .popup_view_wrap > div {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.popupWrap .popup_view {
+	text-align: left;
+}
+
+.popupWrap .bt_popup_close {
+	position: absolute;
+	top: 30px;
+	right: 30px;
+	width: 24px;
+	height: 24px;
+	background: url(/resources/img/comm/bt_close_white.png) no-repeat 0 0 /24px;
+	text-indent: -1000px;
+	overflow: hidden;
+}
+
+/* index 이미지 변경 팝업 */
+.popup1 .popup_view {
+	width: 300px;
+	margin: 0 auto;
+	padding: 50px;
+	background: #fff;
+
+}
+
+.popup1 .ipt1 {
+	display: block;
+	width: 100%;
+	margin-top: 10px;
+}
+
+.popup1 .address {
+	margin-top: 10px;
+	font-size: 13px;
+	font-weight: 300;
+}
+
+.popup1 .bt_del {
+	display: inline-block;
+	vertical-align: middle;
+	width: 10px;
+	height: 10px;
+	background: url(/resources/img/comm/bt_close_black.png) no-repeat 0 0 /10px;
+	text-indent: -100px;
+	overflow: hidden;
+}
+
 #contentsTop {
     width: 100%;
     min-width: 1200px;

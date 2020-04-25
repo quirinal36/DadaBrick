@@ -64,6 +64,7 @@
 					</ul>
 				</div>
 				<div id="products_list_wrap" class="none">등록된 상품이 없습니다.</div>
+				<div id="products_list_wrap" class="none">검색된 상품이 없습니다.</div>
 			</div>
 		</div>
 	</div>

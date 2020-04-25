@@ -34,9 +34,9 @@ function idx_insta_size() {
 	var idx_instaWrap_width = $(".idx_insta_wrap").width();
 	var insta_margin = 10;
 	var insta_width = ( idx_instaWrap_width - insta_margin * 5 ) / 6;
-	$(".idx_insta a").width(insta_width).height(insta_width);
-	$(".idx_insta a").css("margin-top", insta_margin);
-	$(".idx_insta a:nth-child(-n+6)").css("margin-top", 0);
+	$(".idx_insta li").width(insta_width).height(insta_width);
+	$(".idx_insta li").css("margin-top", insta_margin);
+	$(".idx_insta li:nth-child(-n+6)").css("margin-top", 0);
 }
 $(function(){
 	idx_insta_size();
@@ -51,7 +51,18 @@ $(function(){
 	$("#contentsTitle ul li").css("width", 100 / num + "%"); // 탭메뉴 넓이
 });
 
-
+// 팝업
+$(function(){
+	// 팝업 닫기 버튼
+	$(".popupWrap .bt_popup_close").click(function(){
+		$(".popupWrap").fadeOut();
+	});
+	
+	// 팝업1 : 인덱스 상단 이미지 변경 팝업
+	$(".popup1_opener").click(function(){
+		$(".popup1").fadeIn();
+	});
+});
 
 
 

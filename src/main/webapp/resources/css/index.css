@@ -1,3 +1,14 @@
+.bt_idx {
+	display: block;
+    width: 40px;
+    padding: 3px 0;
+    border-radius: 2px;
+    border: 1px solid #fff;
+    font-size: 13px;
+    font-weight: 300;
+    color: #fff;
+}
+
 .idx_main_wrap {
 	width: 100%;
 	min-width: 1200px;
@@ -8,6 +19,10 @@
 }
 
 .idx_main .item {
+	position: relative;
+}
+
+.idx_main .item a {
 	display: block;
 	width: 100%;
 	height: 700px;
@@ -17,6 +32,13 @@
 	background-size: cover;
 	text-indent: -100px;
 	overflow: hidden;
+}
+
+.idx_main .bt_idx.main {
+	position:absolute;
+	top: 20px;
+	right: 20px;
+    color: #fff;
 }
 
 .idx_products_wrap,
@@ -39,6 +61,10 @@
 	min-width: 1200px;
 	max-width: 1520px;
     padding: 0 50px;
+}
+
+.idx_products_wrap .bx-viewport {
+	min-height: 312px;
 }
 
 .idx_products_wrap .bx-wrapper .bx-controls-direction a {
@@ -84,6 +110,12 @@
 	font-weight: 300;
 }
 
+.idx_products .bt_idx.prdt {
+	margin: 16px auto 0 auto;
+	border: 1px solid #ddd;
+	color: #999;
+}
+
 .idx_insta_wrap {
 	width: 100%;
 	min-width: 1200px;
@@ -93,11 +125,25 @@
 	font-size: 0;
 }
 
-.idx_insta a {
+.idx_insta li {
+	position: relative;
 	display: inline-block;
 	margin-left: 10px;
+}
+
+.idx_insta li:nth-child(6n-5) {
+	margin-left: 0;
+}
+
+.idx_insta a {
+	display: block;
+	width: 100%;
+	height: 100%;
 	border-radius: 10px;
 }
-.idx_insta a:nth-child(6n-5) {
-	margin-left: 0;
+
+.idx_insta .bt_idx.ist {
+	position: absolute;
+	top: 10px;
+	right: 10px;
 }
