@@ -45,7 +45,11 @@ $(window).resize(function(){
 	idx_insta_size();
 });
 
-
+// 상품목록 탭메뉴 가로길이
+$(function(){
+	var num = $("#contentsTitle ul li").length; // 탭메뉴 갯수
+	$("#contentsTitle ul li").css("width", 100 / num + "%"); // 탭메뉴 넓이
+});
 
 
 

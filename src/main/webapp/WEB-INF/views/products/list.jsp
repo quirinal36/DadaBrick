@@ -53,10 +53,17 @@
 								<a href="<c:url value="/products/detail/${item.id }"/>" class="image" style="background-image: url(/resources/img/temp/5.png);">사진</a>
 								<p>[${item.primaryId}] ${item.size }</p>
 								<a href="<c:url value="/products/detail/${item.id }"/>" class="name">${item.name }</a>
+								<div class="bt_move_wrap">
+									<input type="button" value="이전" class="bt_move prev off">
+									<input type="button" value="다음" class="bt_move prev">
+									<input type="button" value="이전" class="bt_move next">
+									<input type="button" value="다음" class="bt_move next off">
+								</div>
 							</li>
 						</c:forEach>
 					</ul>
 				</div>
+				<div id="products_list_wrap" class="none">등록된 상품이 없습니다.</div>
 			</div>
 		</div>
 	</div>

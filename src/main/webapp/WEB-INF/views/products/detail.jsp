@@ -7,6 +7,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>${title }</title>
 <c:import url="/inc/head"></c:import>
+<script>
+$(function(){
+	$("#header").addClass("line");	
+});
+</script>
 </head>
 <body>
 <div id="wrap">

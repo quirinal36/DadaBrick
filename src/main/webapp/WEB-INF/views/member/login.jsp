@@ -20,6 +20,11 @@
 			<div id="contentsPrint">
 				<form action="<c:url value="/member/loginProcess"/>" method="POST">
 					<!-- 로그인 -->
+					<div id="login_wrap">
+						<p>관리자로 등록된 카카오톡 계정으로 로그인하세요.</p>
+						<a href="#" class="bt1">로그인</a>
+					</div>
+					<!-- 로그인
 					<div class="member member_form1 login">
 						<div class="paper">
 							<dl>
@@ -80,6 +85,7 @@
 							</script>
 						</div>
 					</div>
+					-->
 				</form>
 			</div>
 		</div>

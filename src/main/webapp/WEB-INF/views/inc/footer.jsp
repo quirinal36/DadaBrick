@@ -24,6 +24,11 @@
 			<ul>
 				<li>Copyright (유)다다벽돌. All Rights Reserved.</li>
 			</ul>
+			<div class="right">
+				<a href="#">ADMIN</a>
+				<a href="#">LOGIN</a>
+				<a href="#">LOGOUT</a>
+			</div>
 		</div>
 	</div>
 </footer>
