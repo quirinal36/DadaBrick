@@ -1,6 +1,7 @@
 <%@ page session="false" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <footer>
 	<div id="footerWrap">
 		<div>
@@ -25,10 +26,22 @@
 				<li>Copyright (유)다다벽돌. All Rights Reserved.</li>
 			</ul>
 			<div class="right">
-				<a href="#">ADMIN</a>
-				<a href="#">LOGIN</a>
-				<a href="#">LOGOUT</a>
+				<sec:authorize access="isAnonymous()">
+					<a href="<c:url value="/member/login"/>">LOGIN</a>
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+					<a href="javascript:logout();">LOGOUT</a>
+				</sec:authorize>
 			</div>
 		</div>
 	</div>
+	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+	<script type="text/javascript">
+		Kakao.init('${apiKey}');
+		function logout(){
+			Kakao.Auth.logout(function(){
+				window.location.replace("/j_spring_security_logout");
+			});
+		}
+	</script>
 </footer>

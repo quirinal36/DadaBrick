@@ -1,4 +1,7 @@
 function submitProduct(){
+	var param = $("#admin-add-form").serialize();
+	console.log(param);
+	
 	if(confirm("저장하시겠습니까?")){
 		/*
 		var dataObj = {};
@@ -14,7 +17,7 @@ function submitProduct(){
 		}
 		*/
 		var url = $("#admin-add-form").attr("action");
-		var param = $("#admin-add-form").serialize();
+		
 		$.ajax({
 			url : url,
 			data: param,
@@ -31,15 +34,28 @@ function submitProduct(){
 function makeLI(file, name){
 	return $("<li>")
 		.append(
-			$("<img>").attr("src", file.url))
-		.append(
 			$("<input>")
-				.attr("type","button").addClass("bt2").val("삭제")
+				.attr("type","button").addClass("bt_imgDelete").val("삭제")
 				.attr("onclick", "delImageClick(this);"))
 		.append(
 			$("<input>")
 				.attr("type","hidden").attr("name", name).val(file.id))
-		.attr("id", file.id).addClass("bt_imgUpload");
+		.attr("id", file.id).attr("style", "background-image:url("+file.url+");");
+}
+function delImageClick(btn){
+	var id = $(btn).parent().find("input[type='hidden']").val();
+	var url = "/upload/delete";
+	var param = "id="+id;
+
+	$.ajax({
+		url : url,
+		data: param,
+		type: "POST",
+		dataType: "json"
+	}).done(function(json){
+		$(btn).parent().remove();
+		$("#image-upload-btn").show();
+	});
 }
 $(document).ready(function(){
 	// 대표이미지
@@ -48,7 +64,8 @@ $(document).ready(function(){
         dataType: 'json',
         done: function (e, data) {
         	var file = data.result.file;
-        	
+        	$("#rep-image").empty();
+        	$("#image-upload-btn").hide();
         	$("#rep-image").append(makeLI(file, 'representImage'));
         },
         progressall: function (e, data) {

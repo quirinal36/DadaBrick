@@ -1,5 +1,8 @@
 package dada.brick.com.web;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,13 +12,16 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import dada.brick.com.Config;
 import dada.brick.com.service.MenuService;
 import dada.brick.com.vo.Menus;
 
@@ -59,7 +65,10 @@ public class IncController extends DadaController{
 	}
 	@RequestMapping(value = "/footer", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView getFooterView(Locale locale, ModelAndView mv,
-			HttpServletRequest req, Authentication authentication) {
+			HttpServletRequest req, Authentication authentication) throws IOException {
+		File file = ResourceUtils.getFile("classpath:kakao.env");
+		String apiKey = FileUtils.readFileToString(file, Config.ENCODING);
+		mv.addObject("apiKey", apiKey);
 		mv.setViewName("/inc/footer");
 		return mv;
 	}

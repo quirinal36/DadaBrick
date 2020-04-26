@@ -41,7 +41,7 @@
 								<th>제품명</th>
 								<td>
 									<input type="text" placeholder="제품명 입력" class="ipt1 w80"
-										name="name">
+										name="name" required>
 								</td>
 								<th>카테고리</th>
 								<td>
@@ -80,14 +80,12 @@
 							<tr>
 								<th>대표사진</th>
 								<td colspan="3" id="dropzone-img-rep">
-                                    <ul id="rep-image" class="imgUpload_list">
-                                    	<li>
-                                    		<input id="image-upload-btn" type="file" accept="image/*" value="등록" class="bt_imgUpload" data-url="<c:url value="/upload/sized/image"/>">
-                                    		<div id="progress_rep_image" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-										    	<div class="progress-bar" style="width: 0%;" ></div>
-										    </div>
-                                    	</li>
+									<input id="image-upload-btn" type="file" accept="image/*" value="등록" class="bt_imgUpload" data-url="<c:url value="/upload/sized/image"/>">
+                                    <ul id="rep-image" class="imgUpload_list"> 
                                     </ul>
+                                    <div id="progress_rep_image" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+								    	<div class="progress-bar" style="width: 0%;" ></div>
+								    </div>
 								</td>
 							</tr>
 							<tr>
@@ -104,7 +102,7 @@
 											<input type="button" value="삭제" class="bt_imgDelete">
 										</li>
 										<li>
-											<input type="button" value="등록" class="bt_imgUpload">
+											<input type="file" value="등록" class="bt_imgUpload">
 										</li>
 									</ul>
 								</td>

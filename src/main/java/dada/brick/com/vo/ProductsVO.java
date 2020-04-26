@@ -12,6 +12,7 @@ import lombok.ToString;
 public class ProductsVO extends Paging{
 	int id;
 	int menuId;
+	int orderNum;
 	String name;
 	String primaryId;
 	String size;
@@ -21,4 +22,5 @@ public class ProductsVO extends Paging{
 	Date udate;
 	String menuName;
 	int parentId;
+	int representImage;
 }
