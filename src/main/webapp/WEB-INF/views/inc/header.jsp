@@ -6,7 +6,7 @@
 // header 상단 고정
 $(window).scroll(function(){
 	var sPosition = $(window).scrollTop();
-	console.log(sPosition);
+	// console.log(sPosition);
 	if( sPosition > 0 ) {
 		$("#header").addClass("fixed");
 	} else {

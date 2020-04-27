@@ -21,7 +21,9 @@
 			<div id="contentsPrint">
 				<!-- 목록 페이지 상단 -->
 				<div id="contentsTop">
-					<div style="background-image: url(/resources/img/temp/4.png);"></div>
+					<div style="background-image: url(/resources/img/temp/4.png);">
+						<input type="button" value="변경" class="bt_change popup1_opener">
+					</div>
 				</div>
 				<div id="contentsTitle">
 					<h2>${current.name }</h2>
@@ -75,24 +77,22 @@
 							</li>
 						</c:forEach>
 					</ul>
+					<c:if test="${fn:length(products) eq 0 }">
+						<c:choose>
+							<c:when test="${not empty paging.query}">
+								<div id="products_list_wrap" class="none">검색된 상품이 없습니다.</div>	
+							</c:when>
+							<c:otherwise>
+								<div id="products_list_wrap" class="none">등록된 상품이 없습니다.</div>
+							</c:otherwise>
+						</c:choose>		
+					</c:if>
+					<sec:authorize access="hasRole('ADMIN')">
+						<div class="bt_wrap">
+							<a href="<c:url value="/products/add"/>" class="bt1 on">등록</a>
+						</div>
+					</sec:authorize>
 				</div>
-				<c:if test="${fn:length(products) eq 0 }">
-					<c:choose>
-						<c:when test="${not empty paging.query}">
-							<div id="products_list_wrap" class="none">검색된 상품이 없습니다.</div>	
-						</c:when>
-						<c:otherwise>
-							<div id="products_list_wrap" class="none">등록된 상품이 없습니다.</div>
-						</c:otherwise>
-					</c:choose>		
-				</c:if>
-				
-				
-				<sec:authorize access="hasRole('ADMIN')">
-					<div class="bt_wrap">
-						<a href="<c:url value="/products/add"/>" class="bt1 on">등록</a>
-					</div>
-				</sec:authorize>
 			</div>
 		</div>
 	</div>

@@ -45,3 +45,26 @@
 		}
 	</script>
 </footer>
+
+<!-- 이미지 교체 팝업 -->
+<div class="popupWrap popup1">
+	<div class="bg"></div>
+	<div class="popup_view_wrap">
+		<div>
+			<div class="popup_view">
+				<input type="button" value="닫기" class="bt_popup_close">
+				<!-- 팝업 내용 시작 -->
+				<form>
+					<input type="button" value="사진 업로드" class="bt1">
+					<div class="address">
+						153156153132.jpg
+						<input type="button" value="삭제" class="bt_del">
+					</div>
+					<input type="text" placeholder="링크 입력" class="ipt1">
+					<input type="button" value="등록" class="bt3 on">
+				</form>
+				<!-- 팝업 내용 끝 -->
+			</div>
+		</div>
+	</div>
+</div>

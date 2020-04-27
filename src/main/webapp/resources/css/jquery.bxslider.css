@@ -69,6 +69,19 @@ ul.bxslider {
   width: 32px;
   background: #fff;
 }
+@media (max-width: 1000px ) {
+	.bx-wrapper .bx-pager {
+		bottom: 15px;
+	}
+	.bx-wrapper .bx-pager.bx-default-pager a {
+		width: 8px;
+		height: 8px;
+		margin: 0 3px;
+	}
+	.bx-wrapper .bx-pager.bx-default-pager a.active {
+		width: 24px;
+	}
+}
 .bx-wrapper .bx-pager-item,
 .bx-wrapper .bx-controls-auto .bx-controls-auto-item {
   display: inline-block;

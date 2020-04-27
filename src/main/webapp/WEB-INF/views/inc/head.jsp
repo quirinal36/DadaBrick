@@ -20,7 +20,7 @@
 <meta name="twitter:description" content=""/>
 	
 
-<link rel="shortcut icon" href="<c:url value="/resources/img/comm/favicon.ico"/>">
+<link rel="shortcut icon" href="<c:url value="/resources/img/comm/favicon.png"/>">
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/jquery.bxslider.min.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/common.js"/>"></script>

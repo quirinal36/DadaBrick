@@ -41,7 +41,7 @@ $(function(){
 					</div>
 				</div>
 				<!-- 상세 페이지 제품정보 -->
-				<div class="product_info_wrap">
+				<div id="products_info_wrap">
 					<table class="tbl1">
 						<colgroup>
 							<col width="12%">
