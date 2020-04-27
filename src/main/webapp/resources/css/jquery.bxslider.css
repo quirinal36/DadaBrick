@@ -124,10 +124,24 @@ ul.bxslider {
   background-position: -27px 14px;
 }
 .bx-wrapper .bx-next:hover {
-  background-position: -27px 14px;
   background-color: rgba(0, 0, 0, 0.25);
 }
-
+@media (max-width: 1000px ) {
+	.bx-wrapper .bx-controls-direction a {
+		width: 26px;
+		height: 26px;
+		margin-top: -13px;
+		background-size: 40px;
+	}
+	
+	.bx-wrapper .bx-prev {
+		background-position: 9px 7px;
+	}
+	
+	.bx-wrapper .bx-next {
+		background-position: -23px 7px;
+	}
+}
 
 /* AUTO CONTROLS (START / STOP) */
 .bx-wrapper .bx-controls-auto {

@@ -148,15 +148,11 @@
 
 .detail_slider_pager a {
 	display: inline-block;
-	margin-left: 20px;
-}
-
-.detail_slider_pager a:first-child {
-	margin-left: 0;
+	margin: 0 5px;
 }
 
 .detail_slider_pager a img {
-	width: 100px;
+	width: 90px;
 	border: 1px solid #eee;
 	border-radius: 5px;
 }
@@ -168,6 +164,14 @@
     margin: 0 auto;
     padding: 0 50px;
     box-sizing: border-box;
+}
+
+#products_info_wrap th {
+	width: 12%;
+}
+
+#products_info_wrap td {
+	width: 38%;
 }
 
 #products_info_wrap .bt_wrap {
@@ -248,5 +252,112 @@
 	
 	#products_list_wrap .bt_move_wrap {
 		margin-top: 10px;
+	}
+	
+	#products_list_wrap .bt_move {
+		width: 19px;
+		height: 19px;
+		background-size: 30px;
+	}
+	
+	#products_list_wrap .bt_move.prev {
+		background-position: 6px -21px;
+	}
+	
+	#products_list_wrap .bt_move.prev.off {
+		background-position: 6px 4px;
+	}
+	
+	#products_list_wrap .bt_move.next {
+		background-position: -18px -21px;
+	}
+	
+	#products_list_wrap .bt_move.next.off {
+		background-position: -18px 4px;
+	}
+	
+	#products_list_wrap.none {
+		margin-top: 40px;
+		padding: 0;
+	}
+	
+	.detail_slider_wrap {
+		min-width: 320px;
+		padding: 0;
+	}
+	
+	.detail_slider .item {
+		height: 300px;
+		border-radius: 0;
+	}
+	
+	.detail_slider_pager {
+		margin: 20px 0;
+	}
+	
+	.detail_slider_pager > div {
+		width: 100%;
+		overflow-x: auto;
+		/* 스크롤바 숨기기 */
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
+	}
+	
+	.detail_slider_pager > div::-webkit-scrollbar {
+		display: none; /* Chrome, Safari, Opera*/
+	}
+	
+	.detail_slider_pager > div > div {
+		margin: 0 auto;
+	}
+	
+	.detail_slider_pager a {
+		margin: 0 2px;
+	}
+	
+	.detail_slider_pager a:first-child {
+		margin-left: 20px;
+	}
+	
+	.detail_slider_pager a:last-child {
+		margin-right: 20px;
+	}
+	
+	.detail_slider_pager a img {
+		width: 40px;
+	}
+	
+	#products_info_wrap {
+		min-width: 320px;
+		padding: 0 20px;
+	}
+	
+	#products_info_wrap th,
+	#products_info_wrap td {
+		padding: 8px 5px;
+	}
+	
+	#products_info_wrap th {
+		width: 20%;
+	}
+	
+	#products_info_wrap td {
+		width: 30%;
+	}
+	
+	#products_info_wrap .bt_wrap {
+		margin-top: 20px;
+	}
+	
+	#login_wrap {
+		width: 300px;
+		padding: 30px 20px;
+		box-sizing: border-box;
+	}
+	
+	#login_wrap p {
+		margin-bottom: 15px;
+		font-size: 13px;
+		word-break: keep-all;
 	}
 }

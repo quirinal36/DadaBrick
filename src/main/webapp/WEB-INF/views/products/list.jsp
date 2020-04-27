@@ -77,22 +77,36 @@
 							</li>
 						</c:forEach>
 					</ul>
-					<c:if test="${fn:length(products) eq 0 }">
-						<c:choose>
-							<c:when test="${not empty paging.query}">
-								<div id="products_list_wrap" class="none">검색된 상품이 없습니다.</div>	
-							</c:when>
-							<c:otherwise>
-								<div id="products_list_wrap" class="none">등록된 상품이 없습니다.</div>
-							</c:otherwise>
-						</c:choose>		
-					</c:if>
 					<sec:authorize access="hasRole('ADMIN')">
 						<div class="bt_wrap">
 							<a href="<c:url value="/products/add"/>" class="bt1 on">등록</a>
 						</div>
 					</sec:authorize>
 				</div>
+				<c:if test="${fn:length(products) eq 0 }">
+					<c:choose>
+						<c:when test="${not empty paging.query}">
+							<div id="products_list_wrap" class="none">
+								검색된 상품이 없습니다.
+								<sec:authorize access="hasRole('ADMIN')">
+									<div class="bt_wrap">
+										<a href="<c:url value="/products/add"/>" class="bt1 on">등록</a>
+									</div>
+								</sec:authorize>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div id="products_list_wrap" class="none">
+								등록된 상품이 없습니다.
+								<sec:authorize access="hasRole('ADMIN')">
+									<div class="bt_wrap">
+										<a href="<c:url value="/products/add"/>" class="bt1 on">등록</a>
+									</div>
+								</sec:authorize>	
+							</div>
+						</c:otherwise>
+					</c:choose>		
+				</c:if>
 			</div>
 		</div>
 	</div>

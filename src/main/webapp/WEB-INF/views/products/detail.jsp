@@ -9,7 +9,7 @@
 <c:import url="/inc/head"></c:import>
 <script>
 $(function(){
-	$("#header").addClass("line");	
+	$("#header").addClass("line");
 });
 </script>
 </head>
@@ -33,22 +33,25 @@ $(function(){
 						<div class="item" style="background-image: url(/resources/img/temp/11.png);">사진</div>
 					</div>
 					<div class="detail_slider_pager">
-						<a href="" data-slide-index="0"><img src="/resources/img/temp/7.png" alt="사진" class="item"></a>
-						<a href="" data-slide-index="1"><img src="/resources/img/temp/8.png" alt="사진" class="item"></a>
-						<a href="" data-slide-index="2"><img src="/resources/img/temp/9.png" alt="사진" class="item"></a>
-						<a href="" data-slide-index="3"><img src="/resources/img/temp/10.png" alt="사진" class="item"></a>
-						<a href="" data-slide-index="4"><img src="/resources/img/temp/11.png" alt="사진" class="item"></a>
+						<div>
+							<div>
+								<a href="" data-slide-index="0"><img src="/resources/img/temp/7.png" alt="사진" class="item"></a>
+								<a href="" data-slide-index="1"><img src="/resources/img/temp/8.png" alt="사진" class="item"></a>
+								<a href="" data-slide-index="2"><img src="/resources/img/temp/9.png" alt="사진" class="item"></a>
+								<a href="" data-slide-index="3"><img src="/resources/img/temp/10.png" alt="사진" class="item"></a>
+								<a href="" data-slide-index="4"><img src="/resources/img/temp/11.png" alt="사진" class="item"></a>
+								<a href="" data-slide-index="0"><img src="/resources/img/temp/7.png" alt="사진" class="item"></a>
+								<a href="" data-slide-index="1"><img src="/resources/img/temp/8.png" alt="사진" class="item"></a>
+								<a href="" data-slide-index="2"><img src="/resources/img/temp/9.png" alt="사진" class="item"></a>
+								<a href="" data-slide-index="3"><img src="/resources/img/temp/10.png" alt="사진" class="item"></a>
+								<a href="" data-slide-index="4"><img src="/resources/img/temp/11.png" alt="사진" class="item"></a>
+							</div>
+						</div>
 					</div>
 				</div>
 				<!-- 상세 페이지 제품정보 -->
 				<div id="products_info_wrap">
 					<table class="tbl1">
-						<colgroup>
-							<col width="12%">
-							<col width="38%">
-							<col width="12%">
-							<col width="38%">
-						</colgroup>
 						<tbody>
 							<tr>
 								<th>제품명</th>

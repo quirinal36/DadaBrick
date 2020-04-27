@@ -95,8 +95,28 @@ $(function(){
 });
 
 
+// 상세보기 페이지 썸네일 영역 가로길이
+function detailPagerWidth() {
+	var img_width = $(".detail_slider_pager a").width(); // 썸네일 1개당 가로길이
+	var img_length = $(".detail_slider_pager a").length; // 썸네일 갯수
+	var pager_width = (img_width + 4) * img_length + 36; // 썸네일 영역 가로길이
+	$(".detail_slider_pager > div > div").width(pager_width);
+}
 
-
+$(function(){
+	var window_width = $(window).width();
+	if( window_width <= 1000 ) {
+		detailPagerWidth();
+	}
+});
+$(window).resize(function(){
+	var window_width = $(window).width();
+	if( window_width <= 1000 ) {
+		detailPagerWidth();
+	} else {
+		$(".detail_slider_pager > div > div").css("width", "auto");
+	}
+});
 
 
 
