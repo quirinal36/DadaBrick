@@ -43,16 +43,15 @@ public class HomeController extends DadaController {
 		return mv;
 	}
 	@RequestMapping(value="/search")
-	public ModelAndView getCompanyView(Locale locale, ModelAndView mv,
-			Board board) {
+	public ModelAndView getCompanyView(Locale locale, ModelAndView mv) {
 		
-		mv.setViewName("/home");
+		mv.setViewName("/contents/search");
 		return mv;
 	}
-	@RequestMapping(value = "/company", method = RequestMethod.GET)
+	@RequestMapping(value = {"/company","/company/{id}"}, method = RequestMethod.GET)
 	public ModelAndView getCompanyView(Locale locale, ModelAndView mv,
 			HttpServletRequest req, Authentication authentication) {
-		mv.setViewName("company");
+		mv.setViewName("/contents/company");
 		return mv;
 	}
 	@RequestMapping(value = "/information", method = RequestMethod.GET)

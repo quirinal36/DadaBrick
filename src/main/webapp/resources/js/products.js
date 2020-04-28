@@ -1,6 +1,5 @@
 function submitProduct(){
 	var param = $("#admin-add-form").serialize();
-	console.log(param);
 	
 	if(confirm("저장하시겠습니까?")){
 		/*
@@ -80,5 +79,32 @@ $(document).ready(function(){
             }
         },
         dropZone: $('#dropzone-img-rep')
+	});
+	
+	// 대표이미지
+	$('#detail-upload-btn').fileupload({
+		imageCrop: true,
+        dataType: 'json',
+        done: function (e, data) {
+        	var file = data.result.file;
+        	var length = $("#rep-image").size();
+        	if(length < 10){
+        		$("#det-image").append(makeLI(file, 'detImage'));
+        	}else if(length == 10){
+        		$("#image-upload-btn").hide();
+        	}
+        },
+        progressall: function (e, data) {
+        	var progress = parseInt(data.loaded / data.total * 100, 10);
+            
+            $('#progress_img .progress-bar').css(
+                'width',
+                progress + '%'
+            );
+            if(progress == 100){
+            	$('#progress_img .progress-bar').css('width','0');
+            }
+        },
+        dropZone: $('#dropzone-img-det')
 	});
 });

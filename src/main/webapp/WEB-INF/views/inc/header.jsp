@@ -47,10 +47,26 @@ $(function(){
 					<ul class="dep1">
 						<c:forEach items="${parents}" var="item">
 						<li>
-							<a href="${item.url }${item.menuNum}">${item.name }</a>
+							<c:choose>
+								<c:when test="${item.menuNum ge 70}">
+									<a href="${item.url }">${item.name }</a>
+								</c:when>
+								<c:otherwise>
+									<a href="${item.url }${item.menuNum}">${item.name }</a>
+								</c:otherwise>
+							</c:choose>
 							<ul class="dep2">
 								<c:forEach items="${item.children }" var="menu">
-									<li><a href="${menu.url }${menu.id}">${menu.name }</a></li>
+									<li>
+										<c:choose>
+											<c:when test="${menu.id ge 70 }">
+												<a href="${menu.url }">${menu.name }</a>
+											</c:when>
+											<c:otherwise>
+												<a href="${menu.url }${menu.id}">${menu.name }</a>
+											</c:otherwise>
+										</c:choose>
+									</li>
 								</c:forEach>
 							</ul>
 						</li>
@@ -58,7 +74,7 @@ $(function(){
 					</ul>
 				</div>
 				<div class="right">
-					<a href="#" class="bt_search"><img src="/resources/img/comm/bt_search.png" alt="검색"></a>
+					<a href="<c:url value="/search"/>" class="bt_search"><img src="/resources/img/comm/bt_search.png" alt="검색"></a>
 					<a href="#" target="_blank" class="bt_insta"><img src="/resources/img/comm/bt_insta.png" alt="인스타그램"></a>
 					<a href="javascript:void(0);" class="bt_menu"><img src="/resources/img/comm/bt_menu.png" alt="메뉴"></a>
 				</div>
@@ -77,7 +93,16 @@ $(function(){
 									<a href="javascript:void(0);">${item.name }</a>
 									<ul class="dep2">
 										<c:forEach items="${item.children }" var="menu">
-											<li><a href="${menu.url }${menu.id}">${menu.name }</a></li>
+											<li>
+												<c:choose>
+													<c:when test="${menu.id ge 70 }">
+														<a href="${menu.url }">${menu.name }</a>
+													</c:when>
+													<c:otherwise>
+														<a href="${menu.url }${menu.id}">${menu.name }</a>
+													</c:otherwise>
+												</c:choose>
+											</li>
 										</c:forEach>
 									</ul>
 								</li>

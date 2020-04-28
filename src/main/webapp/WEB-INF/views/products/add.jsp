@@ -90,19 +90,11 @@
 							</tr>
 							<tr>
 								<th>상세사진</th>
-								<td colspan="3">
-									<ul class="imgUpload_list">
+								<td colspan="3" id="dropzone-img-det">
+									<input id="detail-upload-btn" type="file" accept="image/*" value="등록" class="bt_imgUpload" data-url="<c:url value="/upload/sized/image"/>">
+									<ul id="det-image" class="imgUpload_list">
 										<li style="background-image: url(/resources/img/temp/7.png);">
 											<input type="button" value="삭제" class="bt_imgDelete">
-										</li>
-										<li style="background-image: url(/resources/img/temp/10.png);">
-											<input type="button" value="삭제" class="bt_imgDelete">
-										</li>
-										<li style="background-image: url(/resources/img/temp/11.png);">
-											<input type="button" value="삭제" class="bt_imgDelete">
-										</li>
-										<li>
-											<input type="file" value="등록" class="bt_imgUpload">
 										</li>
 									</ul>
 								</td>
