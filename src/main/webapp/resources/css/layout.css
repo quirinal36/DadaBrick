@@ -1,11 +1,13 @@
 html, body, #wrap { min-height: 100%; }
 
+html.fixed {
+	overflow: hidden;
+}
+
 #wrap {
 	width: 100%;
 	min-width: 1200px;
 }
-
-
 
 #headerWrap {
 	position: relative;
@@ -15,7 +17,7 @@ html, body, #wrap { min-height: 100%; }
 	box-sizing: border-box;
 	background: #fff;
 	text-align: right;
-	z-index: 1;
+	z-index: 2;
 }
 
 #header {
@@ -123,7 +125,8 @@ html, body, #wrap { min-height: 100%; }
 }
 
 #header .bt_search,
-#header .bt_insta {
+#header .bt_insta,
+#header .bt_menu {
 	display: inline-block;
 	vertical-align: middle;
 	font-size: 0;	
@@ -139,6 +142,97 @@ html, body, #wrap { min-height: 100%; }
 
 #header .bt_insta img {
 	width: 26px;
+}
+
+#header .bt_menu {
+	display: none;
+}
+
+#gnbWrap_mobile {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	min-width: 320px;
+	height: 100%;
+	z-index: 1;
+}
+
+#gnbWrap_mobile .bg {
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+#gnbWrap_mobile .cont {
+	position: absolute;
+	top: 0;
+	right: -240px;
+	width: 240px;
+	height: 100%;
+	background: #fff;
+	text-align: left;
+	transition: 1s;
+}
+
+#gnbWrap_mobile .cont > div {
+	width: 300px;
+	height: 100%;
+	overflow-y: auto;
+}
+
+#gnbWrap_mobile .logo {
+	width: 240px;
+	height: 60px;
+	padding: 15px 20px 0 20px;
+	box-sizing: border-box;
+}
+
+#gnbWrap_mobile .logo img {
+	height: 30px;
+}
+
+#gnbWrap_mobile .dep1 {
+	width: 240px;
+}
+
+#gnbWrap_mobile .dep1 > li {
+	border-bottom: 1px solid #ddd;
+}
+
+#gnbWrap_mobile .dep1 > li > a {
+	display: block;
+	padding: 10px 20px;
+	background: url(/resources/img/comm/menu_close.png) no-repeat 91% 50% /8px;
+	font-size: 14px;	
+}
+
+#gnbWrap_mobile .dep1 > li.on > a {
+	background-color: #b5a488;
+	background-image: url(/resources/img/comm/menu_open.png);
+	color: #fff;
+}
+
+#gnbWrap_mobile .dep1 > li:first-child > a {
+	border-top: 1px solid #ddd;
+}
+
+#gnbWrap_mobile .dep2 {
+	display: none;
+	padding: 12px 20px;
+}
+
+#gnbWrap_mobile .dep2 > li {
+	margin-top: 5px;
+}
+
+#gnbWrap_mobile .dep2 > li:first-child {
+	margin-top: 0;
+}
+
+#gnbWrap_mobile .dep2 > li > a {
+	font-size: 12px;
 }
 
 #footerWrap {
@@ -473,6 +567,15 @@ html, body, #wrap { min-height: 100%; }
 	
 	#header .bt_insta img {
 		width: 22px;
+	}
+	
+	#header .bt_menu {
+		display: inline-block;
+		margin-left: 20px;
+	}
+	
+	#header .bt_menu img {
+		width: 21px;
 	}
 	
 	#footerWrap {

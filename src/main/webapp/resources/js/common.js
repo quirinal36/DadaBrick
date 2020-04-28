@@ -18,18 +18,15 @@ $(function(){
 	});
 });
 
-
-$(function(){
-	//idx_products slider
-	
+function idxProductsSlider() {
 	var window_width = $(window).width();
-	// console.log(window_width);
 	if( window_width <= 1000 ) {
 		$(".idx_products").bxSlider({
 			controls: true,
 			auto: false,
 			pager: false,
 			moveSlides: 1,
+			minSlides: 3,
 			maxSlides: 3,
 			slideWidth: 82,
 			slideMargin: 5
@@ -40,11 +37,20 @@ $(function(){
 			auto: false,
 			pager: false,
 			moveSlides: 1,
+			minSlides: 3,
 			maxSlides: 4,
 			slideWidth: 220,
 			slideMargin: 60
 		});
 	}
+}
+
+$(function(){
+	idxProductsSlider();
+});
+
+$(window).resize(function(){
+	idxProductsSlider();
 });
 
 
