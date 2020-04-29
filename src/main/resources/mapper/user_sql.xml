@@ -36,7 +36,7 @@
 	<update id="update" parameterType="user">
 		UPDATE users
 		<set>
-			<if test="@www.mansung.com.util.StringUtil@notEmpty(nickname)">
+			<if test="@dada.brick.com.util.StringUtil@notEmpty(nickname)">
 				nickname = '${nickname}'
 			</if>
 		</set>

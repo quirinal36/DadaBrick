@@ -63,68 +63,6 @@
 					</div>
 				</form>
 			</div>
-			
-			
-			
-			
-			
-			<div id="contentsTitle">
-				<div>
-					<h2>활동명 변경</h2>
-				</div>
-			</div>
-			<div id="contentsPrint">
-				<form action="<c:url value="/member/loginProcess"/>" method="POST">
-					<!-- 활동명 변경 -->
-					<div id="section1">
-						<p>
-							사용 중인 활동명은 [다다]입니다.<br>
-							변경하실 활동명을 입력하세요.
-						</p>
-						<div class="ipt_wrap">
-							<input type="text" placeholder="활동명 입력" class="ipt1">
-						</div>
-						<div class="bt_wrap">
-							<a href="javascript: void(0);" onclick="javascript:login();" class="bt1">변경</a>
-						</div>
-						<input type="hidden" name="loginRedirect" value="${loginRedirect}"/>
-						<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-						<script type="text/javascript">
-							Kakao.init('${apiKey}');
-							
-							function login(){
-								Kakao.Auth.login({
-									success : function(authObj) {
-										var url = "/member/login/complete";
-										var param = JSON.stringify(authObj);
-										
-										$.ajax({
-											url : url,
-											data: param,
-											type: "POST",
-											dataType: "json",
-											contentType: 'application/json; charset=utf-8'
-										}).done(function(json){
-											if(json.id > 0){
-												var redirectUrl = $("input[name='loginRedirect']").val();
-												console.log(redirectUrl);
-												if(redirectUrl != ''){
-													window.location.replace(redirectUrl);
-												}else{
-													window.location.replace('/');
-												}
-											}
-										});
-									},
-									fail : function(err) {
-										alert("로그인에 실패했습니다.");
-									}
-								});
-							}
-						</script>
-					</div>
-				</form>
-			</div>
 		</div>
 	</div>
 	<c:import url="/inc/footer"></c:import>

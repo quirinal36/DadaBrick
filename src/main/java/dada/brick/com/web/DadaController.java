@@ -44,7 +44,8 @@ public class DadaController {
 		String authUser = authenticationFacade.getAuthentication().getName();
 		
 		UserVO searchUser = new UserVO();
-		searchUser.setLogin(authUser);
+		searchUser.setKakaoId(authUser);
+		logger.info(searchUser.toString());
 		UserVO user = userService.selectOne(searchUser);
 		
 		return user;
