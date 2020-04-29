@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -44,32 +45,44 @@
 						<div class="item">
 							<a href="#" class="image" style="background-image: url(/resources/img/temp/2.png);">사진</a>
 							<a href="#" class="name">점토벽돌</a>
-							<input type="button" value="변경" class="bt_change prdt">
+							<sec:authorize access="hasRole('ADMIN')">
+								<input type="button" value="변경" class="bt_change prdt">
+							</sec:authorize>
 						</div>
 						<div class="item">
 							<a href="#" class="image" style="background-image: url(/resources/img/temp/2.png);">사진</a>
 							<a href="#" class="name">타일벽돌</a>
-							<input type="button" value="변경" class="bt_change prdt">
+							<sec:authorize access="hasRole('ADMIN')">
+								<input type="button" value="변경" class="bt_change prdt">
+							</sec:authorize>
 						</div>
 						<div class="item">
 							<a href="#" class="image" style="background-image: url(/resources/img/temp/2.png);">사진</a>
 							<a href="#" class="name">고벽돌</a>
-							<input type="button" value="변경" class="bt_change prdt">
+							<sec:authorize access="hasRole('ADMIN')">
+								<input type="button" value="변경" class="bt_change prdt">
+							</sec:authorize>
 						</div>
 						<div class="item">
 							<a href="#" class="image" style="background-image: url(/resources/img/temp/2.png);">사진</a>
 							<a href="#" class="name">화산석</a>
-							<input type="button" value="변경" class="bt_change prdt">
+							<sec:authorize access="hasRole('ADMIN')">
+								<input type="button" value="변경" class="bt_change prdt">
+							</sec:authorize>
 						</div>
 						<div class="item">
 							<a href="#" class="image" style="background-image: url(/resources/img/temp/2.png);">사진</a>
 							<a href="#" class="name">화강석</a>
-							<input type="button" value="변경" class="bt_change prdt">
+							<sec:authorize access="hasRole('ADMIN')">
+								<input type="button" value="변경" class="bt_change prdt">
+							</sec:authorize>
 						</div>
 						<div class="item">
 							<a href="#" class="image" style="background-image: url(/resources/img/temp/2.png);">사진</a>
 							<a href="#" class="name">바닥벽돌</a>
-							<input type="button" value="변경" class="bt_change prdt">
+							<sec:authorize access="hasRole('ADMIN')">
+								<input type="button" value="변경" class="bt_change prdt">
+							</sec:authorize>
 						</div>
 					</div>
 				</div>

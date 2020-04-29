@@ -65,6 +65,9 @@
 	
 	<select id="count" parameterType="products" resultType="int">
 		SELECT COUNT(*) FROM products
+		<where>
+			menuId = ${menuId}
+		</where>
 	</select>
 	
 	<select id="select_one" parameterType="products" resultType="products">

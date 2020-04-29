@@ -40,6 +40,8 @@
 						<c:if test="${not empty paging.query}">
 							<div class="text">[${paging.query}] 검색 결과입니다.</div>
 						</c:if>
+						
+						<c:if test="${paging.totalCount gt 0 }">
 						<div class="search_area">
 							<form action="<c:url value="${listUrl }"/>">
 								<input type="text" placeholder="검색어 입력" name="query" <c:if test="${not empty paging.query}">value="${paging.query}"</c:if>>
@@ -47,6 +49,7 @@
 								<input type="button" value="검색" onclick="javascript:search(this.form);">
 							</form>
 						</div>
+						</c:if>
 					</div>
 				</div>
 				<div id="products_list_wrap">
@@ -77,11 +80,6 @@
 							</li>
 						</c:forEach>
 					</ul>
-					<sec:authorize access="hasRole('ADMIN')">
-						<div class="bt_wrap">
-							<a href="<c:url value="/products/add"/>" class="bt1 on">등록</a>
-						</div>
-					</sec:authorize>
 				</div>
 				<c:if test="${fn:length(products) eq 0 }">
 					<c:choose>

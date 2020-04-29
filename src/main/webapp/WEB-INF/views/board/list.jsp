@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -21,7 +22,7 @@ $(function(){
 			<div id="contentsPrint">
 				<!-- 상세 페이지 상단 -->
 				<div id="contentsTitle">
-					<h2>게시판 이름</h2>
+					<h2>${boardName }</h2>
 				</div>
 				<div id="contentsSearch">
 					<div>
@@ -90,10 +91,11 @@ $(function(){
 						<a href="javascript:pageGo(${paging.nextPageNo})" class="bt next">다음 페이지로 가기</a>
 						<a href="javascript:pageGo(${paging.endPageNo})" class="bt last">마지막 페이지로 가기</a>
 					</div>
-					<div class="bt_wrap">
-						<input type="hidden" name="write_url" value="${writeUrl }">
-						<input type="button" class="bt1 bt_write popup_password_opener" value="<spring:message code="board.write"/>">
-					</div>
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<div class="bt_wrap">
+							<input type="button" class="bt1 bt_write popup_password_opener" value="<spring:message code="board.write"/>" onclick="window.location.replace('${writeUrl}')">
+						</div>
+					</sec:authorize>
 				</div>
 			</div>
 		</div>

@@ -6,52 +6,50 @@
 		INSERT INTO Board
 		(
 			title,
-			title_en,
 			content,
 			writer,
-			boardType
+			boardType,
+			refLink
 		)
 		values
 		(
 			'${title}',
-			'${title_en}',
 			'${content}',
 			${writer},
-			${boardType}
+			${boardType},
+			'${refLink}'
 		)
 	</insert>
 	<update id="update" parameterType="board">
 		UPDATE Board
 		<set>
-			viewCount = ${viewCount},
 			title = '${title}',
-			title_en = '${title_en}',
-			content = '${content}'
+			content = '${content}',
+			boardType = ${boardType},
+			refLink = '${refLink}'
 		</set>
 		<where>
 			id=${id}
 		</where>
 	</update>
+	
 	<select id="select" parameterType="board" resultType="board">
 		SELECT 
 			board.*,
 			(SELECT COUNT(*) FROM FileInfo WHERE boardId = board.id) AS fileCnt,
 			(SELECT COUNT(*) FROM PhotoInfo WHERE boardId = board.id) AS pictureCnt,
-			(SELECT boardName FROM BoardType WHERE id = board.boardType) AS boardName,
-			(SELECT boardName_en FROM BoardType WHERE id = board.boardType) AS boardName_en,
+			(SELECT title FROM BoardType WHERE id = board.boardType) AS boardName,
 			(SELECT COUNT(*) FROM Reply WHERE boardId = board.id) AS replyCnt,
-			usr.username AS writerName
+			usr.nickname AS writerName,
+			(SELECT url FROM PhotoInfo where boardId = board.id LIMIT 0,1) AS thumbnail
 		FROM 
-			Board board LEFT JOIN users usr ON (board.writer = usr.id)
+			Board board LEFT JOIN users usr ON (board.writer = usr.kakaoId)
 		<where>
 			<choose>
-				<when test="boardType eq 7">
+				<when test="boardType eq 0">
 					(
 						board.boardType = 1 or
-						board.boardType = 2 or
-						board.boardType = 3 or
-						board.boardType = 4 or
-						board.boardType = 5
+						board.boardType >= 5
 					) 
 				</when>
 				<otherwise>
@@ -66,14 +64,7 @@
 				board.content like '%${query}%'
 				)
 			</if>
-			<choose>
-				<when test="language eq 'en'">
-					and LENGTH(board.title_en) <![CDATA[ > ]]> 0
-				</when>
-				<otherwise>
-					and LENGTH(board.title) <![CDATA[ > ]]> 0
-				</otherwise>
-			</choose>
+			
 		</where>
 		order by board.id desc
 		LIMIT ${from}, ${pageSize}
@@ -83,25 +74,14 @@
 		SELECT COUNT(*) FROM Board
 		<where>
 			<choose>
-				<when test="boardType eq 7">
-					boardType = 1 or
-					boardType = 2 or
-					boardType = 3 or
-					boardType = 4 or
-					boardType = 5
+				<when test="boardType eq 0">
+					boardType = 1 or boardType >= 5
 				</when>
 				<otherwise>
 					boardType = ${boardType}
 				</otherwise>
 			</choose>
-			<choose>
-				<when test="language eq 'en'">
-					and LENGTH(title_en) <![CDATA[ > ]]> 0
-				</when>
-				<otherwise>
-					and LENGTH(title) <![CDATA[ > ]]> 0
-				</otherwise>
-			</choose>
+			
 		</where>
 	</select>
 	
