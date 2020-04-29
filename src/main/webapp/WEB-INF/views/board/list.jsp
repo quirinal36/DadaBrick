@@ -1,40 +1,41 @@
 <%@page contentType="text/html" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>${curMenu.title }</title>
+<title>${title }</title>
 <c:import url="/inc/head"></c:import>
-<script type="text/javascript" src="<c:url value="/resources/js/notice.js"/>"></script>
-<script type="text/javascript" src="<c:url value="/resources/js/list.js"/>"></script>
+<script>
+$(function(){
+	$("#header").addClass("line");
+});
+</script>
 </head>
 <body>
 <div id="wrap">
 	<c:import url="/inc/header"></c:import>
-	<div id="container_wrap">
+	<div id="containerWrap">
 		<div id="container">
-			<c:import url="/inc/lnb_wrap">
-				<c:param name="id">${curMenu.id }</c:param>
-			</c:import>
-			<c:import url="/inc/contentsTitle">
-				<c:param name="id">${curMenu.id }</c:param>
-			</c:import>
 			<div id="contentsPrint">
-				<div class="board_search">
-					<div class="search_ipt">
-						<form action="<c:url value="${listUrl }"/>">
-							<input type="text" name="query" placeholder="<spring:message code="inc.header.query" text="inc.header.query"/>" value="${paging.query }" autocomplete="off" />
-							<input type="hidden" name="pageNo" value="${paging.pageNo }"/>
-							<input type="button" value="검색" onclick="search(this.form);">
-						</form>
-					</div>
+				<!-- 상세 페이지 상단 -->
+				<div id="contentsTitle">
+					<h2>게시판 이름</h2>
 				</div>
-				<div class="search_result_message">
-					<c:if test="${not empty paging.query }">
-						<p><span>“${paging.query }”</span></p>
-					</c:if>
+				<div id="contentsSearch">
+					<div>
+						<c:if test="${not empty paging.query}">
+							<div class="text">[${paging.query}] 검색 결과입니다.</div>
+						</c:if>
+						<div class="search_area">
+							<form action="<c:url value="${listUrl }"/>">
+								<input type="text" placeholder="검색어 입력" name="query" <c:if test="${not empty paging.query}">value="${paging.query}"</c:if>>
+								<input type="hidden" name="pageNo" value="${paging.pageNo }"/>
+								<input type="button" value="검색" onclick="javascript:search(this.form);">
+							</form>
+						</div>
+					</div>
 				</div>
 				<div class="board_list board_list_typeB">
 					<ul class="list">

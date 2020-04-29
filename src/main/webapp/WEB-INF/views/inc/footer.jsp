@@ -30,6 +30,7 @@
 					<a href="<c:url value="/member/login"/>">LOGIN</a>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
+					<a href="#">INFO</a>
 					<a href="javascript:logout();">LOGOUT</a>
 				</sec:authorize>
 			</div>

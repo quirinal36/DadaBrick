@@ -173,7 +173,7 @@ html.fixed {
 	height: 100%;
 	background: #fff;
 	text-align: left;
-	transition: 1s;
+	transition: 0.5s;
 }
 
 #gnbWrap_mobile .cont > div {
@@ -318,7 +318,7 @@ html.fixed {
 	width: 100%;
 	height: 100%;
 	text-align: center;
-	z-index: 1;
+	z-index: 3;
 }
 
 .popupWrap .bg {
@@ -641,11 +641,12 @@ html.fixed {
 	
 	#contentsSearch {
 		min-width: 320px;
-		margin: 10px 0;
+		margin: 10px 0 20px 0;
 		padding: 0 20px;
 	}
 	
 	#contentsSearch > div {
+		min-height: auto;
 		padding-top: 0;
 	}
 	
