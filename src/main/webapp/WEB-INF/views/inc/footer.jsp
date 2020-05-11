@@ -46,7 +46,10 @@
 		}
 	</script>
 </footer>
-
+<script src="<c:url value="/resources/js/jquery.ui.widget.js"/>"></script>
+<script src="<c:url value="/resources/js/jquery.iframe-transport.js"/>"></script>
+<script src="<c:url value="/resources/js/jquery.fileupload.js"/>"></script>
+<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
 <!-- 이미지 교체 팝업 -->
 <div class="popupWrap popup1">
 	<div class="bg"></div>
@@ -55,17 +58,92 @@
 			<div class="popup_view">
 				<input type="button" value="닫기" class="bt_popup_close">
 				<!-- 팝업 내용 시작 -->
-				<form>
-					<input type="button" value="사진 업로드" class="bt1">
+				<form action="/upload/slide" method="POST">
+					<input id="image-upload-btn" type="file" accept="image/*" value="사진 업로드" class="bt1" data-url="<c:url value="/upload/sized/image"/>">
 					<div class="address">
-						153156153132.jpg
-						<input type="button" value="삭제" class="bt_del">
+						<ul id="slide-image" class="imgUpload_list"> 
+						</ul>
+						<div id="progress_rep_image" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+					    	<div class="progress-bar" style="width: 0%;" ></div>
+					    </div>
 					</div>
-					<input type="text" placeholder="링크 입력" class="ipt1">
-					<input type="button" value="등록" class="bt3 on">
+					<input type="hidden" name="display"/>
+					<input type="text" placeholder="링크 입력" class="ipt1" name="linkUrl">
+					<input type="button" value="등록" class="bt3 on" onclick="javascript:uploadSlide(this);">
 				</form>
 				<!-- 팝업 내용 끝 -->
 			</div>
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+$(document).ready(function(){
+	// 대표이미지
+	$('#image-upload-btn').fileupload({
+		imageCrop: true,
+        dataType: 'json',
+        done: function (e, data) {
+        	var file = data.result.file;
+        	
+        	$("#slide-image").empty();
+        	$("#slide-image").append(makeLI(file, 'photoId'));
+        },
+        progressall: function (e, data) {
+        	var progress = parseInt(data.loaded / data.total * 100, 10);
+            
+            $('#progress_img .progress-bar').css(
+                'width',
+                progress + '%'
+            );
+            if(progress == 100){
+            	$('#progress_img .progress-bar').css('width','0');
+            }
+        },
+        dropZone: $('#dropzone-img-rep')
+	});
+});
+function uploadSlide(button){
+	var url = $(button).parent().attr("action");
+	var param = $(button).parent().serialize();
+	
+	if(confirm("등록 하시겠습니까?")){
+		$.ajax({
+			url : url,
+			data: param,
+			type: "POST",
+			dataType: "json"
+		}).done(function(json){
+			if(json.result > 0){
+				alert("등록되었습니다.");
+				window.location.reload();
+			}
+		});
+	}
+}
+function makeLI(file, name){
+	return $("<li>")
+		.append(
+			$("<input>")
+				.attr("type","button").addClass("bt_imgDelete").val("삭제")
+				.attr("onclick", "delImageClick(this);"))
+		.append(
+			$("<input>")
+				.attr("type","hidden").attr("name", name).val(file.id))
+		.attr("id", file.id).attr("style", "background-image:url("+file.url+");");
+}
+function delImageClick(btn){
+	var id = $(btn).parent().find("input[type='hidden']").val();
+	var url = "/upload/delete";
+	var param = "id="+id;
+
+	$.ajax({
+		url : url,
+		data: param,
+		type: "POST",
+		dataType: "json"
+	}).done(function(json){
+		$(btn).parent().remove();
+		$("#image-upload-btn").show();
+	});
+}
+</script>

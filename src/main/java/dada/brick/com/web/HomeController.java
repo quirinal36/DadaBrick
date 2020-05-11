@@ -15,22 +15,29 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dada.brick.com.Config;
+import dada.brick.com.service.SlidePhotoService;
 import dada.brick.com.vo.Board;
+import dada.brick.com.vo.SlidePhotoInfo;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController extends DadaController {
+	@Autowired
+	SlidePhotoService slidePhotoService;
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -38,6 +45,11 @@ public class HomeController extends DadaController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, ModelAndView mv,
 			HttpServletRequest req, Authentication authentication) {
+		List<SlidePhotoInfo> slideList = slidePhotoService.select(SlidePhotoInfo.newInstance(1));
+		List<SlidePhotoInfo> productList = slidePhotoService.select(SlidePhotoInfo.newInstance(2));
+		
+		mv.addObject("slideList", slideList);
+		mv.addObject("productList", productList);
 		
 		mv.setViewName("index");
 		return mv;
@@ -128,5 +140,15 @@ public class HomeController extends DadaController {
 				logger.info(e.getLocalizedMessage());
 			}
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/upload/slide", method = RequestMethod.POST, produces = "application/json; charset=utf8")
+	public String uploadIndexSlide(SlidePhotoInfo info) {
+		JSONObject json = new JSONObject();
+		int result = slidePhotoService.insert(info);
+		json.put("result", result);
+		
+		return json.toString();
 	}
 }

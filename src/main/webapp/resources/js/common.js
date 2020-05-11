@@ -96,6 +96,9 @@ $(function(){
 	
 	// 팝업1 : 인덱스 상단 이미지 변경 팝업
 	$(".popup1_opener").click(function(){
+		var display = $(this).parent().find("input[name='display']").val();
+		console.log("display: " + display);
+		$(".popup1 form input[name='display']").val(display);
 		$(".popup1").fadeIn();
 	});
 });

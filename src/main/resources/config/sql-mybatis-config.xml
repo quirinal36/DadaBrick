@@ -18,5 +18,6 @@
 		<typeAlias type="dada.brick.com.vo.Reply" alias="reply"/>
 		<typeAlias type="dada.brick.com.vo.Popup" alias="popup"/>
 		<typeAlias type="dada.brick.com.vo.ProductsVO" alias="products"/>
+		<typeAlias type="dada.brick.com.vo.SlidePhotoInfo" alias="slide-photo"/>
     </typeAliases>
 </configuration>

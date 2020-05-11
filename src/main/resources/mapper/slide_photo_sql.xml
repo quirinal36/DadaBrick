@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="slide_photo_sql">
+	<insert id="insert" parameterType="slide-photo" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO SlidePhoto
+		(
+			photoId,
+			display,
+			linkUrl,
+			title
+		)
+		VALUES
+		(
+			${photoId},
+			${display},
+			'${linkUrl}',
+			'${title}'
+		)
+	</insert>
+	
+	<delete id="delete" parameterType="popup">
+		DELETE FROM SlidePhoto
+		<where>
+			id=${id}
+		</where>
+	</delete>
+	
+	<select id="select" parameterType="slide-photo" resultType="slide-photo">
+		SELECT 
+			id,
+			display,
+			linkUrl,
+			title,
+			(
+				SELECT url FROM PhotoInfo WHERE
+				id = photoId
+			) AS url
+		FROM SlidePhoto 
+		<where>
+			display = ${display}
+		</where>
+		order by id
+	</select>
+	
+	<select id="select_one" parameterType="slide-photo" resultType="slide-photo">
+		SELECT 
+			id,
+			display,
+			linkUrl,
+			title,
+			(
+				SELECT url FROM PhotoInfo WHERE
+				id = photoId
+			) AS url
+		FROM SlidePhoto 
+		<where>
+			id=${id}
+		</where>
+	</select>
+	
+	<select id="count" parameterType="slide-photo" resultType="int">
+		SELECT COUNT(*)
+		FROM SlidePhoto
+	</select>
+	
+</mapper>

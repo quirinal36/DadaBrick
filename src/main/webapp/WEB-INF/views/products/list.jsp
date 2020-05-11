@@ -59,24 +59,28 @@
 								<a href="<c:url value="/products/detail/${item.id }"/>" class="image" style="background-image: url('/picture/${item.representImage}');">사진</a>  
 								<p>[${item.primaryId}] ${item.size }</p>
 								<a href="<c:url value="/products/detail/${item.id }"/>" class="name">${item.name }</a>
-								<div class="bt_move_wrap">
-									<c:choose>
-										<c:when test="${step.first }">
-											<input type="button" value="이전" class="bt_move prev off">
-										</c:when>
-										<c:otherwise>
-											<input type="button" value="다음" class="bt_move prev">	
-										</c:otherwise>
-									</c:choose>
-									<c:choose>
-										<c:when test="${step.last }">
-											<input type="button" value="이전" class="bt_move next off">
-										</c:when>
-										<c:otherwise>
-											<input type="button" value="다음" class="bt_move next">
-										</c:otherwise>
-									</c:choose>
-								</div>
+								<sec:authorize access="hasRole('ADMIN')">
+									<div class="bt_move_wrap">
+										<input type="hidden" name="id" value="${item.id }"/>
+										<input type="hidden" name="orderNum" value="${item.orderNum }"/>
+										<c:choose>
+											<c:when test="${step.first }">
+												<input type="button" value="이전" class="bt_move prev off">
+											</c:when>
+											<c:otherwise>
+												<input type="button" value="다음" class="bt_move prev" onclick="javascript:movePrev(this);">	
+											</c:otherwise>
+										</c:choose>
+										<c:choose>
+											<c:when test="${step.last }">
+												<input type="button" value="이전" class="bt_move next off">
+											</c:when>
+											<c:otherwise>
+												<input type="button" value="다음" class="bt_move next" onclick="javascript:moveNext(this);">
+											</c:otherwise>
+										</c:choose>
+									</div>
+								</sec:authorize>
 							</li>
 						</c:forEach>
 					</ul>
@@ -96,15 +100,17 @@
 						<c:otherwise>
 							<div id="products_list_wrap" class="none">
 								등록된 상품이 없습니다.
-								<sec:authorize access="hasRole('ADMIN')">
-									<div class="bt_wrap">
-										<a href="<c:url value="/products/add"/>" class="bt1 on">등록</a>
-									</div>
-								</sec:authorize>	
 							</div>
 						</c:otherwise>
 					</c:choose>		
 				</c:if>
+				<sec:authorize access="hasRole('ADMIN')">
+				<div id="products_list_wrap">
+					<div class="bt_wrap">
+						<a href="<c:url value="/products/add"/>" class="bt1 on">등록</a>
+					</div>
+				</div>
+				</sec:authorize>
 			</div>
 		</div>
 	</div>

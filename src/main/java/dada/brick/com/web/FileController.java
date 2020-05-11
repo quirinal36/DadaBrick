@@ -291,12 +291,10 @@ public class FileController extends DadaController {
 		Iterator<String> itr = request.getFileNames();
         if (itr.hasNext()) {
         	String filename = itr.next();
-        	logger.info("1 >> " + filename);
         	MultipartFile mpf = request.getFile(filename);
         	PhotoInfo photo = PhotoInfo.newInstance(mpf);
         	
         	File newFile = new File(getImageUploadPath() + File.separator + photo.getNewFilename());
-        	logger.info("2 >> " + newFile.getAbsolutePath());
         	try {
 				mpf.transferTo(newFile);
 				

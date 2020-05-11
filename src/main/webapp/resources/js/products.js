@@ -81,7 +81,7 @@ $(document).ready(function(){
         dropZone: $('#dropzone-img-rep')
 	});
 	
-	// 대표이미지
+	// detail 이미지
 	$('#detail-upload-btn').fileupload({
 		imageCrop: true,
         dataType: 'json',

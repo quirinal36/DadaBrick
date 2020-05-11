@@ -25,30 +25,30 @@
 			<div id="contentsPrint">
 				<div class="idx_main_wrap">
 					<div class="idx_main">
+						<c:forEach items="${slideList }" var="item">
 						<div class="item">
-							<a href="/products/detail/11" class="item" style="background-image: url(/resources/img/temp/1.png);">제품</a>
-							<input type="button" value="변경" class="bt_change main popup1_opener">
+							<a href="${item.linkUrl }" class="item" style="background-image: url(${item.url});">제품</a>
+							<sec:authorize access="hasRole('ADMIN')">
+								<input type="hidden" value="1" name="display"/>
+								<input type="button" value="변경" class="bt_change main popup1_opener">
+							</sec:authorize>
 						</div>
-						<div class="item">
-							<a href="/products/detail/11" class="item" style="background-image: url(/resources/img/temp/1.png);">제품</a>
-							<input type="button" value="변경" class="bt_change main popup1_opener">
-						</div>
-						<div class="item">
-							<a href="/products/detail/11" class="item" style="background-image: url(/resources/img/temp/1.png);">제품</a>
-							<input type="button" value="변경" class="bt_change main popup1_opener">
-						</div>
+						</c:forEach>
 					</div>
 				</div>
 				<div class="idx_products_wrap">
 					<strong>Products</strong>
 					<div class="idx_products">
-						<div class="item">
-							<a href="#" class="image" style="background-image: url(/resources/img/temp/2.png);">사진</a>
-							<a href="#" class="name">점토벽돌</a>
-							<sec:authorize access="hasRole('ADMIN')">
-								<input type="button" value="변경" class="bt_change prdt">
-							</sec:authorize>
-						</div>
+						<c:forEach items="${productList }" var="item">
+							<div class="item">
+								<a href="${item.linkUrl }" class="image" style="background-image: url(${item.url});">사진</a>
+								<a href="${item.linkUrl }" class="name">${item.title }</a>
+								<sec:authorize access="hasRole('ADMIN')">
+									<input type="hidden" value="2" name="display"/>
+									<input type="button" value="변경" class="bt_change prdt">
+								</sec:authorize>
+							</div>
+						</c:forEach>
 						<div class="item">
 							<a href="#" class="image" style="background-image: url(/resources/img/temp/2.png);">사진</a>
 							<a href="#" class="name">타일벽돌</a>
@@ -56,34 +56,7 @@
 								<input type="button" value="변경" class="bt_change prdt">
 							</sec:authorize>
 						</div>
-						<div class="item">
-							<a href="#" class="image" style="background-image: url(/resources/img/temp/2.png);">사진</a>
-							<a href="#" class="name">고벽돌</a>
-							<sec:authorize access="hasRole('ADMIN')">
-								<input type="button" value="변경" class="bt_change prdt">
-							</sec:authorize>
-						</div>
-						<div class="item">
-							<a href="#" class="image" style="background-image: url(/resources/img/temp/2.png);">사진</a>
-							<a href="#" class="name">화산석</a>
-							<sec:authorize access="hasRole('ADMIN')">
-								<input type="button" value="변경" class="bt_change prdt">
-							</sec:authorize>
-						</div>
-						<div class="item">
-							<a href="#" class="image" style="background-image: url(/resources/img/temp/2.png);">사진</a>
-							<a href="#" class="name">화강석</a>
-							<sec:authorize access="hasRole('ADMIN')">
-								<input type="button" value="변경" class="bt_change prdt">
-							</sec:authorize>
-						</div>
-						<div class="item">
-							<a href="#" class="image" style="background-image: url(/resources/img/temp/2.png);">사진</a>
-							<a href="#" class="name">바닥벽돌</a>
-							<sec:authorize access="hasRole('ADMIN')">
-								<input type="button" value="변경" class="bt_change prdt">
-							</sec:authorize>
-						</div>
+						
 					</div>
 				</div>
 				<div class="idx_insta_wrap">
