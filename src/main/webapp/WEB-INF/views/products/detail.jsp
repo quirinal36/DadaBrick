@@ -74,6 +74,7 @@ $(function(){
 						</tbody>
 					</table>
 					<div class="bt_wrap">
+						<a href="<c:url value="/products/edit/${product.menuId }"/>" class="bt1">수정</a>
 						<a href="#" class="bt1">문의하기</a>
 						<a href="<c:url value="/products/list/${product.menuId }"/>" class="bt1 on">목록</a>
 					</div>

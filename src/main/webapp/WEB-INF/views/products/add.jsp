@@ -27,7 +27,7 @@
 					<h2>제품 등록</h2>
 				</div>
 				<!-- 상세 페이지 제품정보 등록 -->
-				<div class="product_info_wrap">
+				<div id="products_info_wrap">
 					<form id="admin-add-form" action="<c:url value="/products/add"/>" method="POST">					
 					<table class="tbl1">
 						<colgroup>

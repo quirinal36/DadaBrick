@@ -35,23 +35,22 @@
 						</c:forEach>
 					</ul>
 				</div>
-				<div id="contentsSearch">
-					<div>
-						<c:if test="${not empty paging.query}">
-							<div class="text">[${paging.query}] 검색 결과입니다.</div>
-						</c:if>
-						
-						<c:if test="${paging.totalCount gt 0 }">
-						<div class="search_area">
-							<form action="<c:url value="${listUrl }"/>">
-								<input type="text" placeholder="검색어 입력" name="query" <c:if test="${not empty paging.query}">value="${paging.query}"</c:if>>
-								<input type="hidden" name="pageNo" value="${paging.pageNo }"/>
-								<input type="button" value="검색" onclick="javascript:search(this.form);">
-							</form>
+				<c:if test="${paging.totalCount gt 0 }">
+					<div id="contentsSearch">
+						<div>
+							<c:if test="${not empty paging.query}">
+								<div class="text">[${paging.query}] 검색 결과입니다.</div>
+							</c:if>
+							<div class="search_area">
+								<form action="<c:url value="${listUrl }"/>">
+									<input type="text" placeholder="검색어 입력" name="query" <c:if test="${not empty paging.query}">value="${paging.query}"</c:if>>
+									<input type="hidden" name="pageNo" value="${paging.pageNo }"/>
+									<input type="button" value="검색" onclick="javascript:search(this.form);">
+								</form>
+							</div>
 						</div>
-						</c:if>
 					</div>
-				</div>
+				</c:if>
 				<div id="products_list_wrap">
 					<ul>
 						<c:forEach items="${products}" var="item" varStatus="step">

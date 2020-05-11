@@ -63,8 +63,8 @@
 	display: inline-block;
 	width: 30px;
 	height: 30px;
+	margin-left: -1px;
 	border: 1px solid #ddd;
-	border-left: 0;
 	background-image: url(/resources/img/comm/arrow_black.png);
 	background-repeat: no-repeat;
 	background-size: 40px;
@@ -73,7 +73,7 @@
 }
 
 #products_list_wrap .bt_move:first-child {
-	border-left: 1px solid #ddd;
+	margin-left: 0;
 }
 
 #products_list_wrap .bt_move.prev {
@@ -373,6 +373,10 @@
 	margin-left: 5px;
 }
 
+.company_section3 .cont dd br {
+	display: none;
+}
+
 @media (max-width: 1000px ) {
 	#products_list_wrap {
 		min-width: 320px;
@@ -602,5 +606,9 @@
 		padding-left: 0;
 		padding-right: 0;
 		text-align: center;
+	}
+	
+	.company_section3 .cont dd br {
+		display: block;
 	}
 }
