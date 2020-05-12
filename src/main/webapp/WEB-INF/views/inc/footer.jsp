@@ -101,6 +101,9 @@ $(document).ready(function(){
         },
         dropZone: $('#dropzone-img-rep')
 	});
+	$(".bt_popup_close").click(function(btn){
+		$("#slide-image").empty();
+	});
 });
 function uploadSlide(button){
 	var url = $(button).parent().attr("action");
