@@ -8,16 +8,14 @@
 			title,
 			content,
 			writer,
-			boardType,
-			refLink
+			boardType
 		)
 		values
 		(
 			'${title}',
 			'${content}',
 			${writer},
-			${boardType},
-			'${refLink}'
+			${boardType}
 		)
 	</insert>
 	<update id="update" parameterType="board">
@@ -25,8 +23,7 @@
 		<set>
 			title = '${title}',
 			content = '${content}',
-			boardType = ${boardType},
-			refLink = '${refLink}'
+			boardType = ${boardType}
 		</set>
 		<where>
 			id=${id}
@@ -73,24 +70,16 @@
 	<select id="count" parameterType="board" resultType="int">
 		SELECT COUNT(*) FROM Board
 		<where>
-			<choose>
-				<when test="boardType eq 0">
-					boardType = 1 or boardType >= 5
-				</when>
-				<otherwise>
-					boardType = ${boardType}
-				</otherwise>
-			</choose>
-			
+			boardType = ${boardType}
 		</where>
 	</select>
 	
 	<select id="selectOne" parameterType="board" resultType="board">
 		SELECT 
 			board.*,
-			usr.username AS writerName
+			usr.nickname AS writerName
 		FROM 
-			Board board LEFT JOIN users usr ON (board.writer = usr.id)
+			Board board LEFT JOIN users usr ON (board.writer = usr.kakaoId)
 		<where>
 			board.id = ${id}
 		</where>
@@ -102,4 +91,14 @@
 			id = ${id}		
 		</where>
 	</delete>
+	
+	<update id="updateCount" parameterType="board">
+		UPDATE Board
+		<set>
+			viewCount = viewCount + 1
+		</set>
+		<where>
+			id = ${id}
+		</where>
+	</update>
 </mapper>

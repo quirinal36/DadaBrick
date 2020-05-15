@@ -53,7 +53,7 @@ public class IncController extends DadaController{
 			menu.setChildren(map.get(menu.getId()));
 		}
 		mv.addObject("parents", parents);
-		
+		mv.addObject("locale", locale);
 		mv.setViewName("/inc/header");
 		return mv;
 	}

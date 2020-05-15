@@ -5,51 +5,48 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import dada.brick.com.dao.BoardDAO;
-import dada.brick.com.vo.Board;
+import dada.brick.com.dao.ReplyDAO;
+import dada.brick.com.vo.Reply;
 
-@Component("boardService")
-public class BoardService implements DataService<Board> {
+@Component("replyService")
+public class ReplyService implements DataService<Reply>{
 	@Autowired
-	private BoardDAO dao;
-	
+	private ReplyDAO dao;
+
 	@Override
-	public int insert(Board input) {
+	public int insert(Reply input) {
 		return dao.insert(input);
 	}
 
 	@Override
-	public int update(Board input) {
+	public int update(Reply input) {
 		return dao.update(input);
 	}
 
 	@Override
-	public int delete(Board input) {
+	public int delete(Reply input) {
 		return dao.delete(input);
 	}
 
 	@Override
-	public List<Board> select() {
+	public List<Reply> select() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Board> select(Board input) {
+	public List<Reply> select(Reply input) throws NullPointerException {
 		return dao.select(input);
 	}
 
 	@Override
-	public Board selectOne(Board input) {
+	public Reply selectOne(Reply input) {
 		return dao.selectOne(input);
 	}
 
 	@Override
-	public int count(Board input) {
+	public int count(Reply input) {
 		return dao.count(input);
 	}
-
-	public int updateCount(Board input) {
-		return dao.updateCount(input);
-	}
+	
 }

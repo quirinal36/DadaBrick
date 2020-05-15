@@ -42,7 +42,7 @@ public class BoardDAO implements DataAccess<Board> {
 
 	@Override
 	public Board selectOne(Board input) {
-		return sqlSession.selectOne(namespace +".select_one", input);
+		return sqlSession.selectOne(namespace +".selectOne", input);
 	}
 
 	@Override
@@ -50,4 +50,7 @@ public class BoardDAO implements DataAccess<Board> {
 		return sqlSession.selectOne(namespace+".count", input);
 	}
 	
+	public int updateCount(Board input) {
+		return sqlSession.update(namespace+".updateCount", input);
+	}
 }

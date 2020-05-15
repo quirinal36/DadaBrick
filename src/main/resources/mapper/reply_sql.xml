@@ -36,10 +36,10 @@
 			r.parent,
 			r.boardId,
 			r.content,
-			u.username AS writerName,
+			u.nickname AS writerName,
 			r.mdate
 		FROM
-			Reply r LEFT JOIN users u ON r.writer = u.id
+			Reply r LEFT JOIN users u ON r.writer = u.kakaoId
 		<where>
 			r.boardId = ${boardId}
 		</where>
@@ -52,10 +52,10 @@
 			r.parent,
 			r.boardId,
 			r.content,
-			u.username AS writerName,
+			u.nickname AS writerName,
 			r.mdate
 		FROM
-			Reply r LEFT JOIN users u ON r.writer = u.id
+			Reply r LEFT JOIN users u ON r.writer = u.kakaoId
 		<where>
 			r.id = ${id}
 		</where>
@@ -65,7 +65,7 @@
 		SELECT
 			COUNT(*)
 		FROM
-			Reply r LEFT JOIN users u ON r.writer = u.id
+			Reply r LEFT JOIN users u ON r.writer = u.kakaoId
 		<where>
 			r.boardId = ${boardId}
 		</where>

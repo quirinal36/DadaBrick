@@ -18,4 +18,10 @@ public class Reply extends Paging{
 	int boardId;
 	Date mdate;
 	Date udate;
+	
+	public static Reply newInstance(int boardId) {
+		Reply reply = new Reply();
+		reply.setBoardId(boardId);
+		return reply;
+	}
 }

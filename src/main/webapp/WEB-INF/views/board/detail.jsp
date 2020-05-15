@@ -127,17 +127,11 @@ function deleteBoard(id){
 			<c:import url="/inc/lnb_wrap">
 				<c:param name="id">${curMenu.id }</c:param>
 			</c:import>
-			<c:import url="/inc/contentsTitle">
-				<c:param name="id">${curMenu.id }</c:param>
-			</c:import>
 			<div id="contentsPrint">
 				<div class="board_view" style="margin-top: 60px;">
 					<div class="board_view_title">
 						<div class="title">
-							<c:choose>
-								<c:when test="${locale.language eq 'en' }">${board.title_en }</c:when>
-								<c:otherwise>${board.title }</c:otherwise>
-							</c:choose>
+							${board.title }
 						</div>
 						<div class="writer">${board.writerName }</div>
 						<div class="date">
@@ -177,7 +171,7 @@ function deleteBoard(id){
 									<div class="top">
 										<span class="repl_writer">${reply.writerName }</span>
 										<span class="repl_date">(<fmt:formatDate value="${reply.mdate}" pattern="yyyy-MM-dd" />)</span>
-										<c:if test="${user.id eq reply.writer }">
+										<c:if test="${user.kakaoId eq reply.writer }">
 											<input type="button" value="수정" class="bt_repl_edit" onclick="javascript:showEditView('${reply.id }');">
 											<input type="button" value="삭제" class="bt_repl_del" onclick="javascript:deleteReply('${reply.id}')">
 										</c:if>
@@ -205,13 +199,13 @@ function deleteBoard(id){
 						</ol>
 						<form id="replyForm" action="<c:url value="/reply/insert"/>" method="POST">
 							<c:choose>
-								<c:when test="${not empty user.id and locale.language eq 'en'}">
+								<c:when test="${not empty user.kakaoId and locale.language eq 'en'}">
 									<c:set value="input reply." var="reply_placeholder"/>
 								</c:when>
-								<c:when test="${not empty user.id and locale.language ne 'en'}">
+								<c:when test="${not empty user.kakaoId and locale.language ne 'en'}">
 									<c:set value="댓글을 입력하세요." var="reply_placeholder"/>
 								</c:when>
-								<c:when test="${empty user.id and locale.language eq 'en' }">
+								<c:when test="${empty user.kakaoId and locale.language eq 'en' }">
 									<c:set value="login to write reply." var="reply_placeholder"/>
 								</c:when>
 								<c:otherwise>
@@ -220,8 +214,8 @@ function deleteBoard(id){
 							</c:choose>
 							<!-- 댓글 작성 -->
 							<div class="repl_add">
-								<input type="hidden" name="writer" value="${user.id }"/>
-								<textarea placeholder="${reply_placeholder }" name="content" rows="1" class="repl_content" <c:if test="${empty user.id }">readonly</c:if>></textarea>
+								<input type="hidden" name="writer" value="${user.kakaoId }"/>
+								<textarea placeholder="${reply_placeholder }" name="content" rows="1" class="repl_content" <c:if test="${empty user.kakaoId }">readonly onclick="javascript:login()"</c:if>></textarea>
 								<input type="button" value="<spring:message code="board.submit"/>" class="bt_repl_add" onclick="javascript:writeReply();"  <c:if test="${empty user.id }">disabled</c:if>>
 							</div>
 							<input type="hidden" name="parent" value="0"/>
@@ -253,6 +247,41 @@ function deleteBoard(id){
 			</div>
 		</div>
 	</div>
+	<input type="hidden" name="loginRedirect" value="${loginRedirect}"/>
+	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+	<script type="text/javascript">
+		Kakao.init('${apiKey}');
+		
+		function login(){
+			Kakao.Auth.login({
+				success : function(authObj) {
+					var url = "/member/login/complete";
+					var param = JSON.stringify(authObj);
+					
+					$.ajax({
+						url : url,
+						data: param,
+						type: "POST",
+						dataType: "json",
+						contentType: 'application/json; charset=utf-8'
+					}).done(function(json){
+						if(json.id > 0){
+							var redirectUrl = $("input[name='loginRedirect']").val();
+							console.log(redirectUrl);
+							if(redirectUrl != ''){
+								window.location.replace(redirectUrl);
+							}else{
+								window.location.replace('/');
+							}
+						}
+					});
+				},
+				fail : function(err) {
+					alert("로그인에 실패했습니다.");
+				}
+			});
+		}
+	</script>
 	<c:import url="/inc/footer"></c:import>
 </div>
 </body>

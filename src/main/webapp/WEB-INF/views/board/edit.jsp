@@ -68,11 +68,6 @@
 			title = replaceAll(title, "&nbsp;", " ");
 			title = replaceAll(title, "&", "%26");
 			
-			var title_en = $("input[name='title_en']").val();
-			title_en = replaceAll(title_en, "'", "&apos;");
-			title_en = replaceAll(title_en, "&nbsp;", " ");
-			title_en = replaceAll(title_en, "&", "%26");
-			
 			var content = textContent;
 			var boardType = $("input[name='board_type']").val();
 			var pictures = [];
@@ -85,7 +80,6 @@
 			});
 			
 			var param = "title="+encodeURI(title);
-			param += "&title_en="+title_en;
 			param += "&content="+ encodeURI(content);
 			param += "&boardType="+boardType;
 			param += "&pictures="+pictures.join(",");
@@ -117,7 +111,7 @@
 				<div id="contentsTitle">
 					<h2>${boardName } 게시판 이름</h2>
 				</div>
-				<form action="<c:url value="/board/insertBoard"/>" method="post">
+				<form action="<c:url value="/board/write"/>" method="post">
 					<input type="hidden" name="board_type" value="${boardType }"/>
 					<input type="hidden" name="isLoginUrl" value="<c:url value="${authUrl }"/>"/>
 					<input type="hidden" name="loginUrl" value="<c:url value="/member/login"/>"/>

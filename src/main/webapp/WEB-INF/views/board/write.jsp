@@ -68,13 +68,7 @@
 			title = replaceAll(title, "&nbsp;", " ");
 			title = replaceAll(title, "&", "%26");
 			
-			var title_en = $("input[name='title_en']").val();
-			title_en = replaceAll(title_en, "'", "&apos;");
-			title_en = replaceAll(title_en, "&nbsp;", " ");
-			title_en = replaceAll(title_en, "&", "%26");
-			
 			var content = textContent;
-			var boardType = $("input[name='board_type']").val();
 			var pictures = [];
 			var files = [];
 			$("#picture_ul").find(".bt_del_img").each(function(i, item){
@@ -84,14 +78,13 @@
 				files.push($(item).val());
 			});
 			
-			var param = "title="+encodeURI(title);
-			param += "&title_en="+title_en;
-			param += "&content="+ encodeURI(content);
-			param += "&boardType="+boardType;
+			var param = $("form").serialize(); 
 			param += "&pictures="+pictures.join(",");
 			param += "&files="+files.join(",");
 			
-			if(confirm(jQuery.i18n.prop("board.submit_msg"))){
+			console.log(param);
+			
+			if(confirm("글을 등록시키겠습니까?")){
 				$.ajax({
 					url : url,
 					data: param,
@@ -99,7 +92,7 @@
 					dataType : "json"
 				}).done(function(json){
 					if(json.result > 0){
-						alert(jQuery.i18n.prop("board.write.submit.complete"));
+						alert("글 등록이 완료되었습니다.");
 						window.location.replace($("input[name='listUrl']").val());
 					}
 				});
@@ -115,10 +108,10 @@
 			<div id="contentsPrint">
 				<!-- 상세 페이지 상단 -->
 				<div id="contentsTitle">
-					<h2>${boardName } 게시판 이름</h2>
+					<h2>${boardName }</h2>
 				</div>
-				<form action="<c:url value="/board/insertBoard"/>" method="post">
-					<input type="hidden" name="board_type" value="${boardType }"/>
+				<form action="<c:url value="/board/write"/>" method="post">
+					<input type="hidden" name="boardType" value="${boardType }"/>
 					<input type="hidden" name="isLoginUrl" value="<c:url value="${authUrl }"/>"/>
 					<input type="hidden" name="loginUrl" value="<c:url value="/member/login"/>"/>
 					<input type="hidden" name="currentUrl" value="${current }"/>
@@ -131,7 +124,10 @@
 									<input type="text" placeholder="<spring:message code="board.title" text="board.title"></spring:message>" name="title" autocomplete="off" >
 								</div>
 								<div class="writer"><spring:message code="board.user" text="board.user"></spring:message></div>
-								<div class="writer_ipt"><input type="text" placeholder="<spring:message code="board.user" text="board.user"></spring:message>" value="${user.username }" readonly autocomplete="off"></div>
+								<div class="writer_ipt">
+									<input type="text" placeholder="<spring:message code="board.user" text="board.user"></spring:message>" value="${user.nickname }" readonly autocomplete="off">
+									<input type="hidden" name="writer" value="${user.kakaoId}"/>
+								</div>
 							</div>
 							<div class="board_write_cont">
 								<textarea name="content" id="ir1" rows="10" style="width:100%; height:412px; display:none;"></textarea>	                        
@@ -145,7 +141,7 @@
 										</ul>
 										<!-- 첨부하기 버튼 -->
 										<input id="imageupload" type="file" name="files[]" 
-											accept="image/*" data-url="<c:url value="/upload/image"/>" multiple>
+											accept="image/*" data-url="<c:url value="/upload/sized/image"/>" multiple>
 									    <div id="progress_img" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
 									        <div class="progress-bar" style="width: 0%;" ></div>
 									    </div>
