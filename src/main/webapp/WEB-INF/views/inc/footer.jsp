@@ -68,6 +68,7 @@
 					    </div>
 					</div>
 					<input type="hidden" name="display"/>
+					<input type="hidden" name="menuId"/>
 					<input type="text" placeholder="링크 입력" class="ipt1" name="linkUrl">
 					<input type="button" value="등록" class="bt3 on" onclick="javascript:uploadSlide(this);">
 				</form>
@@ -108,6 +109,7 @@ $(document).ready(function(){
 function uploadSlide(button){
 	var url = $(button).parent().attr("action");
 	var param = $(button).parent().serialize();
+	console.log(param);
 	
 	if(confirm("등록 하시겠습니까?")){
 		$.ajax({

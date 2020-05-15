@@ -44,8 +44,7 @@ public class SlidePhotoDAO implements DataAccess<SlidePhotoInfo> {
 
 	@Override
 	public SlidePhotoInfo selectOne(SlidePhotoInfo input) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne(namespace+".select_one", input);
 	}
 
 	@Override

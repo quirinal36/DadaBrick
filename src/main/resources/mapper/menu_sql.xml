@@ -32,7 +32,10 @@
 	</select>
 	
 	<select id="select_one" parameterType="menus" resultType="menus">
-		SELECT * FROM menus
+		SELECT 
+			m.*
+		FROM 
+			menus m
 		<where>
 			<choose>
 				<when test="id gt 0">

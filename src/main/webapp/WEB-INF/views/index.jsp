@@ -45,19 +45,11 @@
 								<a href="${item.linkUrl }" class="name">${item.title }</a>
 								<sec:authorize access="hasRole('ADMIN')">
 									<input type="hidden" value="2" name="display"/>
+									<input type="hidden" value="${item.menuId }" name="menuId"/>
 									<input type="button" value="변경" class="bt_change prdt popup1_opener">
 								</sec:authorize>
 							</div>
 						</c:forEach>
-						<div class="item">
-							<a href="#" class="image" style="background-image: url(/resources/img/temp/2.png);">사진</a>
-							<a href="#" class="name">타일벽돌</a>
-							<sec:authorize access="hasRole('ADMIN')">
-								<input type="hidden" value="2" name="display"/>
-								<input type="button" value="변경" class="bt_change prdt popup1_opener">
-							</sec:authorize>
-						</div>
-						
 					</div>
 				</div>
 				<div class="idx_insta_wrap">

@@ -21,8 +21,10 @@
 			<div id="contentsPrint">
 				<!-- 목록 페이지 상단 -->
 				<div id="contentsTop">
-					<div style="background-image: url(/resources/img/temp/4.png);">
+					<div style="background-image: url(${paging.slideInfo.url});">
 						<input type="button" value="변경" class="bt_change popup1_opener">
+						<input type="hidden" value="3" name="display"/>
+						<input type="hidden" value="${current.id }" name="menuId"/>
 					</div>
 				</div>
 				<div id="contentsTitle">

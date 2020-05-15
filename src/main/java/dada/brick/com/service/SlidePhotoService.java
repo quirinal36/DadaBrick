@@ -43,8 +43,7 @@ public class SlidePhotoService implements DataService<SlidePhotoInfo> {
 
 	@Override
 	public SlidePhotoInfo selectOne(SlidePhotoInfo input) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.selectOne(input);
 	}
 
 	@Override

@@ -22,14 +22,19 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dada.brick.com.service.ProductsService;
+import dada.brick.com.service.SlidePhotoService;
 import dada.brick.com.vo.Menus;
 import dada.brick.com.vo.ProductsVO;
+import dada.brick.com.vo.SlidePhotoInfo;
 
 @Controller
 @RequestMapping("/products")
 public class ProductsController extends DadaController{
 	@Autowired
 	ProductsService productsService;
+	
+	@Autowired
+	SlidePhotoService slidePhotoService;
 	
 	@RequestMapping(value= {"/", "/list", "/list/{id}", "/list/{id}/{page}"},method = RequestMethod.GET)
 	public ModelAndView getListView(ModelAndView mv,
@@ -59,6 +64,12 @@ public class ProductsController extends DadaController{
 			product.setPageNo(pageNum.get());
 		}else {
 			product.setPageNo(1);
+		}
+		
+		SlidePhotoInfo photoTitle = slidePhotoService.selectOne(SlidePhotoInfo.newInstance(SlidePhotoInfo.MENUS_TITLE, product.getMenuId()));
+		if(photoTitle != null) {
+			logger.info(photoTitle.toString());
+			product.setSlideInfo(photoTitle);
 		}
 		List<ProductsVO> products = productsService.select(product);
 		mv.addObject("products", products);

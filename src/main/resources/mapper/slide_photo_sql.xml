@@ -8,14 +8,16 @@
 			photoId,
 			display,
 			linkUrl,
-			title
+			title,
+			menuId
 		)
 		VALUES
 		(
 			${photoId},
 			${display},
 			'${linkUrl}',
-			'${title}'
+			'${title}',
+			${menuId}
 		)
 	</insert>
 	
@@ -35,7 +37,8 @@
 			(
 				SELECT url FROM PhotoInfo WHERE
 				id = photoId
-			) AS url
+			) AS url,
+			menuId
 		FROM SlidePhoto 
 		<where>
 			display = ${display}
@@ -52,10 +55,18 @@
 			(
 				SELECT url FROM PhotoInfo WHERE
 				id = photoId
-			) AS url
+			) AS url,
+			menuId
 		FROM SlidePhoto 
 		<where>
-			id=${id}
+			<choose>
+				<when test="menuId > 0">
+					and menuId = ${menuId} and display = ${display}
+				</when>
+				<otherwise>
+					id=${id}
+				</otherwise>
+			</choose>
 		</where>
 	</select>
 	

@@ -23,4 +23,5 @@ public class ProductsVO extends Paging{
 	String menuName;
 	int parentId;
 	int representImage;
+	SlidePhotoInfo slideInfo;
 }

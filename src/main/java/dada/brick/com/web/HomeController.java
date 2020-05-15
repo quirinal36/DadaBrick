@@ -45,8 +45,8 @@ public class HomeController extends DadaController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, ModelAndView mv,
 			HttpServletRequest req, Authentication authentication) {
-		List<SlidePhotoInfo> slideList = slidePhotoService.select(SlidePhotoInfo.newInstance(1));
-		List<SlidePhotoInfo> productList = slidePhotoService.select(SlidePhotoInfo.newInstance(2));
+		List<SlidePhotoInfo> slideList = slidePhotoService.select(SlidePhotoInfo.newInstance(SlidePhotoInfo.INDEX_MAIN));
+		List<SlidePhotoInfo> productList = slidePhotoService.select(SlidePhotoInfo.newInstance(SlidePhotoInfo.INDEX_MENU));
 		
 		mv.addObject("slideList", slideList);
 		mv.addObject("productList", productList);
@@ -146,6 +146,9 @@ public class HomeController extends DadaController {
 	@RequestMapping(value="/upload/slide", method = RequestMethod.POST, produces = "application/json; charset=utf8")
 	public String uploadIndexSlide(SlidePhotoInfo info) {
 		JSONObject json = new JSONObject();
+		if(info.getDisplay() == SlidePhotoInfo.MENUS_TITLE) {
+			slidePhotoService.delete(SlidePhotoInfo.newInstance(SlidePhotoInfo.MENUS_TITLE, info.getMenuId()));
+		}
 		int result = slidePhotoService.insert(info);
 		json.put("result", result);
 		
