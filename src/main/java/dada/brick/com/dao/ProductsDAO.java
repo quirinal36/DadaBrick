@@ -51,4 +51,14 @@ public class ProductsDAO implements DataAccess<ProductsVO> {
 		return sqlSession.selectOne(namespace+".count", input);
 	}
 
+	public ProductsVO selectPrev(ProductsVO input) {
+		return sqlSession.selectOne(namespace +".select_prev", input);
+	}
+	
+	public ProductsVO selectNext(ProductsVO input) {
+		return sqlSession.selectOne(namespace +".select_next", input);
+	}
+	public int update(List<ProductsVO> input) {
+		return sqlSession.update(namespace +".update_list", input);
+	}
 }

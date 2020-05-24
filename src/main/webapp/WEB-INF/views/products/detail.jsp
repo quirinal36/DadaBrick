@@ -26,25 +26,16 @@ $(function(){
 				<!-- 상세 페이지 슬라이드 -->
 				<div class="detail_slider_wrap">
 					<div class="detail_slider">
-						<div class="item" style="background-image: url(/resources/img/temp/7.png);">사진</div>
-						<div class="item" style="background-image: url(/resources/img/temp/8.png);">사진</div>
-						<div class="item" style="background-image: url(/resources/img/temp/9.png);">사진</div>
-						<div class="item" style="background-image: url(/resources/img/temp/10.png);">사진</div>
-						<div class="item" style="background-image: url(/resources/img/temp/11.png);">사진</div>
+						<c:forEach items="${detailPhotoList }" var="item">
+							<div class="item" style="background-image: url(${item.url});">사진</div>
+						</c:forEach>
 					</div>
 					<div class="detail_slider_pager">
 						<div>
 							<div>
-								<a href="" data-slide-index="0"><img src="/resources/img/temp/7.png" alt="사진" class="item"></a>
-								<a href="" data-slide-index="1"><img src="/resources/img/temp/8.png" alt="사진" class="item"></a>
-								<a href="" data-slide-index="2"><img src="/resources/img/temp/9.png" alt="사진" class="item"></a>
-								<a href="" data-slide-index="3"><img src="/resources/img/temp/10.png" alt="사진" class="item"></a>
-								<a href="" data-slide-index="4"><img src="/resources/img/temp/11.png" alt="사진" class="item"></a>
-								<a href="" data-slide-index="0"><img src="/resources/img/temp/7.png" alt="사진" class="item"></a>
-								<a href="" data-slide-index="1"><img src="/resources/img/temp/8.png" alt="사진" class="item"></a>
-								<a href="" data-slide-index="2"><img src="/resources/img/temp/9.png" alt="사진" class="item"></a>
-								<a href="" data-slide-index="3"><img src="/resources/img/temp/10.png" alt="사진" class="item"></a>
-								<a href="" data-slide-index="4"><img src="/resources/img/temp/11.png" alt="사진" class="item"></a>
+								<c:forEach items="${detailPhotoList }" var="item">
+									<a href="" data-slide-index="0"><img src="${item.url}" alt="사진" class="item"></a>
+								</c:forEach>
 							</div>
 						</div>
 					</div>

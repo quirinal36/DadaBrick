@@ -92,12 +92,33 @@
 			</foreach> 
 		</where>
 	</update>
-	
+	<update id="update_list_products" parameterType="java.util.List">
+		UPDATE PhotoInfo
+		<set>
+			productId =
+			<foreach collection="list" item="item" open="CASE" close="END">
+				WHEN id = ${item.id} THEN ${item.productId}
+			</foreach>
+		</set>
+		<where>
+			id IN
+			<foreach collection="list" item="item" open="(" separator="," close=")">
+				${item.id}
+			</foreach> 
+		</where>
+	</update>
 	<select id="select" parameterType="photoinfo" resultType="photoinfo">
 		SELECT * 
 		FROM PhotoInfo
 		<where>
-			boardId = ${boardId}
+			<choose>
+				<when test="boardId > 0">
+					boardId = ${boardId}	
+				</when>
+				<otherwise>
+					productId = ${productId}
+				</otherwise>
+			</choose>
 		</where>
 	</select>
 	

@@ -64,6 +64,7 @@
 									<div class="bt_move_wrap">
 										<input type="hidden" name="id" value="${item.id }"/>
 										<input type="hidden" name="orderNum" value="${item.orderNum }"/>
+										<input type="hidden" name="menuId" value="${item.menuId }"/>
 										<c:choose>
 											<c:when test="${step.first }">
 												<input type="button" value="이전" class="bt_move prev off">

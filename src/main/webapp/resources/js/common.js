@@ -99,11 +99,12 @@ $(function(){
 		var display = $(this).parent().find("input[name='display']").val();
 		var menuId = $(this).parent().find("input[name='menuId']").val();
 		
-		console.log("display: " + display);
-		console.log("menuId: " + menuId);
-		
 		$(".popup1 form input[name='display']").val(display);
 		$(".popup1 form input[name='menuId']").val(menuId);
+		
+		if(parseInt($(".popup1 form input[name='display']").val()) > 1){
+			$(".popup1 form input[name='linkUrl']").hide();
+		}
 		$(".popup1").fadeIn();
 	});
 });

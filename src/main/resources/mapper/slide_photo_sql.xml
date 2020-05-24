@@ -24,7 +24,14 @@
 	<delete id="delete" parameterType="popup">
 		DELETE FROM SlidePhoto
 		<where>
-			id=${id}
+			<choose>
+				<when test="display > 0">
+					display = ${display} and menuId = ${menuId}
+				</when>
+				<otherwise>
+					id=${id}
+				</otherwise>
+			</choose>
 		</where>
 	</delete>
 	
@@ -75,4 +82,13 @@
 		FROM SlidePhoto
 	</select>
 	
+	<update id="update" parameterType="slide-photo">
+		UPDATE SlidePhoto
+		<set>
+			photoId = ${photoId}
+		</set>
+		<where>
+			id = ${id}
+		</where>
+	</update>
 </mapper>

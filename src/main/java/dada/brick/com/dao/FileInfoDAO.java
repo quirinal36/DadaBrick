@@ -62,4 +62,7 @@ public class FileInfoDAO implements DataAccess<FileInfo>{
 	public List<FileInfo> selectById(List<FileInfo> list){
 		return sqlSession.selectList(namespace +".select_by_id", list);
 	}
+	public int updateProducts(List<FileInfo> list) {
+		return sqlSession.update(namespace +".update_list_products", list);
+	}
 }

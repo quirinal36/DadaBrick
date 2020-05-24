@@ -59,7 +59,7 @@
 				<input type="button" value="닫기" class="bt_popup_close">
 				<!-- 팝업 내용 시작 -->
 				<form action="/upload/slide" method="POST">
-					<input id="image-upload-btn" type="file" accept="image/*" value="사진 업로드" class="bt1" data-url="<c:url value="/upload/sized/image"/>">
+					<input id="popup-image-upload-btn" type="file" accept="image/*" value="사진 업로드" class="bt1" data-url="<c:url value="/upload/sized/image"/>">
 					<div class="address">
 						<ul id="slide-image" class="imgUpload_list"> 
 						</ul>
@@ -80,7 +80,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	// 대표이미지
-	$('#image-upload-btn').fileupload({
+	$('#popup-image-upload-btn').fileupload({
 		imageCrop: true,
         dataType: 'json',
         done: function (e, data) {
@@ -109,9 +109,8 @@ $(document).ready(function(){
 function uploadSlide(button){
 	var url = $(button).parent().attr("action");
 	var param = $(button).parent().serialize();
-	console.log(param);
 	
-	if(confirm("등록 하시겠습니까?")){
+	if(confirm("등록하시겠습니까?")){
 		$.ajax({
 			url : url,
 			data: param,

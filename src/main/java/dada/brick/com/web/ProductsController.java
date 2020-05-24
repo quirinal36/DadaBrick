@@ -1,6 +1,7 @@
 package dada.brick.com.web;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -17,13 +18,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dada.brick.com.service.ProductsService;
 import dada.brick.com.service.SlidePhotoService;
+import dada.brick.com.vo.FileInfo;
 import dada.brick.com.vo.Menus;
+import dada.brick.com.vo.PhotoInfo;
 import dada.brick.com.vo.ProductsVO;
 import dada.brick.com.vo.SlidePhotoInfo;
 
@@ -68,7 +72,6 @@ public class ProductsController extends DadaController{
 		
 		SlidePhotoInfo photoTitle = slidePhotoService.selectOne(SlidePhotoInfo.newInstance(SlidePhotoInfo.MENUS_TITLE, product.getMenuId()));
 		if(photoTitle != null) {
-			logger.info(photoTitle.toString());
 			product.setSlideInfo(photoTitle);
 		}
 		List<ProductsVO> products = productsService.select(product);
@@ -92,11 +95,16 @@ public class ProductsController extends DadaController{
 	public ModelAndView getDetailView(ModelAndView mv,
 			@PathVariable(value="id")Optional<Integer>productId,
 			ProductsVO product) {
+		
 		if(productId.isPresent()) {
 			product.setId(productId.get());
 		}
+		PhotoInfo photoInfo = PhotoInfo.newInstance(productId.get(), 0);
+		List<PhotoInfo> detailPhotoList = photoInfoService.select(photoInfo);
 		
 		mv.addObject("product", productsService.selectOne(product));
+		mv.addObject("detailPhotoList", detailPhotoList);
+		
 		mv.setViewName("/products/detail");
 		return mv;
 	}
@@ -104,9 +112,18 @@ public class ProductsController extends DadaController{
 	@ResponseBody
 	@RequestMapping(value="/add", method = RequestMethod.POST, produces = "application/json; charset=utf8")
 	public String postProduct(ModelAndView mv, ProductsVO product,
-			HttpServletRequest request) {
+			HttpServletRequest request, @RequestParam(value="detImage")int[] detImages) {
 		JSONObject json = new JSONObject();
 		int result = productsService.insert(product);
+		
+		if(detImages.length > 0) {
+			List<PhotoInfo> photoInfoList = new ArrayList<>();
+			for(int detImg : detImages) {
+				photoInfoList.add(PhotoInfo.newInstance(product.getId(), detImg));
+			}
+			photoInfoService.updateProducts(photoInfoList);
+		}
+		
 		json.put("result", result);
 		json.put("category", product.getMenuId());
 		return json.toString();
@@ -141,5 +158,40 @@ public class ProductsController extends DadaController{
 	public ModelAndView getEditView(ModelAndView mv) {
 		mv.setViewName("/products/edit");
 		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/move/{dest}", method=RequestMethod.POST, produces = "application/json; charset=utf8")
+	public String moveOrder(ProductsVO product,
+			@PathVariable(value="dest", required = true)String dest) {
+		JSONObject json = new JSONObject();
+		
+		if(dest.equals("prev")) {
+			ProductsVO prevProduct = productsService.selectPrev(product);
+			if(prevProduct != null) {
+				logger.info(prevProduct.toString());
+				int temp = product.getOrderNum();
+				product.setOrderNum(prevProduct.getOrderNum());
+				prevProduct.setOrderNum(temp);
+				List<ProductsVO> editList = new ArrayList<ProductsVO>();
+				editList.add(product);
+				editList.add(prevProduct);
+				json.put("result", productsService.update(editList));
+			}
+		}else if(dest.equals("next")) {
+			ProductsVO nextProduct = productsService.selectNext(product);
+			if(nextProduct != null) {
+				logger.info(nextProduct.toString());
+				int temp = product.getOrderNum();
+				product.setOrderNum(nextProduct.getOrderNum());
+				nextProduct.setOrderNum(temp);
+				List<ProductsVO> editList = new ArrayList<ProductsVO>();
+				editList.add(product);
+				editList.add(nextProduct);
+				json.put("result", productsService.update(editList));
+			}
+		}
+		
+		return json.toString();
 	}
 }

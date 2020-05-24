@@ -31,6 +31,9 @@ public class PhotoInfoService implements DataService<PhotoInfo> {
 	public int update(List<PhotoInfo> list) {
 		return dao.update(list);
 	}
+	public int updateProducts(List<PhotoInfo> list) {
+		return dao.updateProducts(list);
+	}
 	@Override
 	public int delete(PhotoInfo input) {
 		return dao.delete(input);

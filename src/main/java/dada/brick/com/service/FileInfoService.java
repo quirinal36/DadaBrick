@@ -29,6 +29,9 @@ public class FileInfoService implements DataService<FileInfo>{
 	public int update(List<FileInfo> list) {
 		return dao.update(list);
 	}
+	public int updateProducts(List<FileInfo> list) {
+		return dao.updateProducts(list);
+	}
 	@Override
 	public int delete(FileInfo input) {
 		return dao.delete(input);

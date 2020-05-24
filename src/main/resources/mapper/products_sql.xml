@@ -82,10 +82,54 @@
 		</where>
 	</select>
 	
+	<select id="select_prev" parameterType="products" resultType="products">
+		SELECT *
+		FROM
+			products
+		WHERE
+			menuId = ${menuId}
+			and
+			orderNum = (SELECT MIN(orderNum) FROM products WHERE orderNum &gt; ${orderNum} and menuId = ${menuId})
+	</select>
+	
+	<select id="select_next" parameterType="products" resultType="products">
+		SELECT *
+		FROM
+			products
+		WHERE
+			menuId = ${menuId}
+			and
+			orderNum = 
+				(
+				SELECT MAX(p.orderNum) 
+				FROM products p
+				WHERE 
+					orderNum &lt; ${orderNum} 
+					and 
+					menuId = ${menuId}
+				)
+	</select>
+	
 	<delete id="delete" parameterType="products">
 		DELETE FROM products
 		<where>
 			id = ${id}		
 		</where>
 	</delete>
+	
+	<update id="update_list" parameterType="java.util.List">
+		UPDATE products
+		<set>
+			orderNum =
+			<foreach collection="list" item="item" open="CASE" close="END">
+				WHEN id = ${item.id} THEN ${item.orderNum}
+			</foreach> 
+		</set>
+		<where>
+			id IN
+			<foreach collection="list" item="item" open="(" close=")" separator=",">
+				${item.id}
+			</foreach>
+		</where>
+	</update>
 </mapper>

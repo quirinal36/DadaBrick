@@ -30,6 +30,9 @@ public class PhotoInfoDAO implements DataAccess<PhotoInfo> {
 	public int update(List<PhotoInfo> list) {
 		return sqlSession.update(namespace +".update_list", list);
 	}
+	public int updateProducts(List<PhotoInfo> list) {
+		return sqlSession.update(namespace +".update_list_products", list);
+	}
 	@Override
 	public int delete(PhotoInfo input) {
 		return sqlSession.delete(namespace+".delete", input);

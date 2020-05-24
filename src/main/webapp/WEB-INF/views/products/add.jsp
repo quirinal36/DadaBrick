@@ -91,11 +91,9 @@
 							<tr>
 								<th>상세사진</th>
 								<td colspan="3" id="dropzone-img-det">
-									<input id="detail-upload-btn" type="file" accept="image/*" value="등록" class="bt_imgUpload" data-url="<c:url value="/upload/sized/image"/>">
+									<input id="detail-upload-btn" type="file" accept="image/*" value="등록" class="bt_imgUpload" data-url="<c:url value="/upload/sized/image"/>" multiple>
 									<ul id="det-image" class="imgUpload_list">
-										<li style="background-image: url(/resources/img/temp/7.png);">
-											<input type="button" value="삭제" class="bt_imgDelete">
-										</li>
+										
 									</ul>
 								</td>
 							</tr>
@@ -103,7 +101,7 @@
 					</table>
 					<div class="bt_wrap">
 						<a href="javascript:submitProduct();" class="bt1 on">등록</a>
-						<a href="#" class="bt1">취소</a>
+						<a href="javascript:window.history.back();" class="bt1">취소</a>
 					</div>
 					</form>
 				</div>

@@ -63,6 +63,9 @@ $(document).ready(function(){
         dataType: 'json',
         done: function (e, data) {
         	var file = data.result.file;
+        	
+        	console.log(file);
+        	
         	$("#rep-image").empty();
         	$("#image-upload-btn").hide();
         	$("#rep-image").append(makeLI(file, 'representImage'));

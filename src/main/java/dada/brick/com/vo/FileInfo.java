@@ -15,9 +15,11 @@ public class FileInfo {
 		result.setBoardId(boardId);
 		return result;
 	}
+	
 	int id;
 	int uploader;
 	int boardId;
+	int productId;
 	Date wdate;
 	String url;
 	String name;

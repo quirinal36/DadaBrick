@@ -148,9 +148,18 @@ public class HomeController extends DadaController {
 		JSONObject json = new JSONObject();
 		if(info.getDisplay() == SlidePhotoInfo.MENUS_TITLE) {
 			slidePhotoService.delete(SlidePhotoInfo.newInstance(SlidePhotoInfo.MENUS_TITLE, info.getMenuId()));
+			json.put("result", slidePhotoService.insert(info));
+		}else if(info.getDisplay() == SlidePhotoInfo.INDEX_MENU) {
+			SlidePhotoInfo selectedInfo = slidePhotoService.selectOne(info);
+			if(selectedInfo != null) {
+				selectedInfo.setPhotoId(info.getPhotoId());
+				slidePhotoService.update(selectedInfo);
+			}
+		}else if(info.getDisplay() == SlidePhotoInfo.INDEX_MAIN) {
+			json.put("result", slidePhotoService.insert(info));
 		}
-		int result = slidePhotoService.insert(info);
-		json.put("result", result);
+		
+		
 		
 		return json.toString();
 	}

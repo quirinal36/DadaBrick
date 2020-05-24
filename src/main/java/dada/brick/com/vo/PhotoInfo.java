@@ -18,6 +18,12 @@ public class PhotoInfo implements Cloneable{
 		result.setBoardId(boardId);
 		return result;
 	}
+	public static PhotoInfo newInstance(int productId, int id) {
+		PhotoInfo result = new PhotoInfo();
+		result.setProductId(productId);
+		result.setId(id);
+		return result;
+	}
 	public static PhotoInfo newInstance(MultipartFile mpf) {
 		PhotoInfo result = new PhotoInfo();
 		
@@ -35,6 +41,7 @@ public class PhotoInfo implements Cloneable{
 	}
 	int id;
 	int uploader;
+	int productId;
 	Date wdate;
 	String url;
 	String name;

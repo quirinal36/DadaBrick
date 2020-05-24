@@ -13,6 +13,7 @@ public class ProductsVO extends Paging{
 	int id;
 	int menuId;
 	int orderNum;
+	int orderNumAfter;
 	String name;
 	String primaryId;
 	String size;

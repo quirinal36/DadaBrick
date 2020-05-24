@@ -48,5 +48,16 @@ public class ProductsService implements DataService<ProductsVO> {
 	public int count(ProductsVO input) {
 		return dao.count(input);
 	}
-
+	
+	public ProductsVO selectPrev(ProductsVO input) {
+		return dao.selectPrev(input);
+	}
+	
+	public ProductsVO selectNext(ProductsVO input) {
+		return dao.selectNext(input);
+	}
+	
+	public int update(List<ProductsVO> input) {
+		return dao.update(input);
+	}
 }

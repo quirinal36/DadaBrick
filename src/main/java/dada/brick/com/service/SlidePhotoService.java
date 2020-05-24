@@ -20,14 +20,12 @@ public class SlidePhotoService implements DataService<SlidePhotoInfo> {
 
 	@Override
 	public int update(SlidePhotoInfo input) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.update(input);
 	}
 
 	@Override
 	public int delete(SlidePhotoInfo input) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.delete(input);
 	}
 
 	@Override
