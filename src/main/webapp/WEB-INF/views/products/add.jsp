@@ -28,7 +28,16 @@
 				</div>
 				<!-- 상세 페이지 제품정보 등록 -->
 				<div id="products_info_wrap">
-					<form id="admin-add-form" action="<c:url value="/products/add"/>" method="POST">					
+					<c:choose>
+						<c:when test="${product.id gt 0}">
+							<c:set var="actionUrl" value="/products/edit"/> 
+						</c:when>
+						<c:otherwise>
+							<c:set var="actionUrl" value="/products/add"/>
+						</c:otherwise>
+					</c:choose> 
+					<form id="admin-add-form" method="POST" action="${actionUrl }">
+					
 					<table class="tbl1">
 						<colgroup>
 							<col width="12%">
@@ -41,7 +50,7 @@
 								<th>제품명</th>
 								<td>
 									<input type="text" placeholder="제품명 입력" class="ipt1 w80"
-										name="name" required>
+										name="name" required value="${product.name }">
 								</td>
 								<th>카테고리</th>
 								<td>
@@ -57,24 +66,24 @@
 								<th>제품번호</th>
 								<td>
 									<input type="text" placeholder="제품번호 입력" class="ipt1 w80"
-										name="primaryId">
+										name="primaryId" value="${product.primaryId }">
 								</td>
 								<th>규격</th>
 								<td>
 									<input type="text" placeholder="규격 입력" class="ipt1 w80"
-										name="size">
+										name="size" value="${product.size }">
 								</td>
 							</tr>
 							<tr>
 								<th>포장</th>
 								<td>
 									<input type="text" placeholder="포장 입력" value="파렛트 포장" class="ipt1 w80"
-										name="packaging">
+										name="packaging" value="${product.packaging }">
 								</td>
 								<th>배송</th>
 								<td>
 									<input type="text" placeholder="배송 입력" value="화물" class="ipt1 w80"
-										name="delivery">
+										name="delivery" value="${product.delivery }">
 								</td>
 							</tr>
 							<tr>
@@ -82,6 +91,12 @@
 								<td colspan="3" id="dropzone-img-rep">
 									<input id="image-upload-btn" type="file" accept="image/*" value="등록" class="bt_imgUpload" data-url="<c:url value="/upload/sized/image"/>">
                                     <ul id="rep-image" class="imgUpload_list"> 
+                                    	<c:if test="${product.representImage > 0}">
+                                    		<li id="${product.representImage }" style="background-image:url('/picture/${product.representImage }')">
+                                    			<input type="button" class="bt_imgDelete" value="삭제" onclick="delImageClick(this);"/>
+                                    			<input type="hidden" name="representImage" value="${product.representImage }"/>
+                                    		</li>
+                                    	</c:if>
                                     </ul>
                                     <div id="progress_rep_image" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
 								    	<div class="progress-bar" style="width: 0%;" ></div>
@@ -93,14 +108,28 @@
 								<td colspan="3" id="dropzone-img-det">
 									<input id="detail-upload-btn" type="file" accept="image/*" value="등록" class="bt_imgUpload" data-url="<c:url value="/upload/sized/image"/>" multiple>
 									<ul id="det-image" class="imgUpload_list">
-										
+										<c:forEach items="${detailPhotoList }" var="item">
+											<li id="${item.id }" style="background-image:url('${item.url }')">
+                                    			<input type="button" class="bt_imgDelete" value="삭제" onclick="delImageClick(this);"/>
+                                    			<input type="hidden" name="detImage" value="${item.id }"/>
+                                    		</li>
+										</c:forEach>
 									</ul>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 					<div class="bt_wrap">
-						<a href="javascript:submitProduct();" class="bt1 on">등록</a>
+						<c:choose>
+							<c:when test="${product.id gt 0}">
+								<input type="hidden" name="id" value="${product.id }"/>
+								<a href="javascript:submitProduct();" class="bt1 on">저장</a>
+							</c:when>
+							<c:otherwise>
+								<a href="javascript:submitProduct();" class="bt1 on">등록</a>
+							</c:otherwise>
+						</c:choose>
+						
 						<a href="javascript:window.history.back();" class="bt1">취소</a>
 					</div>
 					</form>

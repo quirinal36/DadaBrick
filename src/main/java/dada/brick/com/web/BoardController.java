@@ -29,6 +29,7 @@ import dada.brick.com.vo.Board;
 import dada.brick.com.vo.FileInfo;
 import dada.brick.com.vo.PhotoInfo;
 import dada.brick.com.vo.Reply;
+import dada.brick.com.vo.UserVO;
 
 @RequestMapping(value="/board")
 @Controller
@@ -73,7 +74,7 @@ public class BoardController extends DadaController{
 		if(boardId.isPresent()) {
 			board = Board.newInstance(boardId.get());
 			board = boardService.selectOne(board);
-
+			board.setContent(board.getContent().replaceAll("&quot;", "\""));
 			boardService.updateCount(Board.newInstance(board.getId()));
 			
 			List<FileInfo> fileList = fileInfoService.select(FileInfo.newInstance(board.getId()));
@@ -97,12 +98,15 @@ public class BoardController extends DadaController{
 			switch(board.getBoardType()) {
 			case 16:
 				mv.addObject("listUrl", "/board/notice/");
+				mv.addObject("edit_url", "/board/edit/16");
 				break;
 			case 17:
 				mv.addObject("listUrl", "/board/faq/");
+				mv.addObject("edit_url", "/board/edit/17");
 				break;
 			case 18:
 				mv.addObject("listUrl", "/board/data/");
+				mv.addObject("edit_url", "/board/edit/18");
 				break;
 			}
 			mv.setViewName("/board/detail");
@@ -171,9 +175,44 @@ public class BoardController extends DadaController{
 		return json.toString();
 	}
 	
-	@RequestMapping(value= {"/edit/", "/edit/{type}"}, method=RequestMethod.GET)
-	public ModelAndView getEditView(ModelAndView mv) {
-		mv.setViewName("/board/edit");
+	@RequestMapping(value= {"/edit/{type}/{boardId}"}, method=RequestMethod.GET)
+	public ModelAndView getEditView(ModelAndView mv, 
+			@PathVariable(value="boardId", required = true)Optional<Integer>boardId,
+			@PathVariable(value="type")Optional<Integer> boardType) {
+		if(boardId.isPresent()) {
+			StringBuilder listUrl = new StringBuilder();
+			listUrl.append("/board/");
+			if(boardType.isPresent()) {
+				mv.addObject("boardType", boardType.get());
+				switch(boardType.get()) {
+				case 16:
+					mv.addObject("boardName", "공지사항");
+					listUrl.append("notice/");
+					break;
+				case 17:
+					mv.addObject("boardName", "질문과답변");
+					listUrl.append("faq/");
+					break;
+				case 18:
+					mv.addObject("boardName", "자료실");
+					listUrl.append("data/");
+					break;
+				}
+				
+			}
+			Board board = boardService.selectOne(Board.newInstance(boardId.get()));
+			board.setContent(board.getContent().replaceAll("&quot;", "\""));
+			
+			List<PhotoInfo> photos = photoInfoService.select(PhotoInfo.newInstance(board.getId()));
+			mv.addObject("photos", photos);
+			
+			List<FileInfo> files = fileInfoService.select(FileInfo.newInstance(board.getId()));
+			mv.addObject("files", files);
+			
+			mv.addObject("board", board);
+			mv.addObject("listUrl", listUrl.toString());
+		}
+		mv.setViewName("/board/write");
 		return mv;
 	}
 	
@@ -181,6 +220,10 @@ public class BoardController extends DadaController{
 	@RequestMapping(value= {"/edit"}, method=RequestMethod.POST, produces = "application/json; charset=utf8")
 	public String edit(ModelAndView mv, Board board) {
 		JSONObject json = new JSONObject();
+		
+		UserVO user = getUser();
+		logger.info(user.toString());
+		
 		return json.toString();
 	}
 	

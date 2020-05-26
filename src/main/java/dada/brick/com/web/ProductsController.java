@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import dada.brick.com.service.PhotoInfoService;
 import dada.brick.com.service.ProductsService;
 import dada.brick.com.service.SlidePhotoService;
 import dada.brick.com.vo.FileInfo;
@@ -110,6 +111,35 @@ public class ProductsController extends DadaController{
 	}
 	
 	@ResponseBody
+	@RequestMapping(value="/edit", method = RequestMethod.POST, produces = "application/json; charset=utf8")
+	public String postEditProduct(ProductsVO product, @RequestParam(value="detImage")int[] detImages,
+			HttpServletRequest request, RedirectAttributes redirectAttr) {
+		JSONObject json = new JSONObject();
+		if(request.isUserInRole("ADMIN")) {
+			// 1. detImages 적어졌는지 검사해서 빼거나 추가하기
+			List<PhotoInfo> photoList = photoInfoService.select(PhotoInfo.newInstance(product.getId(), 0));
+			
+			Map<Integer, PhotoInfo> photoInfoMap = photoList.stream().collect(Collectors.toMap(PhotoInfo::getId, photoInfo->photoInfo));
+			
+			List<PhotoInfo> appendPhotos = new ArrayList<>();
+			
+			// photoInfoMap 에는 없지만, detImages에는 있다면 추가해야한다.
+			for(Integer detImg : detImages) {
+				if(!photoInfoMap.containsKey(detImg)) {
+					appendPhotos.add(PhotoInfo.newInstance(product.getId(), detImg));
+				}
+			}
+			photoInfoService.updateProducts(appendPhotos);
+			
+			json.put("result", productsService.update(product));
+		}else {
+			json.put("result", -1);
+		}
+		// 2. product 객체 update 하기
+		return json.toString();
+	}
+	
+	@ResponseBody
 	@RequestMapping(value="/add", method = RequestMethod.POST, produces = "application/json; charset=utf8")
 	public String postProduct(ModelAndView mv, ProductsVO product,
 			HttpServletRequest request, @RequestParam(value="detImage")int[] detImages) {
@@ -154,9 +184,36 @@ public class ProductsController extends DadaController{
 		return mv;
 	}
 	
-	@RequestMapping(value="/edit", method = RequestMethod.GET)
-	public ModelAndView getEditView(ModelAndView mv) {
-		mv.setViewName("/products/edit");
+	@RequestMapping(value="/edit/{id}", method = RequestMethod.GET)
+	public ModelAndView getEditView(ModelAndView mv, HttpServletRequest request,
+			@PathVariable(value="id", required=true)Optional<Integer> productId, RedirectAttributes redirectAttr) {
+		
+		if(productId.isPresent()) {
+			if(request.isUserInRole("ADMIN")) {
+				// 상단에 표시될 메뉴들
+				Menus parent = new Menus();
+				parent.setParentId(0);
+				List<Menus> parents = menuService.select(parent);
+				
+				// 자식메뉴들
+				List<Menus> children = menuService.select(parents);
+				Map<Integer, Menus> map = children.stream().collect(Collectors.toMap(Menus::getMenuNum, menus->menus, (p1,p2)->p1));
+				TreeMap<Integer, Menus> sortedMap = new TreeMap<Integer, Menus>(map);
+				Iterator<Integer> iterKey = sortedMap.keySet().iterator();
+				
+				mv.addObject("category", sortedMap);
+				mv.addObject("product", productsService.selectOne(ProductsVO.newInstance(productId.get())));
+				
+				PhotoInfo photoInfo = PhotoInfo.newInstance(productId.get(), 0);
+				List<PhotoInfo> detailPhotoList = photoInfoService.select(photoInfo);
+				mv.addObject("detailPhotoList", detailPhotoList);
+				mv.setViewName("/products/add");
+			}else {
+				redirectAttr.addAttribute("loginRedirect", "/products/add");
+				mv.setViewName("redirect:/member/login");
+			}
+		}
+		
 		return mv;
 	}
 	

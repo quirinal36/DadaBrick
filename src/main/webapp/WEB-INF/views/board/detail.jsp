@@ -229,10 +229,10 @@ function deleteBoard(id){
 						<input type="hidden" name="edit_url" value="${edit_url }${board.id}" />
 						<input type="hidden" name="del_url" value="${del_url }${board.id}" />
 						<input type="hidden" name="list_url" value="${listUrl }" />
-						<input type="hidden" value="${user.id }" />
+						<input type="hidden" value="${user.kakaoId }" />
 						<input type="hidden" value="${board.writer }" />
 						<c:choose>
-							<c:when test="${user.id eq board.writer }">
+							<c:when test="${user.kakaoId eq board.writer }">
 								<input type="button" class="bt1 btn_edit" value="<spring:message code="board.edit"/>" onclick="window.location.replace('${edit_url}/${board.id }')">
 								<input type="button" class="bt1 btn_del" value="<spring:message code="board.delete"/>" onclick="javascript:deleteBoard('${board.id}');">
 							</c:when>

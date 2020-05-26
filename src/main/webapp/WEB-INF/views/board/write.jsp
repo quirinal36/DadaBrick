@@ -57,14 +57,19 @@
 			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
 			
 			var textContent = document.getElementById("ir1").value;
+			console.log("before: "+textContent);
+			
 			textContent = replaceAll(textContent, "'", "&apos;");
+			textContent = replaceAll(textContent, "\"", "&quot;");
 			textContent = replaceAll(textContent, "&nbsp;", " ");
 			textContent = replaceAll(textContent, "&", "%26");
+			console.log("after: "+textContent);
 			
 			var url = $("form").attr("action");
 			
 			var title = $("input[name='title']").val();
 			title = replaceAll(title, "'", "&apos;");
+			title = replaceAll(title, "\"", "&quot;");
 			title = replaceAll(title, "&nbsp;", " ");
 			title = replaceAll(title, "&", "%26");
 			
@@ -81,7 +86,7 @@
 			var param = $("form").serialize(); 
 			param += "&pictures="+pictures.join(",");
 			param += "&files="+files.join(",");
-			
+			param += "&content="+content;
 			console.log(param);
 			
 			if(confirm("글을 등록시키겠습니까?")){
@@ -121,16 +126,28 @@
 							<div class="board_write_title">
 								<div class="title"><spring:message code="board.title" text="board.title"></spring:message></div>
 								<div class="title_ipt">
-									<input type="text" placeholder="<spring:message code="board.title" text="board.title"></spring:message>" name="title" autocomplete="off" >
+									<input type="text" placeholder="<spring:message code="board.title" text="board.title"></spring:message>" name="title" autocomplete="off" 
+										value="${board.title }">
 								</div>
 								<div class="writer"><spring:message code="board.user" text="board.user"></spring:message></div>
 								<div class="writer_ipt">
-									<input type="text" placeholder="<spring:message code="board.user" text="board.user"></spring:message>" value="${user.nickname }" readonly autocomplete="off">
-									<input type="hidden" name="writer" value="${user.kakaoId}"/>
+									
+									<c:choose>
+										<c:when test="${board.writer gt 0 }">
+											<input type="hidden" name="writer" value="${user.writer}"/>
+											<input type="text" placeholder="<spring:message code="board.user" text="board.user"></spring:message>" readonly autocomplete="off"
+												value="${board.writerName }" >
+										</c:when>
+										<c:otherwise>
+											<input type="hidden" name="writer" value="${user.kakaoId}"/>
+											<input type="text" placeholder="<spring:message code="board.user" text="board.user"></spring:message>" readonly autocomplete="off"
+												value="${user.nickname }" >
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</div>
 							<div class="board_write_cont">
-								<textarea name="content" id="ir1" rows="10" style="width:100%; height:412px; display:none;"></textarea>	                        
+								<textarea id="ir1" rows="10" style="width:100%; height:412px; display:none;"></textarea>	                        
 							</div>
 							<div class="board_write_img" id="dropzone-img">
 								<dl>
@@ -138,6 +155,7 @@
 									<dd>
 										<!-- 사진 목록 -->
 										<ul id="picture_ul">
+											
 										</ul>
 										<!-- 첨부하기 버튼 -->
 										<input id="imageupload" type="file" name="files[]" 
@@ -187,7 +205,7 @@
 		htParams : {
 			bUseToolbar : true,				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
 			bUseVerticalResizer : true,		// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-			bUseModeChanger : true,			// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+			bUseModeChanger : true,		// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
 			//bSkipXssFilter : true,		// client-side xss filter 무시 여부 (true:사용하지 않음 / 그외:사용)
 			//aAdditionalFontList : aAdditionalFontSet,		// 추가 글꼴 목록
 			fOnBeforeUnload : function(){
@@ -197,9 +215,9 @@
 		}, //boolean
 		fOnAppLoad : function(){
 			//예제 코드
-			//oEditors.getById["ir1"].exec("PASTE_HTML", ["로딩이 완료된 후에 본문에 삽입되는 text입니다."]);
+			oEditors.getById["ir1"].exec("PASTE_HTML", ['${board.content}']);
 		},
-		fCreator: "createSEditor2"
+		fCreator: "createSEditor2"		
 	});
 	
 	$(document).ready(function(){

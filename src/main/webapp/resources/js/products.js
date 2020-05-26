@@ -1,5 +1,6 @@
 function submitProduct(){
 	var param = $("#admin-add-form").serialize();
+	var productId = $("#productId").val();
 	
 	if(confirm("저장하시겠습니까?")){
 		/*
