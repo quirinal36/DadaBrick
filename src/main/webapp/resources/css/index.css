@@ -9,6 +9,7 @@
 
 .idx_main .item {
 	position: relative;
+    background: #f5f5f5;
 }
 
 .idx_main .item a {
@@ -23,11 +24,30 @@
 	overflow: hidden;
 }
 
-.idx_main .bt_change.main {
+.idx_main .bt_add.main,
+.idx_main .bt_change.main,
+.idx_main .bt_del.main {
 	position:absolute;
 	top: 20px;
-	right: 20px;
     color: #fff;
+}
+
+.idx_main .bt_add.main {
+	right: 120px;
+}
+
+.idx_main .bt_change.main {
+	right: 70px;
+}
+
+.idx_main .bt_del.main {
+	right: 20px;
+}
+
+.idx_main .bt_add.main:hover,
+.idx_main .bt_change.main:hover,
+.idx_main .bt_del.main:hover {
+	background: rgba(0, 0, 0, 0.1);
 }
 
 .idx_products_wrap,

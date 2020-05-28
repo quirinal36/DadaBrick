@@ -199,8 +199,10 @@ input.w80 {
 	font-weight: 400;
 }
 
-/* 이미지 교체 버튼 */
-.bt_change {
+/* 이미지 교체, 삭제 버튼 */
+.bt_add,
+.bt_change,
+.bt_del {
 	display: block;
     width: 40px;
     padding: 3px 0;

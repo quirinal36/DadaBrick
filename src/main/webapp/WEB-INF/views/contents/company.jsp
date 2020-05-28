@@ -54,7 +54,7 @@ $(function(){
 							</p>
 						</li>
 						<li>
-							<div class="image" style="background-image: url(/resources/img/contents/company_section2_1.png);">사진</div>
+							<div class="image" style="background-image: url(/resources/img/contents/company_section2_2.png);">사진</div>
 							<p>
 								시각적인 만족을 넘어서 고객의 건강을 생각하고,<br>
 								현대적인 감각과 미래를 선도하는 기술,<br>
@@ -62,7 +62,7 @@ $(function(){
 							</p>
 						</li>
 						<li>
-							<div class="image" style="background-image: url(/resources/img/contents/company_section2_1.png);">사진</div>
+							<div class="image" style="background-image: url(/resources/img/contents/company_section2_3.png);">사진</div>
 							<p>
 								소비자에게 다양성과 차별화, 질 좋은 제품을 공급하기 위해<br>
 								제품 한 장 한 장에 정직과, 성실, 신뢰를 담아<br>
