@@ -99,8 +99,16 @@ $(function(){
 		var display = $(this).parent().find("input[name='display']").val();
 		var menuId = $(this).parent().find("input[name='menuId']").val();
 		
-		$(".popup1 form input[name='display']").val(display);
-		$(".popup1 form input[name='menuId']").val(menuId);
+		if(display > 0){
+			$(".popup1 form input[name='display']").val(display);
+		}else{
+			$(".popup1 form input[name='display']").val(0);
+		}
+		if(menuId > 0){
+			$(".popup1 form input[name='menuId']").val(menuId);
+		}else{
+			$(".popup1 form input[name='menuId']").val(0);
+		}
 		
 		if(parseInt($(".popup1 form input[name='display']").val()) > 1){
 			$(".popup1 form input[name='linkUrl']").hide();

@@ -29,6 +29,8 @@
 .idx_main .bt_del.main {
 	position:absolute;
 	top: 20px;
+	border-color: #777;
+	background: rgba(0, 0, 0, 0.5);
     color: #fff;
 }
 
@@ -42,12 +44,6 @@
 
 .idx_main .bt_del.main {
 	right: 20px;
-}
-
-.idx_main .bt_add.main:hover,
-.idx_main .bt_change.main:hover,
-.idx_main .bt_del.main:hover {
-	background: rgba(0, 0, 0, 0.1);
 }
 
 .idx_products_wrap,

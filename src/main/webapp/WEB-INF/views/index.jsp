@@ -29,8 +29,8 @@
 						<div class="item">
 							<a href="${item.linkUrl }" class="item" style="background-image: url(${item.url});">제품</a>
 							<sec:authorize access="hasRole('ADMIN')">
-								<input type="hidden" value="1" name="display"/>
 								<div class="bt_wrap">
+									<input type="hidden" value="1" name="display"/>
 									<input type="button" value="추가" class="bt_add main popup1_opener">	
 									<input type="button" value="변경" class="bt_change main popup1_opener">
 									<input type="button" value="삭제" class="bt_del main">	

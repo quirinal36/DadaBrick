@@ -128,6 +128,10 @@ function deleteBoard(id){
 				<c:param name="id">${curMenu.id }</c:param>
 			</c:import>
 			<div id="contentsPrint">
+				<!-- 상세 페이지 상단 -->
+				<div id="contentsTitle">
+					<h2>${boardName }</h2>
+				</div>
 				<div class="board_view" style="margin-top: 60px;">
 					<div class="board_view_title">
 						<div class="title">
@@ -162,66 +166,68 @@ function deleteBoard(id){
 							</div>
 						</div>
 					</c:if>
-					<div class="repl_wrap">
-						<!-- 댓글 보기 -->
-						<ol class="repl_list">
-							<!-- 기본 -->
-							<c:forEach items="${replyList }" var="reply">
-								<li id="reply-${reply.id }">
-									<div class="top">
-										<span class="repl_writer">${reply.writerName }</span>
-										<span class="repl_date">(<fmt:formatDate value="${reply.mdate}" pattern="yyyy-MM-dd" />)</span>
-										<c:if test="${user.kakaoId eq reply.writer }">
-											<input type="button" value="수정" class="bt_repl_edit" onclick="javascript:showEditView('${reply.id }');">
-											<input type="button" value="삭제" class="bt_repl_del" onclick="javascript:deleteReply('${reply.id}')">
-										</c:if>
-										<input type="hidden" name="user-id" value="${user.id }"/>
-									</div>
-									<p class="repl_cont">${fn:replace(reply.content, LF, "<br/>") }</p>
-								</li>
-								
-								<!-- 수정 눌렀을 때 -->
-								<li id="reply-edit-${reply.id }" style="display:none;">
-									<form action="<c:url value="/reply/update"/>" method="post">
+					<c:if test="${board.boardType eq 17 }">
+						<div class="repl_wrap">
+							<!-- 댓글 보기 -->
+							<ol class="repl_list">
+								<!-- 기본 -->
+								<c:forEach items="${replyList }" var="reply">
+									<li id="reply-${reply.id }">
 										<div class="top">
 											<span class="repl_writer">${reply.writerName }</span>
 											<span class="repl_date">(<fmt:formatDate value="${reply.mdate}" pattern="yyyy-MM-dd" />)</span>
+											<c:if test="${user.kakaoId eq reply.writer }">
+												<input type="button" value="수정" class="bt_repl_edit" onclick="javascript:showEditView('${reply.id }');">
+												<input type="button" value="삭제" class="bt_repl_del" onclick="javascript:deleteReply('${reply.id}')">
+											</c:if>
+											<input type="hidden" name="user-id" value="${user.id }"/>
 										</div>
-										<div class="repl_edit">
-											<textarea placeholder="<spring:message code="board.detail.reply.please-input"/>" name="content" rows="1" class="repl_content">${reply.content }</textarea>
-											<input type="hidden" name="id" value="${reply.id }"/>
-											<input type="button" value="저장" class="on" onclick="javascript:updateReply('${reply.id}');">
-											<input type="button" value="취소" onclick="javascript:hideEditView('${reply.id}')">
-										</div>
-									</form>
-								</li>
-							</c:forEach>
-						</ol>
-						<form id="replyForm" action="<c:url value="/reply/insert"/>" method="POST">
-							<c:choose>
-								<c:when test="${not empty user.kakaoId and locale.language eq 'en'}">
-									<c:set value="input reply." var="reply_placeholder"/>
-								</c:when>
-								<c:when test="${not empty user.kakaoId and locale.language ne 'en'}">
-									<c:set value="댓글을 입력하세요." var="reply_placeholder"/>
-								</c:when>
-								<c:when test="${empty user.kakaoId and locale.language eq 'en' }">
-									<c:set value="login to write reply." var="reply_placeholder"/>
-								</c:when>
-								<c:otherwise>
-									<c:set value="로그인 후 댓글을 작성하실 수 있습니다." var="reply_placeholder"/>
-								</c:otherwise>
-							</c:choose>
-							<!-- 댓글 작성 -->
-							<div class="repl_add">
-								<input type="hidden" name="writer" value="${user.kakaoId }"/>
-								<textarea placeholder="${reply_placeholder }" name="content" rows="1" class="repl_content" <c:if test="${empty user.kakaoId }">readonly onclick="javascript:login()"</c:if>></textarea>
-								<input type="button" value="<spring:message code="board.submit"/>" class="bt_repl_add" onclick="javascript:writeReply();"  <c:if test="${empty user.id }">disabled</c:if>>
-							</div>
-							<input type="hidden" name="parent" value="0"/>
-							<input type="hidden" name="boardId" value="${board.id }"/>
-						</form>
-					</div>
+										<p class="repl_cont">${fn:replace(reply.content, LF, "<br/>") }</p>
+									</li>
+									
+									<!-- 수정 눌렀을 때 -->
+									<li id="reply-edit-${reply.id }" style="display:none;">
+										<form action="<c:url value="/reply/update"/>" method="post">
+											<div class="top">
+												<span class="repl_writer">${reply.writerName }</span>
+												<span class="repl_date">(<fmt:formatDate value="${reply.mdate}" pattern="yyyy-MM-dd" />)</span>
+											</div>
+											<div class="repl_edit">
+												<textarea placeholder="<spring:message code="board.detail.reply.please-input"/>" name="content" rows="1" class="repl_content">${reply.content }</textarea>
+												<input type="hidden" name="id" value="${reply.id }"/>
+												<input type="button" value="저장" class="on" onclick="javascript:updateReply('${reply.id}');">
+												<input type="button" value="취소" onclick="javascript:hideEditView('${reply.id}')">
+											</div>
+										</form>
+									</li>
+								</c:forEach>
+							</ol>
+							<form id="replyForm" action="<c:url value="/reply/insert"/>" method="POST">
+								<c:choose>
+									<c:when test="${not empty user.kakaoId and locale.language eq 'en'}">
+										<c:set value="input reply." var="reply_placeholder"/>
+									</c:when>
+									<c:when test="${not empty user.kakaoId and locale.language ne 'en'}">
+										<c:set value="댓글을 입력하세요." var="reply_placeholder"/>
+									</c:when>
+									<c:when test="${empty user.kakaoId and locale.language eq 'en' }">
+										<c:set value="login to write reply." var="reply_placeholder"/>
+									</c:when>
+									<c:otherwise>
+										<c:set value="로그인 후 댓글을 작성하실 수 있습니다." var="reply_placeholder"/>
+									</c:otherwise>
+								</c:choose>
+								<!-- 댓글 작성 -->
+								<div class="repl_add">
+									<input type="hidden" name="writer" value="${user.kakaoId }"/>
+									<textarea placeholder="${reply_placeholder }" name="content" rows="1" class="repl_content" <c:if test="${empty user.kakaoId }">readonly onclick="javascript:login()"</c:if>></textarea>
+									<input type="button" value="<spring:message code="board.submit"/>" class="bt_repl_add" onclick="javascript:writeReply();"  <c:if test="${empty user.id }">disabled</c:if>>
+								</div>
+								<input type="hidden" name="parent" value="0"/>
+								<input type="hidden" name="boardId" value="${board.id }"/>
+							</form>
+						</div>
+					</c:if>
 					<div class="bt_wrap">
 						<a href="<c:url value="${listUrl }"/>" class="bt1 on">
 							<spring:message code="board.list"/>

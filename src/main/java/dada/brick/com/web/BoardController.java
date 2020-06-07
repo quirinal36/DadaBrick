@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
@@ -40,8 +41,12 @@ public class BoardController extends DadaController{
 	ReplyService replyService;
 	
 	@RequestMapping(value= {"/{boardName}/"}, method = RequestMethod.GET)
-	public ModelAndView getNoticeView(ModelAndView mv,
+	public ModelAndView getNoticeView(ModelAndView mv, HttpServletRequest request,
 			Board board, @PathVariable(value="boardName", required = true)String boardName) {
+		if(isLoginedUser(request)) {
+			UserVO user = getUser();
+			mv.addObject("user", user);
+		}
 		if(board.getPageNo() == 0) {
 			board.setPageNo(1);
 		}
@@ -50,7 +55,7 @@ public class BoardController extends DadaController{
 			mv.addObject("boardName", "공지사항");
 		}else if(boardName.equals("faq")) {
 			board.setBoardType(17);
-			mv.addObject("boardName", "질문과답변");
+			mv.addObject("boardName", "질문과 답변");
 		}else if(boardName.equals("data")) {
 			board.setBoardType(18);
 			mv.addObject("boardName", "자료실");
@@ -98,14 +103,17 @@ public class BoardController extends DadaController{
 			switch(board.getBoardType()) {
 			case 16:
 				mv.addObject("listUrl", "/board/notice/");
+				mv.addObject("boardName", "공지사항");
 				mv.addObject("edit_url", "/board/edit/16");
 				break;
 			case 17:
 				mv.addObject("listUrl", "/board/faq/");
+				mv.addObject("boardName", "질문과 답변");
 				mv.addObject("edit_url", "/board/edit/17");
 				break;
 			case 18:
 				mv.addObject("listUrl", "/board/data/");
+				mv.addObject("boardName", "자료실");
 				mv.addObject("edit_url", "/board/edit/18");
 				break;
 			}
@@ -128,7 +136,7 @@ public class BoardController extends DadaController{
 				listUrl.append("notice/");
 				break;
 			case 17:
-				mv.addObject("boardName", "질문과답변");
+				mv.addObject("boardName", "질문과 답변");
 				listUrl.append("faq/");
 				break;
 			case 18:
@@ -190,7 +198,7 @@ public class BoardController extends DadaController{
 					listUrl.append("notice/");
 					break;
 				case 17:
-					mv.addObject("boardName", "질문과답변");
+					mv.addObject("boardName", "질문과 답변");
 					listUrl.append("faq/");
 					break;
 				case 18:
@@ -218,11 +226,25 @@ public class BoardController extends DadaController{
 	
 	@ResponseBody
 	@RequestMapping(value= {"/edit"}, method=RequestMethod.POST, produces = "application/json; charset=utf8")
-	public String edit(ModelAndView mv, Board board) {
-		JSONObject json = new JSONObject();
-		
+	public String edit(ModelAndView mv, Board board,
+			@RequestParam(value="pictures")String pictures,
+			@RequestParam(value="files")String files) {
+		logger.info(files);
+		logger.info(pictures);
+		logger.info(board.toString());
 		UserVO user = getUser();
-		logger.info(user.toString());
+		
+		List<PhotoInfo> photos = photoInfoService.select(PhotoInfo.newInstance(board.getId()));
+		List<FileInfo> filesList = fileInfoService.select(FileInfo.newInstance(board.getId()));
+		// photos 추가? 삭제?
+		// filesList 추가? 삭제?
+		
+		JSONObject json = new JSONObject();
+		if(Integer.parseInt(user.getKakaoId()) == board.getWriter()) {
+			json.put("result", boardService.update(board));
+		}else {
+			json.put("result", -1);
+		}
 		
 		return json.toString();
 	}

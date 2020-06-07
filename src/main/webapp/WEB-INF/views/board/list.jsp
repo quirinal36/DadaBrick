@@ -64,7 +64,14 @@ $(function(){
 										</c:choose>
 										<c:if test="${item.replyCnt > 0 }">(${item.replyCnt })</c:if></a>
 								</div>
-								<div class="writer">${item.writerName }</div>
+								<div class="writer">
+									<c:choose>
+										<c:when test="${paging.boardType eq 17 and item.writer ne user.kakaoId}">
+											<c:forEach begin="1" end="${fn:length(item.writerName)}" step="1">*</c:forEach>
+										</c:when>
+										<c:otherwise>${item.writerName }</c:otherwise>
+									</c:choose>
+								</div>
 								<div class="date">
 									<fmt:formatDate value="${item.wdate}" pattern="yyyy-MM-dd" />
 								</div>

@@ -57,13 +57,11 @@
 			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
 			
 			var textContent = document.getElementById("ir1").value;
-			console.log("before: "+textContent);
 			
 			textContent = replaceAll(textContent, "'", "&apos;");
 			textContent = replaceAll(textContent, "\"", "&quot;");
 			textContent = replaceAll(textContent, "&nbsp;", " ");
 			textContent = replaceAll(textContent, "&", "%26");
-			console.log("after: "+textContent);
 			
 			var url = $("form").attr("action");
 			
@@ -87,7 +85,6 @@
 			param += "&pictures="+pictures.join(",");
 			param += "&files="+files.join(",");
 			param += "&content="+content;
-			console.log(param);
 			
 			if(confirm("글을 등록시키겠습니까?")){
 				$.ajax({
@@ -115,7 +112,15 @@
 				<div id="contentsTitle">
 					<h2>${boardName }</h2>
 				</div>
-				<form action="<c:url value="/board/write"/>" method="post">
+				<c:choose>
+					<c:when test="${board.id gt 0 }">
+						<c:set value="/board/edit" var="action"/>
+					</c:when>
+					<c:otherwise>
+						<c:set value="/board/write" var="action"/>
+					</c:otherwise>
+				</c:choose>
+				<form action="${action }" method="post">
 					<input type="hidden" name="boardType" value="${boardType }"/>
 					<input type="hidden" name="isLoginUrl" value="<c:url value="${authUrl }"/>"/>
 					<input type="hidden" name="loginUrl" value="<c:url value="/member/login"/>"/>
@@ -134,7 +139,8 @@
 									
 									<c:choose>
 										<c:when test="${board.writer gt 0 }">
-											<input type="hidden" name="writer" value="${user.writer}"/>
+											<input type="hidden" name="writer" value="${board.writer}"/>
+											<input type="hidden" name="id" value="${board.id }"/>
 											<input type="text" placeholder="<spring:message code="board.user" text="board.user"></spring:message>" readonly autocomplete="off"
 												value="${board.writerName }" >
 										</c:when>
@@ -155,7 +161,11 @@
 									<dd>
 										<!-- 사진 목록 -->
 										<ul id="picture_ul">
-											
+											<c:forEach items="${photos }" var="item">
+												<li style="background-image:url('${item.url}')" id="${item.id }">
+													<input type="button" title="삭제" class="bt_del_img" onclick="delButtonClick(this);" value="${item.id }"/>
+												</li>
+											</c:forEach>
 										</ul>
 										<!-- 첨부하기 버튼 -->
 										<input id="imageupload" type="file" name="files[]" 
@@ -172,6 +182,14 @@
 									<dd>
 										<!-- 첨부파일 목록 -->
 										<ul id = "file_ul">
+											<c:forEach items="${files }" var="item">
+												<li id="${item.id }">
+													<span>
+														${item.name }
+													</span>
+													<input type="button" title="삭제" class="bt_del_file" onclick="delFileClick(this);" value="${item.id }"/>
+												</li>
+											</c:forEach>
 										</ul>
 										<input id="fileupload" type="file" name="files[]" 
 											data-url="<c:url value="/upload/file"/>" multiple>

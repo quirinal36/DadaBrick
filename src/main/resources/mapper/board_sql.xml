@@ -32,7 +32,12 @@
 	
 	<select id="select" parameterType="board" resultType="board">
 		SELECT 
-			board.*,
+			board.id,
+		    board.boardType,
+		    board.writer,
+		    board.title,
+		    board.wdate,
+		    board.viewCount,
 			(SELECT COUNT(*) FROM FileInfo WHERE boardId = board.id) AS fileCnt,
 			(SELECT COUNT(*) FROM PhotoInfo WHERE boardId = board.id) AS pictureCnt,
 			(SELECT title FROM BoardType WHERE id = board.boardType) AS boardName,
@@ -76,7 +81,16 @@
 	
 	<select id="selectOne" parameterType="board" resultType="board">
 		SELECT 
-			board.*,
+			board.id,
+			board.boardType,
+			board.title,
+			board.content,
+			board.writer,
+			board.password,
+			board.wdate,
+			board.udate,
+			board.viewCount,
+			board.refLink,
 			usr.nickname AS writerName
 		FROM 
 			Board board LEFT JOIN users usr ON (board.writer = usr.kakaoId)

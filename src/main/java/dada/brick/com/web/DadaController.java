@@ -45,7 +45,7 @@ public class DadaController {
 		
 		UserVO searchUser = new UserVO();
 		searchUser.setKakaoId(authUser);
-		logger.info(searchUser.toString());
+		
 		UserVO user = userService.selectOne(searchUser);
 		
 		return user;
