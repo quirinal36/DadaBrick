@@ -13,7 +13,14 @@
 <script type="text/javascript" src="<c:url value="/resources/js/service/SE2M_Configuration.js"/>" charset="utf-8"></script>	<!-- 설정 파일 -->
 <script type="text/javascript" src="<c:url value="/resources/js/service/SE2BasicCreator.js"/>" charset="utf-8"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/smarteditor2.js"/>" charset="utf-8"></script>
-
+<style>
+	#smart_editor2 { min-width: unset !important; }
+	@media ( max-width: 1000px ) {
+		#smart_editor2 #smart_editor2_content { border: 1px solid #ddd; border-top: 0; }
+		#smart_editor2 .se2_tool { display: none !important; }
+		#smart_editor2 .se2_conversion_mode { display: none !important; }
+	}
+</style>
 </head>
 <body>
 

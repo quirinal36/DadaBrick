@@ -9,6 +9,11 @@ html.fixed {
 	min-width: 1200px;
 }
 
+header {
+	position: relative;
+	z-index: 2;
+}
+
 #headerWrap {
 	position: relative;
 	width: 100%;
@@ -233,6 +238,11 @@ html.fixed {
 
 #gnbWrap_mobile .dep2 > li > a {
 	font-size: 12px;
+}
+
+#containerWrap {
+	position: relative;
+	z-index: 1;
 }
 
 #footerWrap {

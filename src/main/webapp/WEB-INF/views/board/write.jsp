@@ -177,6 +177,12 @@
 							<div class="board_write_cont">
 								<textarea id="ir1" rows="10" style="width:100%; height:412px; display:none;"></textarea>	                        
 							</div>
+							<div class="board_write_password">
+								<dl>
+									<dt>비밀번호</dt>
+									<dd><input type="password" placeholder="비밀번호(숫자 4자리)" name="password"></dd>
+								</dl>
+							</div>
 							<div class="board_write_img" id="dropzone-img">
 								<dl>
 									<dt><spring:message code="board.image" text="board.image"></spring:message></dt>
