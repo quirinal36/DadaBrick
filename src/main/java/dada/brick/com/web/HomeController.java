@@ -27,8 +27,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dada.brick.com.Config;
+import dada.brick.com.service.ProductsService;
 import dada.brick.com.service.SlidePhotoService;
 import dada.brick.com.vo.Board;
+import dada.brick.com.vo.ProductsVO;
 import dada.brick.com.vo.SlidePhotoInfo;
 
 /**
@@ -38,7 +40,8 @@ import dada.brick.com.vo.SlidePhotoInfo;
 public class HomeController extends DadaController {
 	@Autowired
 	SlidePhotoService slidePhotoService;
-	
+	@Autowired
+	ProductsService productsService;
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -54,9 +57,21 @@ public class HomeController extends DadaController {
 		mv.setViewName("index");
 		return mv;
 	}
-	@RequestMapping(value="/search")
-	public ModelAndView getCompanyView(Locale locale, ModelAndView mv) {
+	@RequestMapping(value= {"/search", "/search/{pageNum}"})
+	public ModelAndView getCompanyView(Locale locale, ModelAndView mv,
+			ProductsVO product, @PathVariable("pageNum")Optional<Integer>pageNum) {
+		if(pageNum.isPresent()) {
+			product.setPageNo(pageNum.get());
+		}else {
+			product.setPageNo(0);
+		}
 		
+		product.setTotalCount(productsService.count(product));
+		List<ProductsVO> products = productsService.select(product);
+		
+		mv.addObject("paging", product);		
+		mv.addObject("list", products);
+		mv.addObject("listUrl", "/search");
 		mv.setViewName("/contents/search");
 		return mv;
 	}

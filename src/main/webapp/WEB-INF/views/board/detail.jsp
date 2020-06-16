@@ -166,7 +166,8 @@ function deleteBoard(id){
 							</div>
 						</div>
 					</c:if>
-					<c:if test="${board.boardType eq 17 }">
+					<c:if test="${board.boardType eq 17}">
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
 						<div class="repl_wrap">
 							<!-- 댓글 보기 -->
 							<ol class="repl_list">
@@ -227,6 +228,7 @@ function deleteBoard(id){
 								<input type="hidden" name="boardId" value="${board.id }"/>
 							</form>
 						</div>
+						</sec:authorize>
 					</c:if>
 					<div class="bt_wrap">
 						<a href="<c:url value="${listUrl }"/>" class="bt1 on">

@@ -67,7 +67,12 @@ $(function(){
 								<div class="writer">
 									<c:choose>
 										<c:when test="${paging.boardType eq 17 and item.writer ne user.kakaoId}">
-											<c:forEach begin="1" end="${fn:length(item.writerName)}" step="1">*</c:forEach>
+											<c:if test="${fn:length(item.writerName) eq 2 }">
+												${fn:substring(item.writerName,0,1) }*
+											</c:if>
+											<c:if test="${fn:length(item.writerName) gt 2 }">
+												${fn:substring(item.writerName,0,2) }*
+											</c:if>
 										</c:when>
 										<c:otherwise>${item.writerName }</c:otherwise>
 									</c:choose>
@@ -99,11 +104,20 @@ $(function(){
 						<a href="javascript:pageGo(${paging.nextPageNo})" class="bt next">다음 페이지로 가기</a>
 						<a href="javascript:pageGo(${paging.endPageNo})" class="bt last">마지막 페이지로 가기</a>
 					</div>
-					<sec:authorize access="hasRole('ROLE_ADMIN')">
-						<div class="bt_wrap">
-							<input type="button" class="bt1 bt_write popup_password_opener" value="<spring:message code="board.write"/>" onclick="window.location.replace('${writeUrl}')">
-						</div>
-					</sec:authorize>
+					<c:choose>
+						<c:when test="${paging.boardType eq 17}">
+							<div class="bt_wrap">
+								<input type="button" class="bt1 bt_write popup_password_opener" value="<spring:message code="board.write"/>" onclick="window.location.replace('${writeUrl}')">
+							</div>
+						</c:when>
+						<c:otherwise>
+							<sec:authorize access="hasRole('ROLE_ADMIN')">
+								<div class="bt_wrap">
+									<input type="button" class="bt1 bt_write popup_password_opener" value="<spring:message code="board.write"/>" onclick="window.location.replace('${writeUrl}')">
+								</div>
+							</sec:authorize>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</div>

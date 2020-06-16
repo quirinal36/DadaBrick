@@ -95,7 +95,8 @@
 				}).done(function(json){
 					if(json.result > 0){
 						alert("글 등록이 완료되었습니다.");
-						window.location.replace($("input[name='listUrl']").val());
+						//$("input[name='listUrl']").val()
+						window.location.replace(json.listUrl);
 					}
 				});
 			}
@@ -134,23 +135,44 @@
 									<input type="text" placeholder="<spring:message code="board.title" text="board.title"></spring:message>" name="title" autocomplete="off" 
 										value="${board.title }">
 								</div>
-								<div class="writer"><spring:message code="board.user" text="board.user"></spring:message></div>
-								<div class="writer_ipt">
-									
-									<c:choose>
-										<c:when test="${board.writer gt 0 }">
-											<input type="hidden" name="writer" value="${board.writer}"/>
+								
+								<c:choose>
+									<c:when test="${boardType eq 17 }">
+										<div class="writer">
+											<spring:message code="board.user" text="board.user"></spring:message>
+										</div>
+										<div class="writer_ipt">
 											<input type="hidden" name="id" value="${board.id }"/>
-											<input type="text" placeholder="<spring:message code="board.user" text="board.user"></spring:message>" readonly autocomplete="off"
-												value="${board.writerName }" >
-										</c:when>
-										<c:otherwise>
-											<input type="hidden" name="writer" value="${user.kakaoId}"/>
-											<input type="text" placeholder="<spring:message code="board.user" text="board.user"></spring:message>" readonly autocomplete="off"
-												value="${user.nickname }" >
-										</c:otherwise>
-									</c:choose>
-								</div>
+											<input type="text" placeholder="<spring:message code="board.user" text="board.user"></spring:message>" name="writerName"/>
+										</div>
+										<div class="writer">
+											비밀번호
+										</div>
+										<div class="writer_ipt">
+											<input type="password" placeholder="비밀번호" name="password"/>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div class="writer">
+											<spring:message code="board.user" text="board.user"></spring:message>
+										</div>
+										<div class="writer_ipt">
+											<c:choose>
+												<c:when test="${board.writer gt 0 }">
+													<input type="hidden" name="writer" value="${board.writer}"/>
+													<input type="hidden" name="id" value="${board.id }"/>
+													<input type="text" placeholder="<spring:message code="board.user" text="board.user"></spring:message>" readonly autocomplete="off"
+														value="${board.writerName }" >
+												</c:when>
+												<c:otherwise>
+													<input type="hidden" name="writer" value="${user.kakaoId}"/>
+													<input type="text" placeholder="<spring:message code="board.user" text="board.user"></spring:message>" readonly autocomplete="off"
+														value="${user.nickname }" >
+												</c:otherwise>
+											</c:choose>
+										</div>
+									</c:otherwise>
+								</c:choose>
 							</div>
 							<div class="board_write_cont">
 								<textarea id="ir1" rows="10" style="width:100%; height:412px; display:none;"></textarea>	                        

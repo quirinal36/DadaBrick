@@ -86,7 +86,7 @@ $(function(){
 				</div>
 				<div class="right">
 					<a href="<c:url value="/search"/>" class="bt_search"><img src="/resources/img/comm/bt_search.png" alt="검색"></a>
-					<a href="#" target="_blank" class="bt_insta"><img src="/resources/img/comm/bt_insta.png" alt="인스타그램"></a>
+					<a href="https://www.instagram.com/dadabrick/?hl=ko" target="_blank" class="bt_insta"><img src="/resources/img/comm/bt_insta.png" alt="인스타그램"></a>
 					<a href="javascript:void(0);" class="bt_menu"><img src="/resources/img/comm/bt_menu.png" alt="메뉴"></a>
 				</div>
 				<div id="gnbWrap_mobile">

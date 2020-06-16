@@ -49,7 +49,9 @@
 		FROM 
 			products p LEFT JOIN menus menu ON (p.menuId = menu.id)
 		<where>
+			<if test="menuId > 0">
 			p.menuId = ${menuId}
+			</if>
 			<if test="query != ''">
 			and 
 				(
@@ -66,7 +68,9 @@
 	<select id="count" parameterType="products" resultType="int">
 		SELECT COUNT(*) FROM products
 		<where>
+			<if test="menuId > 0">
 			menuId = ${menuId}
+			</if>
 		</where>
 	</select>
 	

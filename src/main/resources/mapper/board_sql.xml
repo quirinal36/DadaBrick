@@ -8,14 +8,16 @@
 			title,
 			content,
 			writer,
-			boardType
+			boardType,
+			writerName
 		)
 		values
 		(
 			'${title}',
 			'${content}',
 			${writer},
-			${boardType}
+			${boardType},
+			'${writerName}'
 		)
 	</insert>
 	<update id="update" parameterType="board">

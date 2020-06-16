@@ -11,6 +11,9 @@
 $(function(){
 	$("#header").addClass("line");
 });
+function search(form){
+	$(form).submit();
+}
 </script>
 </head>
 <body>
@@ -21,7 +24,7 @@ $(function(){
 			<div id="contentsPrint">
 				<!-- 상세 페이지 상단 -->
 				<div id="contentsTitle">
-					<h2>통합검색</h2>
+					<h2>상품검색</h2>
 				</div>
 				<div id="contentsSearch">
 					<div>
@@ -37,63 +40,17 @@ $(function(){
 						</div>
 					</div>
 				</div>
-				<div class="board_list board_list_typeB">
-					<ul class="list">
-						<li class="head">
-							<div class="num"><spring:message code="board.number"/></div>
-							<div class="title"><spring:message code="board.title"/></div>
-							<div class="writer"><spring:message code="board.user"/></div>
-							<div class="date"><spring:message code="board.date"/></div>
-							<div class="file"><spring:message code="board.attachment"/></div>
-							<div class="view"><spring:message code="board.show"/></div>
-						</li>
-						<c:forEach items="${list }" var="item" varStatus="sts">
+				<div id="products_list_wrap">
+					<ul>
+						<c:forEach items="${list}" var="item" varStatus="step">
 							<li>
-								<div class="num">${paging.totalCount - (sts.index) - (paging.pageSize * (paging.pageNo-1))}</div>
-								<div class="title">
-									<a href="<c:url value="${viewUrl }${item.id }"/>">
-										<c:choose>
-											<c:when test="${locale.language eq 'en' }">
-												${item.title_en }
-											</c:when>
-											<c:otherwise>
-												${item.title }
-											</c:otherwise>
-										</c:choose>
-										<c:if test="${item.replyCnt > 0 }">(${item.replyCnt })</c:if></a>
-								</div>
-								<div class="writer">${item.writerName }</div>
-								<div class="date">
-									<fmt:formatDate value="${item.wdate}" pattern="yyyy-MM-dd" />
-								</div>
-								<div class="file">${item.fileCnt }</div>
-								<div class="view">${item.viewCount }</div>
+								<a href="<c:url value="/products/detail/${item.id }"/>" class="image" style="background-image: url('/picture/${item.representImage}');">사진</a>  
+								<p>[${item.primaryId}] ${item.size }</p>
+								<a href="<c:url value="/products/detail/${item.id }"/>" class="name">${item.name }</a>
+								
 							</li>
 						</c:forEach>
-						
 					</ul>
-					<div class="page">
-						<a href="javascript:pageGo(${paging.firstPageNo})" class="bt first">맨 처음 페이지로 가기</a>
-						<a href="javascript:pageGo(${paging.prevPageNo})" class="bt prev">이전 페이지로 가기</a>
-						<c:choose>
-							<c:when test="${paging.finalPageNo eq 0}">
-								<a href="javascript:pageGo(1)" class="num on">1</a>
-							</c:when>
-							<c:otherwise>
-								<c:forEach begin="${paging.startPageNo }" end="${paging.endPageNo}" varStatus="loop">
-									<a href="javascript:pageGo(${loop.current })" class="num <c:if test="${loop.current eq paging.pageNo }">on</c:if>">
-									${loop.current }
-									</a>
-								</c:forEach>
-							</c:otherwise>
-						</c:choose>
-						<a href="javascript:pageGo(${paging.nextPageNo})" class="bt next">다음 페이지로 가기</a>
-						<a href="javascript:pageGo(${paging.endPageNo})" class="bt last">마지막 페이지로 가기</a>
-					</div>
-					<div class="bt_wrap">
-						<input type="hidden" name="write_url" value="${writeUrl }">
-						<input type="button" class="bt1 bt_write popup_password_opener" value="<spring:message code="board.write"/>">
-					</div>
 				</div>
 			</div>
 		</div>
