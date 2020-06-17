@@ -7,9 +7,14 @@
     box-sizing: border-box;
 }
 
+.idx_main_wrap > div {
+	border-radius: 15px;
+	background: #f5f5f5 url(/resources/img/comm/contentsTop.png) no-repeat 50% 50% /240px;
+}
+
 .idx_main .item {
 	position: relative;
-    background: #f5f5f5;
+	border-radius: 15px;
 }
 
 .idx_main .item a {
