@@ -590,6 +590,10 @@ header {
 		width: 21px;
 	}
 	
+	#contentsTop {
+		background-size: 120px;
+	}
+	
 	#footerWrap {
 		margin-top: 40px;
 	}
