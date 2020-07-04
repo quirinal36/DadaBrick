@@ -167,7 +167,7 @@ function deleteBoard(id){
 						</div>
 					</c:if>
 					<c:if test="${board.boardType eq 17}">
-						<sec:authorize access="hasRole('ROLE_ADMIN')">
+						
 						<div class="repl_wrap">
 							<!-- 댓글 보기 -->
 							<ol class="repl_list">
@@ -203,32 +203,33 @@ function deleteBoard(id){
 									</li>
 								</c:forEach>
 							</ol>
-							<form id="replyForm" action="<c:url value="/reply/insert"/>" method="POST">
-								<c:choose>
-									<c:when test="${not empty user.kakaoId and locale.language eq 'en'}">
-										<c:set value="input reply." var="reply_placeholder"/>
-									</c:when>
-									<c:when test="${not empty user.kakaoId and locale.language ne 'en'}">
-										<c:set value="댓글을 입력하세요." var="reply_placeholder"/>
-									</c:when>
-									<c:when test="${empty user.kakaoId and locale.language eq 'en' }">
-										<c:set value="login to write reply." var="reply_placeholder"/>
-									</c:when>
-									<c:otherwise>
-										<c:set value="로그인 후 댓글을 작성하실 수 있습니다." var="reply_placeholder"/>
-									</c:otherwise>
-								</c:choose>
-								<!-- 댓글 작성 -->
-								<div class="repl_add">
-									<input type="hidden" name="writer" value="${user.kakaoId }"/>
-									<textarea placeholder="${reply_placeholder }" name="content" rows="1" class="repl_content" <c:if test="${empty user.kakaoId }">readonly onclick="javascript:login()"</c:if>></textarea>
-									<input type="button" value="<spring:message code="board.submit"/>" class="bt_repl_add" onclick="javascript:writeReply();"  <c:if test="${empty user.id }">disabled</c:if>>
-								</div>
-								<input type="hidden" name="parent" value="0"/>
-								<input type="hidden" name="boardId" value="${board.id }"/>
-							</form>
+							<sec:authorize access="hasRole('ROLE_ADMIN')">
+								<form id="replyForm" action="<c:url value="/reply/insert"/>" method="POST">
+									<c:choose>
+										<c:when test="${not empty user.kakaoId and locale.language eq 'en'}">
+											<c:set value="input reply." var="reply_placeholder"/>
+										</c:when>
+										<c:when test="${not empty user.kakaoId and locale.language ne 'en'}">
+											<c:set value="댓글을 입력하세요." var="reply_placeholder"/>
+										</c:when>
+										<c:when test="${empty user.kakaoId and locale.language eq 'en' }">
+											<c:set value="login to write reply." var="reply_placeholder"/>
+										</c:when>
+										<c:otherwise>
+											<c:set value="로그인 후 댓글을 작성하실 수 있습니다." var="reply_placeholder"/>
+										</c:otherwise>
+									</c:choose>
+									<!-- 댓글 작성 -->
+									<div class="repl_add">
+										<input type="hidden" name="writer" value="${user.kakaoId }"/>
+										<textarea placeholder="${reply_placeholder }" name="content" rows="1" class="repl_content" <c:if test="${empty user.kakaoId }">readonly onclick="javascript:login()"</c:if>></textarea>
+										<input type="button" value="<spring:message code="board.submit"/>" class="bt_repl_add" onclick="javascript:writeReply();"  <c:if test="${empty user.id }">disabled</c:if>>
+									</div>
+									<input type="hidden" name="parent" value="0"/>
+									<input type="hidden" name="boardId" value="${board.id }"/>
+								</form>
+							</sec:authorize>
 						</div>
-						</sec:authorize>
 					</c:if>
 					<div class="bt_wrap">
 						<a href="<c:url value="${listUrl }"/>" class="bt1 on">

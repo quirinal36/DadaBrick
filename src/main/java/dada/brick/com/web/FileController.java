@@ -182,21 +182,18 @@ public class FileController extends DadaController {
 		param.setId(id);
 
         PhotoInfo image = photoInfoService.selectOne(param);
-        // String srcPath = new FileUtil().makeUserPath();
-        //request.getSession().getServletContext().getRealPath("/upload");
-        // File imageFile = new File(srcPath+"/"+image.getNewFilename());
-        File imageFile = new File(getImageUploadPath()+File.separator+image.getNewFilename());
-        response.setContentType(image.getContentType());
-        response.setContentLength(image.getSize());
-        
-        logger.info(imageFile.getAbsolutePath());
-        
         try {
+	        File imageFile = new File(getImageUploadPath()+File.separator+image.getNewFilename());
+	        response.setContentType(image.getContentType());
+	        response.setContentLength(image.getSize());
+	        
             InputStream is = new FileInputStream(imageFile);
             IOUtils.copy(is, response.getOutputStream());
         } catch(IOException e) {
             logger.info("Could not show picture "+id +"/" + e.getLocalizedMessage());
-        }
+        }catch (NullPointerException e) {
+        	e.printStackTrace();
+		}
     }
 	@RequestMapping(value = "/thumbnail/{id}", method = RequestMethod.GET)
     public void thumbnail(HttpServletRequest request,

@@ -79,14 +79,23 @@ public class BoardController extends DadaController{
 	
 	@ResponseBody
 	@RequestMapping(value="/inputPwd", method = RequestMethod.POST, produces = "application/json; charset=utf8")
-	public ModelAndView getInputPwd(ModelAndView mv,
+	public String getInputPwd(ModelAndView mv,
 			@RequestParam(value="password")String password,
-			@RequestParam(value="redirect-id")Integer boardId) {
-		logger.info("password: " + password);
-		logger.info("boardId: " + boardId);
+			@RequestParam(value="redirectId")Integer boardId) {
+		JSONObject json = new JSONObject();
+		Board board = Board.newInstance(boardId);
+		board = boardService.selectOne(board);
 		
-		mv.setViewName("/board/inputPwd");
-		return mv;
+		if(board.getPwd().equals(password)) {
+			String token = String.valueOf((Integer.parseInt(password)+1) * boardId * Board.SEED);
+			json.put("result", 1);
+			json.put("dest", "/board/faq/"+boardId+"/"+token);
+		}else if(!board.getPwd().equals(password)){
+			json.put("result", -1);
+			json.put("msg", "비밀번호가 일치하지 않습니다.");
+		}
+		
+		return json.toString();
 	}
 	@RequestMapping(value="/inputPwd")
 	public ModelAndView getInputPwdView(ModelAndView mv,
@@ -103,19 +112,43 @@ public class BoardController extends DadaController{
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping(value= {"/{boardName}/{id}"}, method = RequestMethod.GET)
+	@RequestMapping(value= {"/{boardName}/{id}", "/{boardName}/{id}/{token}"}, method = RequestMethod.GET)
 	public ModelAndView getBoardDetailView(ModelAndView mv,
 			@PathVariable(value="id")Optional<Integer>boardId,
+			@PathVariable(value="token")Optional<Integer>token,
 			HttpServletRequest request, RedirectAttributes redirectAttr) throws IOException {
 		Board board;
 		if(boardId.isPresent()) {
 			board = Board.newInstance(boardId.get());
 			board = boardService.selectOne(board);
 			
-			if(board.getBoardType() == 17 && !(request.isUserInRole("ROLE_ADMIN"))) {
+			boolean step1 = (board.getBoardType() == 17 && !(request.isUserInRole("ROLE_ADMIN")));
+			boolean step2 = !token.isPresent();
+			
+			
+			logger.info("step1: " + step1);
+			logger.info("step2: " + step2);
+			
+			
+			if(step1 && step2) {
 				redirectAttr.addAttribute("redirectId", boardId.get());
 				mv.setViewName("redirect:/board/inputPwd");
 			}else {
+				boolean step3 = board.getBoardType() == 17 && token.isPresent();
+				logger.info("step3: " + step3);
+				if(step3) {
+					logger.info("token: " + token.get());
+					String pwd = String.format("%04d", (token.get() / boardId.get() / Board.SEED)-1);
+					logger.info("pwd: " + pwd);
+					logger.info("board.getPwd(): " + board.getPwd());
+					
+					if(!pwd.equals(board.getPwd())) {
+						redirectAttr.addAttribute("redirectId", boardId.get());
+						mv.setViewName("redirect:/board/inputPwd");
+						return mv;
+					}
+				}
+				
 				board.setContent(board.getContent().replaceAll("&quot;", "\""));
 				boardService.updateCount(Board.newInstance(board.getId()));
 				
@@ -206,6 +239,18 @@ public class BoardController extends DadaController{
 			@RequestParam(value="pictures")String pictures,
 			@RequestParam(value="files")String files) {
 		JSONObject json = new JSONObject();
+		
+		if(board.getBoardType() == 17 && (board.getWriterName().length()==0 || board.getWriterName().equals(""))){
+			json.put("result", -1);
+			json.put("msg", "작성자 이름을 입력해주세요.");
+			return json.toString();
+		}else if(board.getBoardType() == 17 && (board.getPwd().length()==0 || board.getWriterName().equals(""))){
+			json.put("result", -1);
+			json.put("msg", "비밀번호를 입력해주세요.");
+			return json.toString();
+		}
+		
+		
 		int result = boardService.insert(board);
 		
 		FileUtil fileUtil = new FileUtil();
@@ -231,7 +276,7 @@ public class BoardController extends DadaController{
 			linkBuilder.append("data/");
 			break;
 		}
-		linkBuilder.append(board.getId());
+		// linkBuilder.append(board.getId());
 		json.put("listUrl", linkBuilder.toString());
 		
 		return json.toString();

@@ -21,6 +21,7 @@ public class Board extends Paging{
 	public static final int TYPE_GROUP = 7;
 	public static final int PAGE_SIZE_NORMAL = 10;
 	public static final int PAGE_SIZE_CARD = 9;
+	public static final int SEED = 13;
 	
 	public static Board newInstance(int id, int boardType) {
 		Board board = new Board();
@@ -47,6 +48,7 @@ public class Board extends Paging{
 	int replyCnt;
 	String boardName;
 	String language;
+	String pwd;
 	
 	@Override
 	public String toString() {

@@ -48,6 +48,7 @@ public class HomeController extends DadaController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, ModelAndView mv,
 			HttpServletRequest req, Authentication authentication) {
+		
 		List<SlidePhotoInfo> slideList = slidePhotoService.select(SlidePhotoInfo.newInstance(SlidePhotoInfo.INDEX_MAIN));
 		List<SlidePhotoInfo> productList = slidePhotoService.select(SlidePhotoInfo.newInstance(SlidePhotoInfo.INDEX_MENU));
 		

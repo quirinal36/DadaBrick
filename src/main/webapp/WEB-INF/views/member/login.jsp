@@ -23,7 +23,7 @@
 					<div id="section1">
 						<p>관리자로 등록된 카카오톡 계정으로 로그인하세요.</p>
 						<div class="bt_wrap">
-							<a href="javascript: void(0);" onclick="javascript:login();" class="bt1">로그인</a>
+							<a href="javascript:login();" class="bt1">로그인</a>
 						</div>
 						<input type="hidden" name="loginRedirect" value="${loginRedirect}"/>
 						<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>

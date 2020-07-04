@@ -33,6 +33,10 @@
 					window.location.replace(loginUrl +"?loginRedirect=" + redirectUrl);
 				}
 			});
+			
+			$("#pwd-input").on("keyup", function(){
+				$(this).val($(this).val().replace(/[^0-9]/g, ""));
+			})
 		});
 		
 		function delButtonClick(button){
@@ -53,7 +57,7 @@
 				}
 			});
 		}
-		function insertBoard(){
+		function insertBoard(boardType){
 			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
 			
 			var textContent = document.getElementById("ir1").value;
@@ -95,8 +99,9 @@
 				}).done(function(json){
 					if(json.result > 0){
 						alert("글 등록이 완료되었습니다.");
-						//$("input[name='listUrl']").val()
 						window.location.replace(json.listUrl);
+					}else{
+						alert(json.msg);
 					}
 				});
 			}
@@ -142,14 +147,10 @@
 											<spring:message code="board.user" text="board.user"></spring:message>
 										</div>
 										<div class="writer_ipt">
-											<input type="hidden" name="id" value="${board.id }"/>
+											<c:if test="${board.id gt 0 }">
+												<input type="hidden" name="id" value="${board.id }"/>
+											</c:if>
 											<input type="text" placeholder="<spring:message code="board.user" text="board.user"></spring:message>" name="writerName"/>
-										</div>
-										<div class="writer">
-											비밀번호
-										</div>
-										<div class="writer_ipt">
-											<input type="password" placeholder="비밀번호" name="password"/>
 										</div>
 									</c:when>
 									<c:otherwise>
@@ -160,7 +161,9 @@
 											<c:choose>
 												<c:when test="${board.writer gt 0 }">
 													<input type="hidden" name="writer" value="${board.writer}"/>
-													<input type="hidden" name="id" value="${board.id }"/>
+													<c:if test="${board.id gt 0 }">
+														<input type="hidden" name="id" value="${board.id }"/>
+													</c:if>
 													<input type="text" placeholder="<spring:message code="board.user" text="board.user"></spring:message>" readonly autocomplete="off"
 														value="${board.writerName }" >
 												</c:when>
@@ -177,12 +180,14 @@
 							<div class="board_write_cont">
 								<textarea id="ir1" rows="10" style="width:100%; height:412px; display:none;"></textarea>	                        
 							</div>
-							<div class="board_write_password">
-								<dl>
-									<dt>비밀번호</dt>
-									<dd><input type="password" placeholder="비밀번호(숫자 4자리)" name="password"></dd>
-								</dl>
-							</div>
+							<c:if test="${boardType eq 17 }">
+								<div class="board_write_password">
+									<dl>
+										<dt>비밀번호</dt>
+										<dd><input id="pwd-input" type="password" placeholder="비밀번호(숫자 4자리)" name="pwd" maxlength="4"></dd>
+									</dl>
+								</div>
+							</c:if>
 							<div class="board_write_img" id="dropzone-img">
 								<dl>
 									<dt><spring:message code="board.image" text="board.image"></spring:message></dt>
@@ -228,8 +233,8 @@
 								</dl>
 							</div>
 							<div class="bt_wrap">
-								<a href="javascript:void(0);" onclick="javascript:insertBoard();" class="bt1 on">등록</a>
-								<a href="javascript:void(0);" onClick="history.back();" class="bt1">취소</a>
+								<a href="javascript:insertBoard();" class="bt1 on">등록</a>
+								<a href="${listUrl }"  class="bt1">취소</a>
 							</div>
 						</div>
 					</div>

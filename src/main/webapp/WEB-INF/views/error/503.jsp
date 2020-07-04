@@ -12,10 +12,13 @@
 	<div id="container_wrap">
 		<div id="container">
 			<div id="contentsPrint">
-				<div class="error_wrap">
+				<!-- 상세 페이지 상단 -->
+				<div id="contentsTitle">
+					<h2>503</h2>
+				</div>
+				<div id="section1" class="error_wrap">
 					<div>
 						<div>
-							<strong>503</strong>
 							<p>
 								서버에 일시적인 오류가 있습니다.<br>
 								문제가 계속 발생하는 경우 관리자에게 문의해주세요.

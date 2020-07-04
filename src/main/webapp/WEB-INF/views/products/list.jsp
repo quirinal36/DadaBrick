@@ -12,6 +12,17 @@
 <title>${title }</title>
 <c:import url="/inc/head"></c:import>
 <script type="text/javascript" src="<c:url value="/resources/js/list.js"><c:param name="dt" value="${nowDate }"/></c:url>"></script>
+<script src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
+<script type="text/javascript">
+function getNextPage(){
+	return "";
+}
+$(".container").infiniteScroll({
+	path: getNextPage,
+	append: '.product',
+	history: false,
+});
+</script>
 </head>
 <body>
 <div id="wrap">
@@ -22,7 +33,9 @@
 				<!-- 목록 페이지 상단 -->
 				<div id="contentsTop">
 					<div style="background-image: url(${paging.slideInfo.url});">
-						<input type="button" value="변경" class="bt_change popup1_opener">
+						<sec:authorize access="hasRole('ADMIN')">
+							<input type="button" value="변경" class="bt_change popup1_opener">
+						</sec:authorize>
 						<input type="hidden" value="3" name="display"/>
 						<input type="hidden" value="${current.id }" name="menuId"/>
 					</div>
@@ -54,9 +67,9 @@
 					</div>
 				</c:if>
 				<div id="products_list_wrap">
-					<ul>
+					<ul class="container">
 						<c:forEach items="${products}" var="item" varStatus="step">
-							<li>
+							<li class="product">
 								<a href="<c:url value="/products/detail/${item.id }"/>" class="image" style="background-image: url('/picture/${item.representImage}');">사진</a>  
 								<p>[${item.primaryId}] ${item.size }</p>
 								<a href="<c:url value="/products/detail/${item.id }"/>" class="name">${item.name }</a>
@@ -86,6 +99,7 @@
 							</li>
 						</c:forEach>
 					</ul>
+					<a class="pagination__next" href="${listUrl }/2"/>
 				</div>
 				<c:if test="${fn:length(products) eq 0 }">
 					<c:choose>

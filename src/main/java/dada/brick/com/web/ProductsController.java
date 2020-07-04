@@ -11,10 +11,12 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,6 +42,39 @@ public class ProductsController extends DadaController{
 	
 	@Autowired
 	SlidePhotoService slidePhotoService;
+	
+	@ResponseBody
+	@RequestMapping(value="/get/{menuId}/{page}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public JSONObject getProductsList(@PathVariable(value="menuId")Optional<Integer>menuId,
+			@PathVariable(value="page")Optional<Integer>pageNum,
+			ProductsVO product) {
+		JSONObject json = new JSONObject();
+		JSONArray jsonArr = new JSONArray();
+		
+		Menus current = new Menus();
+		if(menuId.isPresent()) {
+			current.setId(menuId.get());
+		}else {
+			current.setId(10);
+		}
+		current = menuService.selectOne(current);
+		
+		// 현재 메뉴의 검색결과
+		product.setMenuId(current.getId());
+		product.setTotalCount(productsService.count(product));
+		if(pageNum.isPresent()) {
+			product.setPageNo(pageNum.get());
+		}else {
+			product.setPageNo(1);
+		}
+		List<ProductsVO> products = productsService.select(product);
+		for(ProductsVO item: products) {
+			jsonArr.put(new JSONObject(item.toString()));
+		}
+		json.put("list", jsonArr);
+		
+		return json;
+	}
 	
 	@RequestMapping(value= {"/", "/list", "/list/{id}", "/list/{id}/{page}"},method = RequestMethod.GET)
 	public ModelAndView getListView(ModelAndView mv,
@@ -226,7 +261,6 @@ public class ProductsController extends DadaController{
 		if(dest.equals("prev")) {
 			ProductsVO prevProduct = productsService.selectPrev(product);
 			if(prevProduct != null) {
-				logger.info(prevProduct.toString());
 				int temp = product.getOrderNum();
 				product.setOrderNum(prevProduct.getOrderNum());
 				prevProduct.setOrderNum(temp);
@@ -238,7 +272,6 @@ public class ProductsController extends DadaController{
 		}else if(dest.equals("next")) {
 			ProductsVO nextProduct = productsService.selectNext(product);
 			if(nextProduct != null) {
-				logger.info(nextProduct.toString());
 				int temp = product.getOrderNum();
 				product.setOrderNum(nextProduct.getOrderNum());
 				nextProduct.setOrderNum(temp);
@@ -248,7 +281,25 @@ public class ProductsController extends DadaController{
 				json.put("result", productsService.update(editList));
 			}
 		}
+		return json.toString();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/delete", method = RequestMethod.POST, produces = "application/json; charset=utf8")
+	public String deleteProduct(ProductsVO product) {
+		product = productsService.selectOne(product);
 		
+		JSONObject json = new JSONObject();
+		product.setOrderNum(ProductsVO.STATUS_CLOSE);
+		
+		int deleteResult = productsService.update(product);
+		json.put("result", deleteResult);
+		
+		if(!(deleteResult > 0)) {
+			json.put("msg", "삭제가 되지 않습니다.");
+		}else {
+			json.put("dest", "/products/list/"+product.getMenuId());
+		}
 		return json.toString();
 	}
 }

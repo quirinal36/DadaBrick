@@ -60,6 +60,7 @@
 				p.primaryId like '%${query}%'
 				)
 			</if>
+			and orderNum > 0
 		</where>
 		order by p.orderNum desc
 		LIMIT ${from}, ${pageSize}
@@ -70,7 +71,9 @@
 		<where>
 			<if test="menuId > 0">
 			menuId = ${menuId}
+			and
 			</if>
+			orderNum > 0
 		</where>
 	</select>
 	
@@ -94,6 +97,7 @@
 			menuId = ${menuId}
 			and
 			orderNum = (SELECT MIN(orderNum) FROM products WHERE orderNum &gt; ${orderNum} and menuId = ${menuId})
+			
 	</select>
 	
 	<select id="select_next" parameterType="products" resultType="products">
@@ -114,13 +118,6 @@
 				)
 	</select>
 	
-	<delete id="delete" parameterType="products">
-		DELETE FROM products
-		<where>
-			id = ${id}		
-		</where>
-	</delete>
-	
 	<update id="update_list" parameterType="java.util.List">
 		UPDATE products
 		<set>
@@ -136,4 +133,5 @@
 			</foreach>
 		</where>
 	</update>
+	
 </mapper>

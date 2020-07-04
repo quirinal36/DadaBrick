@@ -9,7 +9,8 @@
 			content,
 			writer,
 			boardType,
-			writerName
+			writerName,
+			pwd
 		)
 		values
 		(
@@ -17,7 +18,8 @@
 			'${content}',
 			${writer},
 			${boardType},
-			'${writerName}'
+			'${writerName}',
+			'${pwd}'
 		)
 	</insert>
 	<update id="update" parameterType="board">
@@ -44,7 +46,14 @@
 			(SELECT COUNT(*) FROM PhotoInfo WHERE boardId = board.id) AS pictureCnt,
 			(SELECT title FROM BoardType WHERE id = board.boardType) AS boardName,
 			(SELECT COUNT(*) FROM Reply WHERE boardId = board.id) AS replyCnt,
-			usr.nickname AS writerName,
+			<choose>
+			<when test='boardType neq 17'>
+				usr.nickname AS writerName,
+			</when>
+			<otherwise>
+				board.writerName,
+			</otherwise>
+			</choose>
 			(SELECT url FROM PhotoInfo where boardId = board.id LIMIT 0,1) AS thumbnail
 		FROM 
 			Board board LEFT JOIN users usr ON (board.writer = usr.kakaoId)
@@ -88,14 +97,22 @@
 			board.title,
 			board.content,
 			board.writer,
-			board.password,
+			board.pwd,
 			board.wdate,
 			board.udate,
 			board.viewCount,
 			board.refLink,
-			usr.nickname AS writerName
+			<choose>
+				<when test='writer neq 0'>
+					usr.nickname AS writerName
+				</when>
+				<otherwise>
+					board.writerName
+				</otherwise>
+			</choose>
 		FROM 
-			Board board LEFT JOIN users usr ON (board.writer = usr.kakaoId)
+			Board board
+			LEFT JOIN users usr ON (board.writer = usr.kakaoId)
 		<where>
 			board.id = ${id}
 		</where>

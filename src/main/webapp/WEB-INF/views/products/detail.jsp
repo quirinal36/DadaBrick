@@ -2,15 +2,37 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
 <title>${title }</title>
 <c:import url="/inc/head"></c:import>
 <script>
 $(function(){
 	$("#header").addClass("line");
 });
+function deleteProduct(productId){
+	var url = "/products/delete";
+	var param = "id="+productId;
+	
+	if(confirm("삭제하시겠습니까?")){
+		$.ajax({
+		      url : url,
+		      data: param,
+		      type: "POST",
+		      dataType: 'json'
+		   }).done(function(json){
+		      if(json.result > 0){
+		         window.location.replace(json.dest);
+		      }else if(json.result < 0){
+		    	  alert(json.msg);
+		      }
+		   });
+	}
+}
+
 </script>
 </head>
 <body>
@@ -65,8 +87,11 @@ $(function(){
 						</tbody>
 					</table>
 					<div class="bt_wrap">
-						<a href="<c:url value="/products/edit/${product.id }"/>" class="bt1">수정</a>
-						<a href="#" class="bt1">문의하기</a>
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<a href="<c:url value="/products/edit/${product.id }"/>" class="bt1">수정</a>
+							<a href="javascript:deleteProduct('${product.id }');" class="bt1">삭제</a>
+						</sec:authorize>
+						<a id="go-ask" href="#:;" class="bt1">문의하기</a>
 						<a href="<c:url value="/products/list/${product.menuId }"/>" class="bt1 on">목록</a>
 					</div>
 				</div>
@@ -75,5 +100,20 @@ $(function(){
 	</div>
 	<c:import url="/inc/footer"></c:import>
 </div>
+<script>
+var clipboard = new ClipboardJS('#go-ask', {
+	text: function(){
+		return "1. 제품명: ${product.name }\r\n2. 제품번호:${product.primaryId}";
+	}
+}); 
+clipboard.on('success', function(e){
+	if(confirm("제품명과 제품번호가 복사되었습니다. 확인을 누르면 문의하기 페이지로 이동합니다.")){
+		window.location.replace("/board/faq/");
+	}
+});
+clipboard.on('error', function(e){
+	
+});
+</script>
 </body>
 </html>

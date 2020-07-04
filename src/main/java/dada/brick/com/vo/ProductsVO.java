@@ -10,6 +10,9 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ProductsVO extends Paging{
+	public static final int STATUS_OPEN = 1;
+	public static final int STATUS_CLOSE = -1;
+	
 	int id;
 	int menuId;
 	int orderNum;

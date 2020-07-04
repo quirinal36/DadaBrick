@@ -12,10 +12,13 @@
 	<div id="container_wrap">
 		<div id="container">
 			<div id="contentsPrint">
-				<div class="error_wrap">
+				<!-- 상세 페이지 상단 -->
+				<div id="contentsTitle">
+					<h2>404</h2>
+				</div>
+				<div id="section1" class="error_wrap">
 					<div>
 						<div>
-							<strong>404</strong>
 							<p>
 								페이지의 주소가 잘못되었거나 변경 혹은 삭제되어<br>
 								요청하신 페이지를 찾을 수 없습니다.<br>

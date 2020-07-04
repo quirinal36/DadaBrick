@@ -34,7 +34,7 @@ public class AboutController extends DadaController{
 	public ModelAndView getTermView(ModelAndView mv,
 			HttpServletRequest request) {
 		final String currentUrl = "/about/term";
-		mv.addObject("curMenu", getCurMenus(currentUrl));
+		//mv.addObject("curMenu", getCurMenus(currentUrl));
 		mv.addObject("title", "정관");		
 		mv.setViewName("/about/term");
 		return mv;

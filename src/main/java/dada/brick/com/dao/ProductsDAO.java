@@ -19,7 +19,6 @@ public class ProductsDAO implements DataAccess<ProductsVO> {
 	public int insert(ProductsVO input) {
 		return sqlSession.insert(namespace+".insert", input);
 	}
-
 	@Override
 	public int update(ProductsVO input) {
 		return sqlSession.update(namespace +".update", input);
@@ -27,7 +26,7 @@ public class ProductsDAO implements DataAccess<ProductsVO> {
 
 	@Override
 	public int delete(ProductsVO input) {
-		return sqlSession.delete(namespace +".delete", input);
+		return -1;
 	}
 
 	@Override
