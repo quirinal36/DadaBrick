@@ -8,6 +8,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>${title }</title>
 <c:import url="/inc/head"></c:import>
+<script type="text/javascript">
+function deleteSlidePopup(id){
+	if("삭제하시겠습니까?"){
+		var url = "/delete/slide";
+		var param = "id="+id;
+		
+		$.ajax({
+			url : url,
+			data: param,
+			type: "POST",
+			dataType: 'json'
+		}).done(function(json){
+			alert(json.msg);
+			if(json.result > 0){
+				window.location.reload();
+			}
+		});
+	}
+}
+</script>
 </head>
 <body>
 <div id="wrap">
@@ -27,16 +47,16 @@
 					<div>
 						<div class="idx_main">
 							<c:forEach items="${slideList }" var="item">
-							<div class="item">
-								<a href="${item.linkUrl }" class="item" style="background-image: url(${item.url});">제품</a>
-								<sec:authorize access="hasRole('ADMIN')">
-									<div class="bt_wrap">
-										<input type="hidden" value="1" name="display"/>
-										<input type="button" value="추가" class="bt_add main popup1_opener">	
-										<input type="button" value="삭제" class="bt_del main popup1_delete_opener">	
-									</div>
-								</sec:authorize>
-							</div>
+								<div class="item">
+									<a href="${item.linkUrl }" class="item" style="background-image: url(${item.url});">제품</a>
+									<sec:authorize access="hasRole('ADMIN')">
+										<div class="bt_wrap">
+											<input type="hidden" value="1" name="display"/>
+											<input type="button" value="추가" class="bt_add main popup1_opener">	
+											<input type="button" value="삭제" class="bt_del main" onclick="deleteSlidePopup('${item.id}')">	
+										</div>
+									</sec:authorize>
+								</div>
 							</c:forEach>
 						</div>
 					</div>

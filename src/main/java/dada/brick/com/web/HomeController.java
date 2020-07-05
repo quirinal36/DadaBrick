@@ -174,7 +174,21 @@ public class HomeController extends DadaController {
 		}else if(info.getDisplay() == SlidePhotoInfo.INDEX_MAIN) {
 			json.put("result", slidePhotoService.insert(info));
 		}
+		return json.toString();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/delete/slide", method = RequestMethod.POST, produces = "application/json; charset=utf8")
+	public String deleteIndexSlide(SlidePhotoInfo info) {
+		JSONObject json = new JSONObject();
+		int result = slidePhotoService.delete(info);
 		
+		json.put("result", result);
+		if(result > 0) {
+			json.put("msg", "삭제되었습니다.");
+		}else {
+			json.put("mgs", "삭제실패");
+		}
 		return json.toString();
 	}
 }
