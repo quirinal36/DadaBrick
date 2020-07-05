@@ -57,7 +57,7 @@
 				}
 			});
 		}
-		function insertBoard(boardType){
+		function insertBoard(boardType, boardId){
 			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
 			
 			var textContent = document.getElementById("ir1").value;
@@ -90,7 +90,12 @@
 			param += "&files="+files.join(",");
 			param += "&content="+content;
 			
-			if(confirm("글을 등록시키겠습니까?")){
+			var confirmMsg = "등록하시겠습니까?";
+			
+			if(boardId > 0){
+				confirmMsg = "수정하시겠습니까";
+			}
+			if(confirm(confirmMsg)){
 				$.ajax({
 					url : url,
 					data: param,
@@ -98,7 +103,7 @@
 					dataType : "json"
 				}).done(function(json){
 					if(json.result > 0){
-						alert("글 등록이 완료되었습니다.");
+						alert(json.msg);
 						window.location.replace(json.listUrl);
 					}else{
 						alert(json.msg);
@@ -150,7 +155,8 @@
 											<c:if test="${board.id gt 0 }">
 												<input type="hidden" name="id" value="${board.id }"/>
 											</c:if>
-											<input type="text" placeholder="<spring:message code="board.user" text="board.user"></spring:message>" name="writerName"/>
+											<input type="text" placeholder="<spring:message code="board.user" text="board.user"></spring:message>" name="writerName"
+												value="${board.writerName }"/>
 										</div>
 									</c:when>
 									<c:otherwise>
@@ -233,8 +239,15 @@
 								</dl>
 							</div>
 							<div class="bt_wrap">
-								<a href="javascript:insertBoard();" class="bt1 on">등록</a>
-								<a href="${listUrl }"  class="bt1">취소</a>
+							<c:choose>
+								<c:when test="${board.id gt 0 }">
+									<a href="javascript:insertBoard('${board.boardType }','${board.id }');" class="bt1 on">수정</a>
+								</c:when>
+								<c:otherwise>
+									<a href="javascript:insertBoard();" class="bt1 on">등록</a>
+								</c:otherwise>
+							</c:choose>
+							<a href="${listUrl }"  class="bt1">취소</a>
 							</div>
 						</div>
 					</div>

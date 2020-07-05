@@ -169,13 +169,11 @@ public class HomeController extends DadaController {
 			SlidePhotoInfo selectedInfo = slidePhotoService.selectOne(info);
 			if(selectedInfo != null) {
 				selectedInfo.setPhotoId(info.getPhotoId());
-				slidePhotoService.update(selectedInfo);
+				json.put("result", slidePhotoService.update(selectedInfo));
 			}
 		}else if(info.getDisplay() == SlidePhotoInfo.INDEX_MAIN) {
 			json.put("result", slidePhotoService.insert(info));
 		}
-		
-		
 		
 		return json.toString();
 	}

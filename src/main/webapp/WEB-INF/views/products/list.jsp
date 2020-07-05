@@ -123,7 +123,7 @@ $(".container").infiniteScroll({
 				<sec:authorize access="hasRole('ADMIN')">
 				<div id="products_list_wrap">
 					<div class="bt_wrap">
-						<a href="<c:url value="/products/add"/>" class="bt1 on">등록</a>
+						<a href="<c:url value="/products/add/${current.menuNum }"/>" class="bt1 on">등록</a>
 					</div>
 				</div>
 				</sec:authorize>

@@ -24,7 +24,12 @@
 			<div id="contentsPrint">
 				<!-- 상세 페이지 상단 -->
 				<div id="contentsTitle">
-					<h2>제품 등록</h2>
+					<h2>
+					<c:choose>
+						<c:when test="${product.id gt 0 }">제품 수정</c:when>
+						<c:otherwise>제품 등록</c:otherwise>
+					</c:choose>
+					</h2>
 				</div>
 				<!-- 상세 페이지 제품정보 등록 -->
 				<div id="products_info_wrap">
@@ -57,7 +62,10 @@
 									<select class="select1" name="menuId">
 										<c:forEach items="${category }" var="item">
 											<c:set var="menu" value="${item.value }"></c:set>
-											<option value="${menu.id }">${menu.name }</option>
+											<c:choose>
+												<c:when test="${menu.id eq currentMenuId }"><option value="${menu.id }" selected>${menu.name }</option></c:when>
+												<c:otherwise><option value="${menu.id }">${menu.name }</option></c:otherwise>
+											</c:choose>
 										</c:forEach>
 									</select>
 								</td>
@@ -87,9 +95,17 @@
 								</td>
 							</tr>
 							<tr>
-								<th>대표사진</th>
+								<th>대표사진 ${product.representImage}</th>
 								<td colspan="3" id="dropzone-img-rep">
-									<input id="image-upload-btn" type="file" accept="image/*" value="등록" class="bt_imgUpload" data-url="<c:url value="/upload/sized/image"/>">
+									<c:choose>
+										<c:when test="${empty product.representImage}">
+											<input id="image-upload-btn" type="file" accept="image/*" value="등록" class="bt_imgUpload" data-url="<c:url value="/upload/sized/image"/>">
+	                                    </c:when>
+	                                    <c:otherwise>
+	                                    	<input id="image-upload-btn" type="file" accept="image/*" value="등록" class="bt_imgUpload" data-url="<c:url value="/upload/sized/image"/>" style="display:none;">
+	                                    </c:otherwise>
+									</c:choose>
+									
                                     <ul id="rep-image" class="imgUpload_list"> 
                                     	<c:if test="${product.representImage > 0}">
                                     		<li id="${product.representImage }" style="background-image:url('/picture/${product.representImage }')">
@@ -123,6 +139,7 @@
 						<c:choose>
 							<c:when test="${product.id gt 0}">
 								<input type="hidden" name="id" value="${product.id }"/>
+								<input type="hidden" name="orderNum" value="${product.orderNum }"/>
 								<a href="javascript:submitProduct();" class="bt1 on">저장</a>
 							</c:when>
 							<c:otherwise>

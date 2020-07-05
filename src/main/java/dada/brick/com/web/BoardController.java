@@ -261,6 +261,9 @@ public class BoardController extends DadaController{
 			if(files.length() > 0) {
 				fileInfoService.update(fileUtil.parseFileInfo(files.split(","), board.getId()));
 			}
+			json.put("msg", "등록되었습니다.");
+		}else {
+			json.put("msg", "등록실패. 관리자에게 문의해주세요.");
 		}
 		json.put("result", result);
 		StringBuilder linkBuilder = new StringBuilder();
@@ -401,8 +404,10 @@ public class BoardController extends DadaController{
 				break;
 			}
 			linkBuilder.append(board.getId());
+			json.put("msg", "수정되었습니다.");
 			json.put("listUrl", linkBuilder.toString());
 		}else {
+			json.put("msg", "수정실패 관리자에게 문의해주세요.");
 			json.put("result", -1);
 		}
 		

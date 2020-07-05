@@ -331,15 +331,18 @@ public class FileController extends DadaController {
 	@RequestMapping(value="/upload/delete", method = RequestMethod.POST, produces = "application/json; charset=utf8")
 	public String deleteImage(PhotoInfo photo) {
 		PhotoInfo photoInfo = photoInfoService.selectOne(photo);
-		File photoFile = new File(getImageUploadPath() + File.separator + photoInfo.getNewFilename());
-		File thumbnailFile = new File(getImageUploadPath() + File.separator + photoInfo.getThumbnailFilename());
-		if(photoFile.exists()) {
-			photoFile.delete();
+		try {
+			File photoFile = new File(getImageUploadPath() + File.separator + photoInfo.getNewFilename());
+			File thumbnailFile = new File(getImageUploadPath() + File.separator + photoInfo.getThumbnailFilename());
+			if(photoFile.exists()) {
+				photoFile.delete();
+			}
+			if(thumbnailFile.exists()) {
+				thumbnailFile.delete();
+			}
+		}catch(NullPointerException e) {
+			e.printStackTrace();
 		}
-		if(thumbnailFile.exists()) {
-			thumbnailFile.delete();
-		}
-		
 		JSONObject json = new JSONObject();
 		int result = photoInfoService.delete(photo);
 		json.put("result", result);

@@ -2,6 +2,11 @@ function submitProduct(){
 	var param = $("#admin-add-form").serialize();
 	var productId = $("#productId").val();
 	
+	var representImgLength = $("#rep-image li").length;
+	if(representImgLength == 0){
+		alert("대표사진을 업로드 해주세요.");
+		return false;
+	}
 	if(confirm("저장하시겠습니까?")){
 		/*
 		var dataObj = {};

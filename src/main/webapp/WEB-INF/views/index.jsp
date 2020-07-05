@@ -33,8 +33,7 @@
 									<div class="bt_wrap">
 										<input type="hidden" value="1" name="display"/>
 										<input type="button" value="추가" class="bt_add main popup1_opener">	
-										<input type="button" value="변경" class="bt_change main popup1_opener">
-										<input type="button" value="삭제" class="bt_del main">	
+										<input type="button" value="삭제" class="bt_del main popup1_delete_opener">	
 									</div>
 								</sec:authorize>
 							</div>

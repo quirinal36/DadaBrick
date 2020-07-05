@@ -107,7 +107,7 @@ var clipboard = new ClipboardJS('#go-ask', {
 	}
 }); 
 clipboard.on('success', function(e){
-	if(confirm("제품명과 제품번호가 복사되었습니다. 확인을 누르면 문의하기 페이지로 이동합니다.")){
+	if(confirm("제품명과 제품번호가 복사되었습니다. 확인을 누르면 질문과 답변 페이지로 이동합니다.")){
 		window.location.replace("/board/faq/");
 	}
 });

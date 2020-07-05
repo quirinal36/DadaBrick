@@ -20,7 +20,7 @@
 	<select id="select_list" parameterType="java.util.List" resultType="menus">
 		SELECT 
 			menu.*,
-			(SELECT COUNT(1) FROM products WHERE menuId = menu.id) AS total
+			(SELECT COUNT(1) FROM products WHERE menuId = menu.id and orderNum > 0) AS total
 		FROM 
 			menus menu
 		<where>

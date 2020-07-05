@@ -147,7 +147,8 @@ public class ProductsController extends DadaController{
 	
 	@ResponseBody
 	@RequestMapping(value="/edit", method = RequestMethod.POST, produces = "application/json; charset=utf8")
-	public String postEditProduct(ProductsVO product, @RequestParam(value="detImage")int[] detImages,
+	public String postEditProduct(ProductsVO product, 
+			@RequestParam(value="detImage", required = false)Optional<int[]> detImages,
 			HttpServletRequest request, RedirectAttributes redirectAttr) {
 		JSONObject json = new JSONObject();
 		if(request.isUserInRole("ADMIN")) {
@@ -159,13 +160,15 @@ public class ProductsController extends DadaController{
 			List<PhotoInfo> appendPhotos = new ArrayList<>();
 			
 			// photoInfoMap 에는 없지만, detImages에는 있다면 추가해야한다.
-			for(Integer detImg : detImages) {
-				if(!photoInfoMap.containsKey(detImg)) {
-					appendPhotos.add(PhotoInfo.newInstance(product.getId(), detImg));
+			if(detImages.isPresent()) {
+				for(Integer detImg : detImages.get()) {
+					if(!photoInfoMap.containsKey(detImg)) {
+						appendPhotos.add(PhotoInfo.newInstance(product.getId(), detImg));
+					}
 				}
+				photoInfoService.updateProducts(appendPhotos);
 			}
-			photoInfoService.updateProducts(appendPhotos);
-			
+			json.put("category", product.getMenuId());
 			json.put("result", productsService.update(product));
 		}else {
 			json.put("result", -1);
@@ -177,25 +180,27 @@ public class ProductsController extends DadaController{
 	@ResponseBody
 	@RequestMapping(value="/add", method = RequestMethod.POST, produces = "application/json; charset=utf8")
 	public String postProduct(ModelAndView mv, ProductsVO product,
-			HttpServletRequest request, @RequestParam(value="detImage")int[] detImages) {
+			HttpServletRequest request, @RequestParam(value="detImage", required=false)Optional<int[]> detImages) {
 		JSONObject json = new JSONObject();
 		int result = productsService.insert(product);
 		
-		if(detImages.length > 0) {
-			List<PhotoInfo> photoInfoList = new ArrayList<>();
-			for(int detImg : detImages) {
-				photoInfoList.add(PhotoInfo.newInstance(product.getId(), detImg));
+		if(detImages.isPresent()) {
+			if(detImages.get().length > 0) {
+				List<PhotoInfo> photoInfoList = new ArrayList<>();
+				for(int detImg : detImages.get()) {
+					photoInfoList.add(PhotoInfo.newInstance(product.getId(), detImg));
+				}
+				photoInfoService.updateProducts(photoInfoList);
 			}
-			photoInfoService.updateProducts(photoInfoList);
 		}
-		
 		json.put("result", result);
 		json.put("category", product.getMenuId());
 		return json.toString();
 	}
 	
-	@RequestMapping(value="/add", method = RequestMethod.GET)
+	@RequestMapping(value= {"/add","/add/{menuId}"}, method = RequestMethod.GET)
 	public ModelAndView getAddView(ModelAndView mv,
+			@PathVariable(value="menuId")Optional<Integer>menuId,
 			HttpServletRequest request, RedirectAttributes redirectAttr) {
 		if(request.isUserInRole("ADMIN")) {
 			// 상단에 표시될 메뉴들
@@ -209,6 +214,9 @@ public class ProductsController extends DadaController{
 			TreeMap<Integer, Menus> sortedMap = new TreeMap<Integer, Menus>(map);
 			Iterator<Integer> iterKey = sortedMap.keySet().iterator();
 			
+			if(menuId.isPresent()) {
+				mv.addObject("currentMenuId", menuId.get());
+			}
 			mv.addObject("category", sortedMap);
 			mv.setViewName("/products/add");
 		}else {
