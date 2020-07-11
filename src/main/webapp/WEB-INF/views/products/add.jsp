@@ -95,7 +95,7 @@
 								</td>
 							</tr>
 							<tr>
-								<th>대표사진 ${product.representImage}</th>
+								<th>대표사진</th>
 								<td colspan="3" id="dropzone-img-rep">
 									<c:choose>
 										<c:when test="${empty product.representImage}">

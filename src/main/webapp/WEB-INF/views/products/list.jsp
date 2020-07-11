@@ -17,6 +17,9 @@
 function getNextPage(){
 	return "";
 }
+function pageGo(pageNo){
+	window.location.replace("/products/list/${current.menuNum}/"+pageNo);
+}
 $(".container").infiniteScroll({
 	path: getNextPage,
 	append: '.product',
@@ -121,6 +124,26 @@ $(".container").infiniteScroll({
 					</c:choose>		
 				</c:if>
 				<sec:authorize access="hasRole('ADMIN')">
+				
+				<div class="page_wrap">
+					<a href="javascript:pageGo(${paging.firstPageNo})" class="bt first">맨 처음 페이지로 가기</a>
+					<a href="javascript:pageGo(${paging.prevPageNo})" class="bt prev">이전 페이지로 가기</a>
+					<c:choose>
+						<c:when test="${paging.finalPageNo eq 0}">
+							<a href="javascript:pageGo(1)" class="num on">1</a>
+						</c:when>
+						<c:otherwise>
+							<c:forEach begin="${paging.startPageNo }" end="${paging.endPageNo}" varStatus="loop">
+								<a href="javascript:pageGo(${loop.current })" class="num <c:if test="${loop.current eq paging.pageNo }">on</c:if>">
+								${loop.current }
+								</a>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+					<a href="javascript:pageGo(${paging.nextPageNo})" class="bt next">다음 페이지로 가기</a>
+					<a href="javascript:pageGo(${paging.endPageNo})" class="bt last">마지막 페이지로 가기</a>
+				</div>
+				
 				<div id="products_list_wrap">
 					<div class="bt_wrap">
 						<a href="<c:url value="/products/add/${current.menuNum }"/>" class="bt1 on">등록</a>

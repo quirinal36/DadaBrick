@@ -99,12 +99,12 @@ public class ProductsController extends DadaController{
 		
 		// 현재 메뉴의 검색결과
 		product.setMenuId(current.getId());
-		product.setTotalCount(productsService.count(product));
 		if(pageNum.isPresent()) {
 			product.setPageNo(pageNum.get());
 		}else {
 			product.setPageNo(1);
 		}
+		product.setTotalCount(productsService.count(product));
 		
 		SlidePhotoInfo photoTitle = slidePhotoService.selectOne(SlidePhotoInfo.newInstance(SlidePhotoInfo.MENUS_TITLE, product.getMenuId()));
 		if(photoTitle != null) {
@@ -166,7 +166,9 @@ public class ProductsController extends DadaController{
 						appendPhotos.add(PhotoInfo.newInstance(product.getId(), detImg));
 					}
 				}
-				photoInfoService.updateProducts(appendPhotos);
+				if(appendPhotos.size() > 0) {
+					photoInfoService.updateProducts(appendPhotos);
+				}
 			}
 			json.put("category", product.getMenuId());
 			json.put("result", productsService.update(product));

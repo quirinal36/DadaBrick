@@ -18,7 +18,7 @@
 		(
 			${menuId},
 			'${name}',
-			(SELECT MAX(p.orderNum)+1 FROM products p where p.menuId = ${menuId}),
+			(SELECT MAX(p.orderNum)+1 FROM products p where p.menuId = ${menuId}),		
 			'${primaryId}',
 			'${size}',
 			'${packaging}',
@@ -60,7 +60,7 @@
 				p.primaryId like '%${query}%'
 				)
 			</if>
-			and orderNum > 0
+			and orderNum >= 0
 		</where>
 		order by p.orderNum desc
 		LIMIT ${from}, ${pageSize}
@@ -73,7 +73,7 @@
 			menuId = ${menuId}
 			and
 			</if>
-			orderNum > 0
+			orderNum >= 0
 		</where>
 	</select>
 	
