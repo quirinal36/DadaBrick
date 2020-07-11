@@ -123,9 +123,8 @@ $(".container").infiniteScroll({
 						</c:otherwise>
 					</c:choose>		
 				</c:if>
-				<sec:authorize access="hasRole('ADMIN')">
 				
-				<div class="page_wrap">
+				<div class="page">
 					<a href="javascript:pageGo(${paging.firstPageNo})" class="bt first">맨 처음 페이지로 가기</a>
 					<a href="javascript:pageGo(${paging.prevPageNo})" class="bt prev">이전 페이지로 가기</a>
 					<c:choose>
@@ -143,7 +142,7 @@ $(".container").infiniteScroll({
 					<a href="javascript:pageGo(${paging.nextPageNo})" class="bt next">다음 페이지로 가기</a>
 					<a href="javascript:pageGo(${paging.endPageNo})" class="bt last">마지막 페이지로 가기</a>
 				</div>
-				
+				<sec:authorize access="hasRole('ADMIN')">
 				<div id="products_list_wrap">
 					<div class="bt_wrap">
 						<a href="<c:url value="/products/add/${current.menuNum }"/>" class="bt1 on">등록</a>
