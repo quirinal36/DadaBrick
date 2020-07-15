@@ -3,7 +3,7 @@ package dada.brick.com.vo;
 public class Paging {
 	public static final int PAGE_SIZE_LIST = 10;
 	public static final int PAGE_SIZE_CARD = 9;
-	private String query;		// 검색어
+	protected String query;		// 검색어
 	private int pageSize; 		// 게시 글 수
     private int firstPageNo; 	// 첫 번째 페이지 번호
     private int prevPageNo; 	// 이전 페이지 번호

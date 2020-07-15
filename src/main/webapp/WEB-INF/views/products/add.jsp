@@ -98,7 +98,7 @@
 								<th>대표사진</th>
 								<td colspan="3" id="dropzone-img-rep">
 									<c:choose>
-										<c:when test="${empty product.representImage}">
+										<c:when test="${empty product.representImage or product.representImage eq 0}">
 											<input id="image-upload-btn" type="file" accept="image/*" value="등록" class="bt_imgUpload" data-url="<c:url value="/upload/sized/image"/>">
 	                                    </c:when>
 	                                    <c:otherwise>

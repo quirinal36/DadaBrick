@@ -11,19 +11,25 @@
 			primaryId,
 			size,
 			packaging,
-			delivery,
+			delivery
+			<if test="representImage > 0">
+			,
 			representImage
+			</if>
 		)
 		values
 		(
 			${menuId},
 			'${name}',
-			(SELECT MAX(p.orderNum)+1 FROM products p where p.menuId = ${menuId}),		
+			IFNULL((SELECT MAX(p.orderNum)+1 FROM products p where p.menuId = ${menuId}),0),		
 			'${primaryId}',
 			'${size}',
 			'${packaging}',
-			'${delivery}',
+			'${delivery}'
+			<if test="representImage > 0">
+			,
 			${representImage}
+			</if>
 		)
 	</insert>
 	<update id="update" parameterType="products">
@@ -71,6 +77,12 @@
 		<where>
 			<if test="menuId > 0">
 			menuId = ${menuId}
+			and
+			</if>
+			<if test="@dada.brick.com.util.StringUtil@notEmpty(query)">
+				name like '%${query}%'
+				or
+				primaryId like '%${query}%'
 			and
 			</if>
 			orderNum >= 0
