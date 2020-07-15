@@ -9,7 +9,7 @@
 
 .idx_main_wrap > div {
 	border-radius: 15px;
-	background: #f5f5f5 url(/resources/img/comm/contentsTop.png) no-repeat 50% 50% /240px;
+	background: #f5f5f5;
 }
 
 .idx_main .item {
@@ -40,7 +40,7 @@
 }
 
 .idx_main .bt_add.main {
-	right: 120px;
+	right: 70px;
 }
 
 .idx_main .bt_change.main {
