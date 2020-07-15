@@ -82,40 +82,40 @@ function deleteSlidePopup(id){
 					<div class="idx_insta">
 						<ul>
 							<li>
-								<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+								<a href="https://www.instagram.com/p/CCqY6jaJta6/" target="_blank" style="background-image: url(/resources/img/temp/i1.jpg);">사진</a>
 							</li>
 							<li>
-								<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+								<a href="https://www.instagram.com/p/CB5H-DVJaBq/" target="_blank" style="background-image: url(/resources/img/temp/i2.jpg);">사진</a>
 							</li>
 							<li>
-								<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+								<a href="https://www.instagram.com/p/CBiK0rNJ031/" target="_blank" style="background-image: url(/resources/img/temp/i3.jpg);">사진</a>
 							</li>
 							<li>
-								<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+								<a href="https://www.instagram.com/p/CBiJu43JKQt/" target="_blank" style="background-image: url(/resources/img/temp/i4.jpg);">사진</a>
 							</li>
 							<li>
-								<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+								<a href="https://www.instagram.com/p/B9yXbqMp47k/" target="_blank" style="background-image: url(/resources/img/temp/i5.jpg);">사진</a>
 							</li>
 							<li>
-								<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+								<a href="https://www.instagram.com/p/B9qxyl3J8dn/" target="_blank" style="background-image: url(/resources/img/temp/i6.jpg);">사진</a>
 							</li>
 							<li>
-								<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+								<a href="https://www.instagram.com/p/B9qwnRIpR3N/" target="_blank" style="background-image: url(/resources/img/temp/i7.jpg);">사진</a>
 							</li>
 							<li>
-								<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+								<a href="https://www.instagram.com/p/B9gbk3HJYFp/" target="_blank" style="background-image: url(/resources/img/temp/i8.jpg);">사진</a>
 							</li>
 							<li>
-								<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+								<a href="https://www.instagram.com/p/B9gakQAJn6Q/" target="_blank" style="background-image: url(/resources/img/temp/i9.jpg);">사진</a>
 							</li>
 							<li>
-								<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+								<a href="https://www.instagram.com/p/B8nKZoUpyVf/" target="_blank" style="background-image: url(/resources/img/temp/i10.jpg);">사진</a>
 							</li>
 							<li>
-								<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+								<a href="https://www.instagram.com/p/B8nJiGWpUjA/" target="_blank" style="background-image: url(/resources/img/temp/i11.jpg);">사진</a>
 							</li>
 							<li>
-								<a href="#" style="background-image: url(/resources/img/temp/3.png);">사진</a>
+								<a href="https://www.instagram.com/p/B8dH6Crp72D/" target="_blank" style="background-image: url(/resources/img/temp/i12.jpg);">사진</a>
 							</li>
 						</ul>
 					</div>
