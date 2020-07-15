@@ -61,11 +61,16 @@
 								<td>
 									<select class="select1" name="menuId">
 										<c:forEach items="${category }" var="item">
-											<c:set var="menu" value="${item.value }"></c:set>
-											<c:choose>
-												<c:when test="${menu.id eq currentMenuId }"><option value="${menu.id }" selected>${menu.name }</option></c:when>
-												<c:otherwise><option value="${menu.id }">${menu.name }</option></c:otherwise>
-											</c:choose>
+												<c:set var="menu" value="${item.value }"></c:set>
+												<c:choose>
+													<c:when test="${menu.id eq currentMenuId }"><option value="${menu.id }" selected>${menu.name }</option></c:when>
+													<c:otherwise>
+														<c:if test="${menu.id lt 70 }">
+															<option value="${menu.id }">${menu.name }</option>
+														</c:if>
+													</c:otherwise>
+												</c:choose>
+											
 										</c:forEach>
 									</select>
 								</td>
