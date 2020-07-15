@@ -629,17 +629,20 @@
 	white-space: normal;
 }
 
+#paging,
 .board_list .page {
 	margin-top: 30px;
 	text-align: center;
 	font-size: 0;
 }
 
+#paging a,
 .board_list .page a {
 	display: inline-block;
 	vertical-align: middle;
 }
 
+#paging a.bt,
 .board_list .page a.bt {
 	width: 30px;
 	height: 30px;
@@ -650,33 +653,40 @@
 	overflow: hidden;
 }
 
+#paging a.bt:hover,
 .board_list .page a.bt:hover {
 	background-color: #ccc;
 }
 
+#paging a.first,
 .board_list .page a.first {
 	background-position: 10px -40px;
 }
 
+#paging a.prev,
 .board_list .page a.prev {
 	margin: 0 15px 0 5px;
 	background-position: 10px 10px;
 }
 
+#paging a.next,
 .board_list .page a.next {
 	margin: 0 5px 0 15px;
 	background-position: -40px 10px;
 }
 
+#paging a.last,
 .board_list .page a.last {
 	background-position: -40px -40px;
 }
 
+#paging a.num,
 .board_list .page a.num {
 	padding: 0 10px;
 	font-size: 16px;
 }
 
+#paging a.num.on,
 .board_list .page a.num.on {
 	color: #b5a488;
 	text-decoration: underline;
@@ -874,25 +884,31 @@
 		
 		
 		
-	.board_list .page a.num {
+	.board_list .page a.num,
+	#paging a.num {
 		font-size: 12px;
 	}
-	.board_list .page a.bt {
+	.board_list .page a.bt,
+	#paging a.bt {
 		width: 24px;
 		height: 24px;
 	}
-	.board_list .page a.first {
+	.board_list .page a.first,
+	#paging a.first {
 		background-position: 7px -42px;
 	}
-	.board_list .page a.prev {
+	.board_list .page a.prev,
+	#paging a.prev {
 		margin-right: 10px;
 		background-position: 7px 8px;
 	}
-	.board_list .page a.next {
+	.board_list .page a.next,
+	#paging a.next {
 		margin-left: 10px;
 		background-position: -42px 8px;
 	}
-	.board_list .page a.last {
+	.board_list .page a.last,
+	#paging a.last {
 		background-position: -42px -42px;
 	}
 	

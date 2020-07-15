@@ -86,7 +86,7 @@ $(function(){
 						</c:forEach>
 						
 					</ul>
-					<div class="page">
+					<div id="paging" class="page">
 						<a href="javascript:pageGo(${paging.firstPageNo})" class="bt first">맨 처음 페이지로 가기</a>
 						<a href="javascript:pageGo(${paging.prevPageNo})" class="bt prev">이전 페이지로 가기</a>
 						<c:choose>
