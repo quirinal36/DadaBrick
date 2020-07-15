@@ -537,6 +537,49 @@ header {
 	overflow: hidden;
 }
 
+
+#callcenter {
+	position: fixed;
+	left: 20px;
+	bottom: 20px;
+	width: 240px;
+	height: 70px;
+	border-radius: 1000px;
+	background: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	overflow: hidden;
+	z-index: 1;
+}
+#callcenter::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	width: 70px;
+	height: 70px;
+	border-radius: 100px;
+	background: #aea089 url(/resources/img/comm/call.png) no-repeat 50% 50% /32px;
+}
+
+#callcenter > a {
+	display: block;
+	padding-top: 8px;
+	padding-left: 90px;
+	box-sizing: border-box;
+	line-height: 210%;
+}
+	
+#callcenter span {
+	font-size: 16px;
+	font-weight: 100;
+}
+
+#callcenter strong {
+	display: block;
+	font-size: 22px;
+	color: #483128;
+}
 @media (max-width: 1000px ) {
 	#wrap {
 		min-width: 320px;
@@ -688,5 +731,17 @@ header {
 		height: 16px;
 		margin-top: -8px;
 		background-size: 16px;
+	}
+	
+	#callcenter {
+		left: auto;
+		right: 20px;
+		width: 40px;
+		height: 40px;
+	}
+	#callcenter::before {
+		width: 40px;
+		height: 40px;
+		background-size: 20px;
 	}
 }

@@ -77,6 +77,13 @@
 		</div>
 	</div>
 </div>
+<!-- 대표전화 -->
+<div id="callcenter">
+	<a href="tel:15884481">
+		<span>대표전화</span>
+		<strong>1588-4481</strong>
+	</a>
+</div>
 <script type="text/javascript">
 $(document).ready(function(){
 	// 대표이미지
