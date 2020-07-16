@@ -247,7 +247,9 @@ public class ProductsController extends DadaController{
 				Iterator<Integer> iterKey = sortedMap.keySet().iterator();
 				
 				mv.addObject("category", sortedMap);
-				mv.addObject("product", productsService.selectOne(ProductsVO.newInstance(productId.get())));
+				ProductsVO product = productsService.selectOne(ProductsVO.newInstance(productId.get()));
+				mv.addObject("product", product);
+				mv.addObject("currentMenuId", product.getMenuId());
 				
 				PhotoInfo photoInfo = PhotoInfo.newInstance(productId.get(), 0);
 				List<PhotoInfo> detailPhotoList = photoInfoService.select(photoInfo);
