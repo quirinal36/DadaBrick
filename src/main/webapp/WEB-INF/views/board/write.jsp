@@ -41,13 +41,24 @@
 		
 		function delButtonClick(button){
 			var id = $(button).val();
-			$(".bt_del_img").each(function(index, item){
-				if(id == $(item).val()){
-					$(item).parent().remove();
-					return;
-				}
+			var url = "/upload/delete";
+			var param = "id="+id;
+
+			$.ajax({
+				url : url,
+				data: param,
+				type: "POST",
+				dataType: "json"
+			}).done(function(json){
+				$(".bt_del_img").each(function(index, item){
+					if(id == $(item).val()){
+						$(item).parent().remove();
+						return;
+					}
+				});
 			});
 		}
+		
 		function delFileClick(button){
 			var id = $(button).val();
 			$(".bt_del_file").each(function(index, item){

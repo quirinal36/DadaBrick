@@ -125,22 +125,13 @@ public class BoardController extends DadaController{
 			boolean step1 = (board.getBoardType() == 17 && !(request.isUserInRole("ROLE_ADMIN")));
 			boolean step2 = !token.isPresent();
 			
-			
-			logger.info("step1: " + step1);
-			logger.info("step2: " + step2);
-			
-			
 			if(step1 && step2) {
 				redirectAttr.addAttribute("redirectId", boardId.get());
 				mv.setViewName("redirect:/board/inputPwd");
 			}else {
 				boolean step3 = board.getBoardType() == 17 && token.isPresent();
-				logger.info("step3: " + step3);
 				if(step3) {
-					logger.info("token: " + token.get());
 					String pwd = String.format("%04d", (token.get() / boardId.get() / Board.SEED)-1);
-					logger.info("pwd: " + pwd);
-					logger.info("board.getPwd(): " + board.getPwd());
 					
 					if(!pwd.equals(board.getPwd())) {
 						redirectAttr.addAttribute("redirectId", boardId.get());
