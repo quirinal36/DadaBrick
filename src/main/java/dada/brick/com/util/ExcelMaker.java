@@ -1,12 +1,20 @@
 package dada.brick.com.util;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
+import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -15,8 +23,10 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import dada.brick.com.vo.ApplyVO;
+import dada.brick.com.vo.ProductsVO;
 import dada.brick.com.vo.UserVO;
 import lombok.Getter;
 
@@ -24,11 +34,86 @@ import lombok.Getter;
 public class ExcelMaker {
 	Workbook wb;
 	Sheet sheet;
-	
+	final static Logger logger = Logger.getLogger(ExcelMaker.class.getSimpleName());
 	public ExcelMaker() {
 		
 	}
-	
+	public List<ProductsVO> getExcelFileToProductsVO() {
+		String filePath = "D:\\dada.xlsx"; 
+		List<ProductsVO> list = new ArrayList<ProductsVO>();
+		try {
+			InputStream inputStream = new FileInputStream(filePath);
+			Workbook workbook = WorkbookFactory.create(inputStream); // 시트 로드 0, 첫번째 시트 로드 
+			Sheet sheet = workbook.getSheetAt(0); 
+			Iterator<Row> rowItr = sheet.iterator(); // 행만큼 반복
+			
+			while(rowItr.hasNext()) {
+				Row row = rowItr.next();
+				if(row.getRowNum() == 0)continue;
+				Iterator<Cell> cellItr = row.cellIterator(); // 한행이 한열씩 읽기 (셀 읽기)
+				ProductsVO product = new ProductsVO();
+				while(cellItr.hasNext()) {
+					Cell cell = cellItr.next();
+					
+					
+					int index = cell.getColumnIndex();
+					switch(index) {
+					case 1:
+						product.setMenuId(((Double)getValueFromCell(cell)).intValue());
+						break;
+					case 2:
+						product.setOrderNum(((Double)getValueFromCell(cell)).intValue());
+						break;
+					case 3:
+						product.setName((String)getValueFromCell(cell));
+						break;
+					case 4:
+						product.setPrimaryId((String)getValueFromCell(cell));
+						break;
+					case 5:
+						product.setSize((String)getValueFromCell(cell));
+						break;
+					case 6:
+						product.setPackaging((String)getValueFromCell(cell));
+						break;
+					case 7:
+						product.setDelivery((String)getValueFromCell(cell));
+						break;
+					}
+				}
+				list.add(product);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (EncryptedDocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	private Object getValueFromCell(Cell cell) { 
+		switch(cell.getCellTypeEnum()) { 
+		case STRING: 
+			return cell.getStringCellValue(); 
+		case BOOLEAN: 
+			return cell.getBooleanCellValue(); 
+		case NUMERIC: 
+			return cell.getNumericCellValue(); 
+		case FORMULA: 
+			return cell.getCellFormula(); 
+		case BLANK: 
+			return ""; 
+		default: 
+			return ""; 
+		} 
+	}
 	public void makeSheet(final String title) {
 		this.wb = new HSSFWorkbook();
 		this.sheet = this.wb.createSheet(title);		

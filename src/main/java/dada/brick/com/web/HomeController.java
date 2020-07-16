@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import dada.brick.com.Config;
 import dada.brick.com.service.ProductsService;
 import dada.brick.com.service.SlidePhotoService;
+import dada.brick.com.util.ExcelMaker;
 import dada.brick.com.vo.Board;
 import dada.brick.com.vo.ProductsVO;
 import dada.brick.com.vo.SlidePhotoInfo;
@@ -58,15 +59,9 @@ public class HomeController extends DadaController {
 		mv.setViewName("index");
 		return mv;
 	}
-	@RequestMapping(value= {"/search", "/search/{pageNum}"})
+	@RequestMapping(value= {"/search"})
 	public ModelAndView getCompanyView(Locale locale, ModelAndView mv,
-			ProductsVO product, @PathVariable("pageNum")Optional<Integer>pageNum) {
-		if(pageNum.isPresent()) {
-			product.setPageNo(pageNum.get());
-		}else {
-			product.setPageNo(0);
-		}
-		
+			ProductsVO product) {
 		product.setTotalCount(productsService.count(product));
 		List<ProductsVO> products = productsService.select(product);
 		
@@ -190,5 +185,24 @@ public class HomeController extends DadaController {
 			json.put("mgs", "삭제실패");
 		}
 		return json.toString();
+	}
+	@ResponseBody
+	@RequestMapping(value="/parse/excel", method = RequestMethod.GET)
+	public String parseExcel() {
+		int result = 0;
+		
+		ExcelMaker maker = new ExcelMaker();
+		List<ProductsVO> list = maker.getExcelFileToProductsVO();
+		logger.info("list size: " + list.size());
+		Iterator<ProductsVO> iter = list.iterator();
+		while(iter.hasNext()) {
+			try {
+				result += productsService.insert(iter.next());
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result + " succed";
 	}
 }
