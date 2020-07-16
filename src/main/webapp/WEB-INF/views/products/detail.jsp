@@ -55,8 +55,8 @@ function deleteProduct(productId){
 					<div class="detail_slider_pager">
 						<div>
 							<div>
-								<c:forEach items="${detailPhotoList }" var="item" status="sts">
-									<a href="" data-slide-index="${sts.count }"><img src="${item.url}" alt="사진" class="item"></a>
+								<c:forEach items="${detailPhotoList }" var="item" varStatus="sts">
+									<a href="" data-slide-index="${sts.index }"><img src="${item.url}" alt="사진" class="item"></a>
 								</c:forEach>
 							</div>
 						</div>
