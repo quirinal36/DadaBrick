@@ -29,26 +29,23 @@
 	overflow: hidden;
 }
 
-.idx_main .bt_add.main,
-.idx_main .bt_change.main,
-.idx_main .bt_del.main {
+.idx_main .bt_wrap {
 	position:absolute;
 	top: 20px;
+	right: 20px;
+	font-size: 0;
+}
+
+.idx_main .bt_add.main,
+.idx_main .bt_del.main {
+	display: inline-block;
 	border-color: #777;
 	background: rgba(0, 0, 0, 0.5);
     color: #fff;
 }
 
-.idx_main .bt_add.main {
-	right: 70px;
-}
-
-.idx_main .bt_change.main {
-	right: 70px;
-}
-
 .idx_main .bt_del.main {
-	right: 20px;
+	margin-left: 5px;
 }
 
 .idx_products_wrap,

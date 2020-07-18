@@ -42,6 +42,7 @@ function idxProductsSlider() {
 			slideWidth: 220,
 			slideMargin: 60
 		});
+		$(".idx_products_wrap .bx-wrapper").css("max-width", "1060px");
 	}
 }
 
