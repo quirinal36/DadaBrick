@@ -82,6 +82,9 @@ function deleteSlidePopup(id){
 					<div class="idx_insta">
 						<ul>
 							<li>
+								<a href="https://www.instagram.com/p/CDDWWRTpWtD/" target="_blank" style="background-image: url(/resources/img/temp/i13.jpg);">사진</a>
+							</li>
+							<li>
 								<a href="https://www.instagram.com/p/CCqY6jaJta6/" target="_blank" style="background-image: url(/resources/img/temp/i1.jpg);">사진</a>
 							</li>
 							<li>
@@ -113,9 +116,6 @@ function deleteSlidePopup(id){
 							</li>
 							<li>
 								<a href="https://www.instagram.com/p/B8nJiGWpUjA/" target="_blank" style="background-image: url(/resources/img/temp/i11.jpg);">사진</a>
-							</li>
-							<li>
-								<a href="https://www.instagram.com/p/B8dH6Crp72D/" target="_blank" style="background-image: url(/resources/img/temp/i12.jpg);">사진</a>
 							</li>
 						</ul>
 					</div>

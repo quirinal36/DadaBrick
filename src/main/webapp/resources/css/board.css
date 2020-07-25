@@ -882,7 +882,10 @@
 		width: 20%;
 	}
 		
-		
+	#paging a.num,
+	.board_list .page a.num {
+		padding: 0 4px;
+	}
 		
 	.board_list .page a.num,
 	#paging a.num {
