@@ -52,8 +52,10 @@ function deleteSlidePopup(id){
 									<sec:authorize access="hasRole('ADMIN')">
 										<div class="bt_wrap">
 											<input type="hidden" value="1" name="display"/>
-											<input type="button" value="추가" class="bt_add main popup1_opener">	
-											<input type="button" value="삭제" class="bt_del main" onclick="deleteSlidePopup('${item.id}')">	
+											<input type="button" value="추가" class="bt_add main popup1_opener">
+											<c:if test="${fn:length(slideList) gt 1 }">
+												<input type="button" value="삭제" class="bt_del main" onclick="deleteSlidePopup('${item.id}')">
+											</c:if>
 										</div>
 									</sec:authorize>
 								</div>
