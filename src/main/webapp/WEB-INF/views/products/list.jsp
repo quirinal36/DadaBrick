@@ -74,7 +74,7 @@ $(".container").infiniteScroll({
 						<c:forEach items="${products}" var="item" varStatus="step">
 							<li class="product">
 								<a href="<c:url value="/products/detail/${item.id }"/>" class="image" style="background-image: url('/picture/${item.representImage}');">사진</a>  
-								<p>[${item.primaryId}] ${item.size }</p>
+								<!-- <p>[${item.primaryId}] ${item.size }</p> -->
 								<a href="<c:url value="/products/detail/${item.id }"/>" class="name">${item.name }</a>
 								<sec:authorize access="hasRole('ADMIN')">
 									<div class="bt_move_wrap">
