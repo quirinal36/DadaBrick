@@ -82,7 +82,7 @@ $(".container").infiniteScroll({
 										<input type="hidden" name="orderNum" value="${item.orderNum }"/>
 										<input type="hidden" name="menuId" value="${item.menuId }"/>
 										<c:choose>
-											<c:when test="${step.first }">
+											<c:when test="${step.first and paging.firstPageNo eq paging.pageNo}">
 												<input type="button" value="이전" class="bt_move prev off">
 											</c:when>
 											<c:otherwise>
@@ -90,7 +90,7 @@ $(".container").infiniteScroll({
 											</c:otherwise>
 										</c:choose>
 										<c:choose>
-											<c:when test="${step.last }">
+											<c:when test="${step.last and paging.finalPageNo eq paging.pageNo}">
 												<input type="button" value="이전" class="bt_move next off">
 											</c:when>
 											<c:otherwise>
