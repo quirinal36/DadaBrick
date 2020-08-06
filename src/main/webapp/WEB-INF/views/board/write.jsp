@@ -17,7 +17,6 @@
 		}
 		$(document).ready(function(){
 			var url = $("#clearUrl").val();
-			
 			var isLoginUrl = $("input[name='isLoginUrl']").val();
 			var loginUrl = $("input[name='loginUrl']").val();
 			var redirectUrl = $("input[name='currentUrl']").val();
@@ -41,32 +40,42 @@
 		
 		function delButtonClick(button){
 			var id = $(button).val();
-			var url = "/upload/delete";
-			var param = "id="+id;
+			var url = "/delete/img/"+id;
 
 			$.ajax({
 				url : url,
-				data: param,
 				type: "POST",
 				dataType: "json"
 			}).done(function(json){
-				$(".bt_del_img").each(function(index, item){
-					if(id == $(item).val()){
-						$(item).parent().remove();
-						return;
-					}
-				});
+				if(json.result > 0){
+					$(".bt_del_img").each(function(index, item){
+						if(id == $(item).val()){
+							$(item).parent().remove();
+							return;
+						}
+					});
+				}
 			});
 		}
 		
 		function delFileClick(button){
 			var id = $(button).val();
-			$(".bt_del_file").each(function(index, item){
-				if(id == $(item).val()){
-					$(item).parent().remove();
-					return;
+			var url = "/delete/file/"+id;
+			
+			$.ajax({
+				url : url,
+				type: "POST",
+				dataType: "json"
+			}).done(function(json){
+				if(json.result > 0){
+					$(".bt_del_file").each(function(index, item){
+						if(id == $(item).val()){
+							$(item).parent().remove();
+							return;
+						}
+					});
 				}
-			});
+			})
 		}
 		function insertBoard(boardType, boardId){
 			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
@@ -99,13 +108,16 @@
 			var param = $("form").serialize(); 
 			param += "&pictures="+pictures.join(",");
 			param += "&files="+files.join(",");
-			param += "&content="+content;
 			
 			var confirmMsg = "등록하시겠습니까?";
 			
 			if(boardId > 0){
 				confirmMsg = "수정하시겠습니까";
+				param += "&content="+content;
+			}else{
+				param += "&content="+encodeURIComponent(content);
 			}
+			console.log(param);
 			if(confirm(confirmMsg)){
 				$.ajax({
 					url : url,
@@ -113,6 +125,8 @@
 					type: "POST",
 					dataType : "json"
 				}).done(function(json){
+					console.log(json);
+					
 					if(json.result > 0){
 						alert(json.msg);
 						window.location.replace(json.listUrl);

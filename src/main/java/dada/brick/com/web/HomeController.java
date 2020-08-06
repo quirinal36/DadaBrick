@@ -205,4 +205,9 @@ public class HomeController extends DadaController {
 		
 		return result + " succed";
 	}
+	@RequestMapping(value="/robots.txt")
+	public ModelAndView getRobotsView(ModelAndView mv) {
+		mv.setViewName("robots.txt");
+		return mv;		
+	}
 }

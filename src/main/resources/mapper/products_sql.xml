@@ -56,7 +56,7 @@
 			products p LEFT JOIN menus menu ON (p.menuId = menu.id)
 		<where>
 			<if test="menuId > 0">
-			p.menuId = ${menuId}
+			p.menuId = (SELECT menuNum FROM menus WHERE id = ${menuId})
 			</if>
 			<if test="query != ''">
 			and 
@@ -76,7 +76,7 @@
 		SELECT COUNT(*) FROM products
 		<where>
 			<if test="menuId > 0">
-			menuId = ${menuId}
+			menuId = (SELECT menuNum FROM menus WHERE id = ${menuId})
 			and
 			</if>
 			<if test="@dada.brick.com.util.StringUtil@notEmpty(query)">

@@ -1,6 +1,9 @@
 <%@ page session="false" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+<jsp:useBean id="today" class="java.util.Date"/>
+<fmt:formatDate value="${today}" pattern="yyyyMMddhhmm" var="nowDate" scope="application"/>
 <meta charset="utf-8">
 <meta name="Referrer" content="origin">
 <meta http-equiv="Content-Script-Type" content="text/javascript">
@@ -46,15 +49,15 @@
 <script type="text/javascript" src="<c:url value="/resources/js/common.js"/>"></script>
 <script src="<c:url value="/resources/js/sweetalert2.all.min.js"><c:param name="dt" value="${nowDate }"/></c:url>"></script>
 <script src="<c:url value="/resources/js/clientDetective.js"><c:param name="dt" value="${nowDate }"/></c:url>"></script>
-<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery.bxslider.css"/>">
-<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/fonts/NotoSans.css"/>">
-<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/reset.css"/>">
-<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/common.css"/>">
-<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/board.css"/>">
-<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/layout.css"/>">
-<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/contents.css"/>">
-<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/index.css"/>">
-<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/board.css"/>">
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery.bxslider.css"><c:param name="dt" value="${nowDate }"/></c:url>">
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/fonts/NotoSans.css"><c:param name="dt" value="${nowDate }"/></c:url>">
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/reset.css"><c:param name="dt" value="${nowDate }"/></c:url>">
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/common.css"><c:param name="dt" value="${nowDate }"/></c:url>">
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/board.css"><c:param name="dt" value="${nowDate }"/></c:url>">
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/layout.css"><c:param name="dt" value="${nowDate }"/></c:url>">
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/contents.css"><c:param name="dt" value="${nowDate }"/></c:url>">
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/index.css"><c:param name="dt" value="${nowDate }"/></c:url>">
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/board.css"><c:param name="dt" value="${nowDate }"/></c:url>">
 
 <script type="text/javascript">
 const toast = swal.mixin({

@@ -321,13 +321,16 @@ public class BoardController extends DadaController{
 	@RequestMapping(value= {"/edit"}, method=RequestMethod.POST, produces = "application/json; charset=utf8")
 	public String edit(ModelAndView mv, Board board,
 			@RequestParam(value="pictures")String pictures,
-			@RequestParam(value="files")String files) {
+			@RequestParam(value="files")String files) {		
 		UserVO user = getUser();
 		{
 			ArrayList<PhotoInfo> photoList = new ArrayList<PhotoInfo>();
 			String photoArr[] = pictures.split(",");
 			if(photoArr.length>0) {
 				for(String pictureId : photoArr) {
+					if(pictureId.length() == 0) {
+						continue;
+					}
 					PhotoInfo photoInfo = new PhotoInfo();
 					try {
 						photoInfo.setId(Integer.parseInt(pictureId));
@@ -355,6 +358,9 @@ public class BoardController extends DadaController{
 			String filesArr[] = files.split(",");
 			if(filesArr.length>0) {
 				for(String fileId: filesArr) {
+					if(fileId.length() == 0) {
+						continue;
+					}
 					FileInfo file = new FileInfo();
 					try {
 						file.setId(Integer.parseInt(fileId));
@@ -380,6 +386,7 @@ public class BoardController extends DadaController{
 		
 		JSONObject json = new JSONObject();
 		if(Integer.parseInt(user.getKakaoId()) == board.getWriter()) {
+			logger.info(">>>>>>>>>>>>>>>>>>>>>>>>"+board.getContent().length());
 			json.put("result", boardService.update(board));
 			StringBuilder linkBuilder = new StringBuilder();
 			linkBuilder.append("/board/");

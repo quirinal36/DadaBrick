@@ -20,6 +20,7 @@ import org.apache.commons.fileupload.FileUpload;
 import org.apache.commons.io.IOUtils;
 import org.imgscalr.Scalr;
 import org.json.JSONObject;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -222,7 +223,7 @@ public class FileController extends DadaController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="/delete/{which}/{id}", method = RequestMethod.POST)
+	@RequestMapping(value="/delete/{which}/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String deleteFile(@PathVariable(value="id", required=true) Integer id,
 			@PathVariable(value="which", required = true)String which) {
 		JSONObject json = new JSONObject();
@@ -234,6 +235,8 @@ public class FileController extends DadaController {
 			photoInfo = photoInfoService.selectOne(photoInfo);
 			
 			int result = photoInfoService.delete(photoInfo);
+			json.put("result", result);
+			
 			File targetFile = new File(srcPath + File.separator + photoInfo.getNewFilename());
 			if(targetFile.exists()) {
 				targetFile.delete();
@@ -244,6 +247,8 @@ public class FileController extends DadaController {
 			fileInfo = fileInfoService.selectOne(fileInfo);
 			
 			int result = fileInfoService.delete(fileInfo);
+			json.put("result", result);
+			
 			File targetFile = new File(srcPath + File.separator + fileInfo.getNewFilename());
 			if(targetFile.exists()) {
 				targetFile.delete();

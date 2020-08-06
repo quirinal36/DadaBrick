@@ -90,8 +90,12 @@ public class MemberController extends DadaController{
 			user.setEmail(accountObj.getString("email"));
 		}
 		user.setNickname(profileObj.getString("nickname"));
-		user.setThumbnail_image_url(profileObj.getString("thumbnail_image_url"));
-		user.setProfile_image_url(profileObj.getString("profile_image_url"));
+		if(profileObj.has("thumbnail_image_url")) {
+			user.setThumbnail_image_url(profileObj.getString("thumbnail_image_url"));
+		}
+		if(profileObj.has("profile_image_url")) {
+			user.setProfile_image_url(profileObj.getString("profile_image_url"));
+		}
 
 		UserVO selectUser = userService.selectOne(user);
 		if(selectUser != null) {
@@ -99,8 +103,6 @@ public class MemberController extends DadaController{
 			return selectUser.toString();
 		}else {
 			int insertResult = userService.insert(user);
-			logger.info(user.toString());
-			
 			if(insertResult > 0) {
 				login(user.getKakaoId(), "", request);
 			}
