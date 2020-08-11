@@ -83,7 +83,7 @@ header {
 	box-sizing: border-box;
 	line-height: 100%;
 	font-size: 17px;
-	font-weight: 300;
+	font-weight: 400;
 }
 
 #gnbWrap .dep1 > li:hover .dep2 {
@@ -91,7 +91,7 @@ header {
 }
 
 #gnbWrap .dep1 > li:hover > a {
-	font-weight: 400;
+	color: #b5a488;
 }
 
 #gnbWrap .dep2 {
@@ -142,11 +142,19 @@ header {
 }
 
 #header .bt_insta {
-	margin-left: 30px;
+	margin-left: 28px;
 }
 
 #header .bt_insta img {
 	width: 26px;
+}
+
+#header .bt_blog {
+	margin-left: 30px;
+}
+
+#header .bt_blog img {
+	width: 29px;
 }
 
 #header .bt_menu {
@@ -605,7 +613,7 @@ header {
 	}
 	
 	#header h1 img {
-		height: 30px;
+		height: 24px;
 	}
 	
 	#gnbWrap {
@@ -626,6 +634,13 @@ header {
 	
 	#header .bt_insta img {
 		width: 22px;
+	}
+	
+	#header .bt_blog {
+		margin-left: 20px;
+	}
+	#header .bt_blog img {
+		width: 24px;
 	}
 	
 	#header .bt_menu {
