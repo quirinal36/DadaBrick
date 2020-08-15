@@ -100,8 +100,6 @@
     min-width: 720px;
     max-width: 720px;
     margin: 0 auto;
-    padding: 0 50px;
-    box-sizing: border-box;
 }
 
 .detail_slider {
@@ -110,7 +108,7 @@
 
 .detail_slider .item {
 	width: 100%;
-	height: 700px;
+	height: 405px;
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
 	background-size: cover;
@@ -135,7 +133,8 @@
 }
 
 .detail_slider_pager {
-	margin: 40px 0;
+	width: 1200px;
+	margin: 40px 0 40px -240px;
 	text-align: center;
 	font-size: 0;	
 }
@@ -446,12 +445,15 @@
 		padding: 0;
 	}
 	
+	
+	
 	.detail_slider .item {
-		height: 300px;
+		height: 280px;
 		border-radius: 0;
 	}
 	
 	.detail_slider_pager {
+		width: auto;
 		margin: 20px 0;
 	}
 	
