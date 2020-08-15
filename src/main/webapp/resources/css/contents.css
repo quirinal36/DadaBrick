@@ -97,8 +97,8 @@
 
 .detail_slider_wrap {
 	width: 100%;
-    min-width: 1200px;
-    max-width: 1350px;
+    min-width: 720px;
+    max-width: 720px;
     margin: 0 auto;
     padding: 0 50px;
     box-sizing: border-box;
