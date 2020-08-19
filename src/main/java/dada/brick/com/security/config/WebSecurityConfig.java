@@ -65,6 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //			.sessionFixation().migrateSession()
 //			.maximumSessions(1);
 		http
+			.headers().contentTypeOptions().disable().and()
 			.formLogin()
 			.loginPage("/member/login")
 			.loginProcessingUrl("/member/loginProcess")

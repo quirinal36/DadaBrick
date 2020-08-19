@@ -33,16 +33,6 @@ $(function(){
 		$("#gnbWrap_mobile .dep2").not($(this).find("+ul")).slideUp();
 		$(this).find("+ul").slideToggle();
 	});
-	
-	jQuery.i18n.properties({
-  		name: 'messages', 
-  		path:'/properties',
-  		mode:'map',
-  		language:"${locale}",
-  		callback: function(){ 
-  			
-  		}
-	});
 });
 </script>
 <header>
@@ -86,7 +76,7 @@ $(function(){
 				</div>
 				<div class="right">
 					<a href="<c:url value="/search"/>" class="bt_search"><img src="/resources/img/comm/bt_search.png" alt="검색"></a>
-					<a href="https://blog.naver.com/kcm1132" target="_blank" class="bt_blog"><img src="/resources/img/comm/bt_blog.png" alt="블로그"></a>
+					<a href="https://blog.naver.com/dadabrick" target="_blank" class="bt_blog"><img src="/resources/img/comm/bt_blog.png" alt="블로그"></a>
 					<a href="https://www.instagram.com/dadabrick_/" target="_blank" class="bt_insta"><img src="/resources/img/comm/bt_insta.png" alt="인스타그램"></a>
 					<a href="javascript:void(0);" class="bt_menu"><img src="/resources/img/comm/bt_menu.png" alt="메뉴"></a>
 				</div>

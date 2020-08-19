@@ -55,7 +55,7 @@ public class HomeController extends DadaController {
 		
 		mv.addObject("slideList", slideList);
 		mv.addObject("productList", productList);
-		
+		mv.addObject("title","다다벽돌");
 		mv.setViewName("index");
 		return mv;
 	}
@@ -208,6 +208,11 @@ public class HomeController extends DadaController {
 	@RequestMapping(value="/robots.txt")
 	public ModelAndView getRobotsView(ModelAndView mv) {
 		mv.setViewName("robots.txt");
+		return mv;		
+	}
+	@RequestMapping(value="/sitemap.xml")
+	public ModelAndView getSitemapView(ModelAndView mv) {
+		mv.setViewName("sitemap.xml");
 		return mv;		
 	}
 }

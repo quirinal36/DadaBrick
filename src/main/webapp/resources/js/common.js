@@ -9,7 +9,6 @@ $(function(){
 	});
 	// detail_slider
 	$(".detail_slider").bxSlider({
-		mode: "fade",
 		controls: true,
 		auto: true,
 		pager: true,
