@@ -86,7 +86,7 @@ $(".container").infiniteScroll({
 												<input type="button" value="이전" class="bt_move prev off">
 											</c:when>
 											<c:otherwise>
-												<input type="button" value="다음" class="bt_move prev" onclick="javascript:movePrev(this);">	
+												<input type="button" value="이전" class="bt_move prev" onclick="javascript:movePrev(this);">	
 											</c:otherwise>
 										</c:choose>
 										<c:choose>

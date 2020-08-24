@@ -13,7 +13,7 @@
 
 <!-- info -->
 <title>친환경 벽돌 및 타일 전문업체 _ 다다벽돌</title>
-<link rel="canonical" href="https://www.dadabrick.co.kr/" />
+<link rel="canonical" href="https://www.dadabrick.com" />
 <link rel="shortcut icon" href="<c:url value="/resources/img/comm/favicon.png"/>">
 
 <!-- robot -->
@@ -33,7 +33,7 @@
 <meta name="twitter:site" content="@WEBSITE" />
 <meta name="twitter:title" content="친환경 벽돌 및 타일 전문업체 _ 다다벽돌" />
 <meta name="twitter:description" content="건축 박람회 출품, 벽돌, 벽돌&타일 도소매 판매, 공장직출고 샘플가능, 견적상담, 논현동 전시장운영, 친환경인테리어 벽돌&타일 전문판매. 모노클래식타일, 도소매전문" />
-<meta name="twitter:url" content="https://www.dadabrick.co.kr/" />
+<meta name="twitter:url" content="https://www.dadabrick.com/" />
 <meta name="twitter:image" content="/resources/img/comm/og.jpg" />
 
 <!-- opengraph -->
@@ -42,7 +42,7 @@
 <meta property="og:title" content="친환경 벽돌 및 타일 전문업체 _ 다다벽돌" />
 <meta property="og:description" content="건축 박람회 출품, 벽돌, 벽돌&타일 도소매 판매, 공장직출고 샘플가능, 견적상담, 논현동 전시장운영, 친환경인테리어 벽돌&타일 전문판매. 모노클래식타일, 도소매전문" />
 <meta property="og:image" content="/resources/img/comm/og.jpg" />
-<meta property="og:url" content="https://www.dadabrick.co.kr/" />
+<meta property="og:url" content="https://www.dadabrick.com" />
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/jquery.bxslider.min.js"/>"></script>

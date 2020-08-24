@@ -314,4 +314,51 @@ public class ProductsController extends DadaController{
 		}
 		return json.toString();
 	}
+	
+	public String initOrderNum() {
+		JSONObject json = new JSONObject();
+		List<PhotoInfo> products = photoInfoService.selectProducts();
+		for(int j=0; j<products.size(); j++) {
+			PhotoInfo photoInfo = products.get(j);
+			List<PhotoInfo> detailPhotoList = photoInfoService.select(photoInfo);
+			for(int i=0; i<detailPhotoList.size(); i++) {
+				PhotoInfo item = detailPhotoList.get(i);
+				item.setOrderNum(i+1);
+			}
+			photoInfoService.updateOrder(detailPhotoList);
+		}
+		return json.toString();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/photo/move/{dest}", method=RequestMethod.POST, produces = "application/json; charset=utf8")
+	public String movePhotoOrder(PhotoInfo photo,
+			@PathVariable(value="dest", required = true)String dest) {
+		JSONObject json = new JSONObject();
+		
+		if(dest.equals("prev")) {
+			PhotoInfo prevPhoto = photoInfoService.selectPrev(photo);
+			if(prevPhoto != null) {
+				int temp = photo.getOrderNum();
+				photo.setOrderNum(prevPhoto.getOrderNum());
+				prevPhoto.setOrderNum(temp);
+				List<PhotoInfo> editList = new ArrayList<PhotoInfo>();
+				editList.add(photo);
+				editList.add(prevPhoto);
+				json.put("result", photoInfoService.updateOrder(editList));
+			}
+		}else if(dest.equals("next")) {
+			PhotoInfo nextPhoto = photoInfoService.selectNext(photo);
+			if(nextPhoto != null) {
+				int temp = photo.getOrderNum();
+				photo.setOrderNum(nextPhoto.getOrderNum());
+				nextPhoto.setOrderNum(temp);
+				List<PhotoInfo> editList = new ArrayList<PhotoInfo>();
+				editList.add(photo);
+				editList.add(nextPhoto);
+				json.put("result", photoInfoService.updateOrder(editList));
+			}
+		}
+		return json.toString();
+	}
 }

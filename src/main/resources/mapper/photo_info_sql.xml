@@ -83,7 +83,6 @@
 			<foreach collection="list" item="item" open="CASE" close="END">
 				WHEN id = ${item.id} THEN ${item.boardId}
 			</foreach>
-			
 		</set>
 		<where>
 			id IN
@@ -120,6 +119,14 @@
 				</otherwise>
 			</choose>
 		</where>
+		<choose>
+			<when test="boardId > 0">
+				order by id asc
+			</when>
+			<otherwise>
+				order by orderNum asc
+			</otherwise>
+		</choose>
 	</select>
 	
 	<delete id="delete" parameterType="photoinfo">
@@ -128,4 +135,58 @@
 			id = ${id}
 		</where>
 	</delete>
+	
+	<select id="select_products" resultType="photoinfo">
+		SELECT productId 
+		FROM PhotoInfo 
+		<where> 
+			productId > 0 
+		</where>
+		group by productId
+	</select>
+	
+	<select id="select_prev" parameterType="photoinfo" resultType="photoinfo">
+		SELECT *
+		FROM
+			PhotoInfo
+		WHERE
+			productId = ${productId}
+			and
+			orderNum = (SELECT MAX(orderNum) FROM PhotoInfo WHERE orderNum &lt; ${orderNum} and productId = ${productId})
+			
+	</select>
+	
+	<select id="select_next" parameterType="photoinfo" resultType="photoinfo">
+		SELECT *
+		FROM
+			PhotoInfo
+		WHERE
+			productId = ${productId}
+			and
+			orderNum = 
+				(
+				SELECT MIN(p.orderNum) 
+				FROM PhotoInfo p
+				WHERE 
+					orderNum &gt; ${orderNum} 
+					and 
+					productId = ${productId}
+				)
+	</select>
+	
+	<update id="update_order" parameterType="java.util.List">
+		UPDATE PhotoInfo
+		<set>
+			orderNum =
+			<foreach collection="list" item="item" open="CASE" close="END">
+				WHEN id = ${item.id} THEN ${item.orderNum}
+			</foreach>
+		</set>
+		<where>
+			id IN
+			<foreach collection="list" item="item" open="(" separator="," close=")">
+				${item.id}
+			</foreach> 
+		</where>
+	</update>
 </mapper>

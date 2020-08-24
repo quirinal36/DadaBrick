@@ -54,6 +54,7 @@ public class PhotoInfo implements Cloneable{
 	String search;
 	int orderById;
 	int boardId;
+	int orderNum;
 	
 	@Override
 	public Object clone() throws CloneNotSupportedException {

@@ -18,17 +18,18 @@ public class PhotoInfoDAO implements DataAccess<PhotoInfo> {
 	public int insert(PhotoInfo input) {
 		return sqlSession.insert(namespace + ".insert", input);
 	}
-	
 	public int insert(List<PhotoInfo> input) {
 		return sqlSession.insert(namespace + ".insert_list", input);
 	}
-	
 	@Override
 	public int update(PhotoInfo input) {
 		return sqlSession.update(namespace +".update", input);
 	}
 	public int update(List<PhotoInfo> list) {
 		return sqlSession.update(namespace +".update_list", list);
+	}
+	public int updateOrder(List<PhotoInfo> list) {
+		return sqlSession.update(namespace +".update_order", list);
 	}
 	public int updateProducts(List<PhotoInfo> list) {
 		return sqlSession.update(namespace +".update_list_products", list);
@@ -55,5 +56,14 @@ public class PhotoInfoDAO implements DataAccess<PhotoInfo> {
 	public int count(PhotoInfo input) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	public List<PhotoInfo> selectProducts(){
+		return sqlSession.selectList(namespace +".select_products");
+	}
+	public PhotoInfo selectNext(PhotoInfo input) {
+		return sqlSession.selectOne(namespace+".select_next", input);
+	}
+	public PhotoInfo selectPrev(PhotoInfo input) {
+		return sqlSession.selectOne(namespace+".select_prev", input);
 	}
 }

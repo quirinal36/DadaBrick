@@ -32,7 +32,43 @@ function deleteProduct(productId){
 		   });
 	}
 }
-
+function movePrev(btn){
+	var id = $(btn).parent().find("input[name='id']").val();
+	var orderNum = $(btn).parent().find("input[name='orderNum']").val();
+	var productId = "${product.id}";
+	
+	var url = "/products/photo/move/prev";
+	var param = "id="+id+"&orderNum="+orderNum+"&productId="+productId;
+	$.ajax({
+		url : url,
+		data: param,
+		type: "POST",
+		dataType: "json"
+	}).done(function(json){
+		if(json.result > 0){
+			window.location.reload();
+		}
+	});
+}
+function moveNext(btn){
+	var id = $(btn).parent().find("input[name='id']").val();
+	var orderNum = $(btn).parent().find("input[name='orderNum']").val();
+	var productId = "${product.id}";
+	
+	var url = "/products/photo/move/next";
+	var param = "id="+id+"&orderNum="+orderNum+"&productId="+productId;
+	
+	$.ajax({
+		url : url,
+		data: param,
+		type: "POST",
+		dataType: "json"
+	}).done(function(json){
+		if(json.result > 0){
+			window.location.reload();
+		}
+	});
+}
 </script>
 </head>
 <body>
@@ -49,7 +85,9 @@ function deleteProduct(productId){
 				<div class="detail_slider_wrap">
 					<div class="detail_slider">
 						<c:forEach items="${detailPhotoList }" var="item">
-							<div class="item" style="background-image: url(${item.url});">사진</div>
+							<div class="item" style="background-image: url(${item.url});">
+							사진
+							</div>
 						</c:forEach>
 					</div>
 					<div class="detail_slider_pager">
@@ -57,6 +95,15 @@ function deleteProduct(productId){
 							<div>
 								<c:forEach items="${detailPhotoList }" var="item" varStatus="sts">
 									<a href="" data-slide-index="${sts.index }"><img src="${item.url}" alt="사진" class="item"></a>
+									<sec:authorize access="hasRole('ADMIN')">
+										<div class="bt_move_wrap">
+											<input type="hidden" name="id" value="${item.id }"/>
+											<input type="hidden" name="orderNum" value="${item.orderNum }"/>
+											
+											<input type="button" value="이전" class="bt_move prev" onclick="javascript:movePrev(this);">
+											<input type="button" value="다음" class="bt_move next" onclick="javascript:moveNext(this);">
+										</div>
+									</sec:authorize>
 								</c:forEach>
 							</div>
 						</div>

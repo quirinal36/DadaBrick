@@ -31,6 +31,9 @@ public class PhotoInfoService implements DataService<PhotoInfo> {
 	public int update(List<PhotoInfo> list) {
 		return dao.update(list);
 	}
+	public int updateOrder(List<PhotoInfo> list) {
+		return dao.updateOrder(list);
+	}
 	public int updateProducts(List<PhotoInfo> list) {
 		return dao.updateProducts(list);
 	}
@@ -61,5 +64,13 @@ public class PhotoInfoService implements DataService<PhotoInfo> {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	public List<PhotoInfo> selectProducts(){
+		return dao.selectProducts();
+	}
+	public PhotoInfo selectNext(PhotoInfo input) {
+		return dao.selectNext(input);
+	}
+	public PhotoInfo selectPrev(PhotoInfo input) {
+		return dao.selectPrev(input);
+	}
 }
