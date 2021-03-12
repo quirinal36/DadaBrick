@@ -84,6 +84,21 @@ function deleteSlidePopup(id){
 					<div class="idx_insta">
 						<ul>
 							<li>
+								<a href="https://www.instagram.com/p/CFccFkZn_B8/" target="_blank" style="background-image: url(/resources/img/temp/i18.jpg);">사진</a>
+							</li>
+							<li>
+								<a href="https://www.instagram.com/p/CFca2E3Hq-_/" target="_blank" style="background-image: url(/resources/img/temp/i17.jpg);">사진</a>
+							</li>
+							<li>
+								<a href="https://www.instagram.com/p/CFcZ06MnQJI/" target="_blank" style="background-image: url(/resources/img/temp/i16.jpg);">사진</a>
+							</li>
+							<li>
+								<a href="https://www.instagram.com/p/CFbrj03FDA2/" target="_blank" style="background-image: url(/resources/img/temp/i15.jpg);">사진</a>
+							</li>
+							<li>
+								<a href="https://www.instagram.com/p/CD3FowNllRx/" target="_blank" style="background-image: url(/resources/img/temp/i14.jpg);">사진</a>
+							</li>
+							<li>
 								<a href="https://www.instagram.com/p/CDDWWRTpWtD/" target="_blank" style="background-image: url(/resources/img/temp/i13.jpg);">사진</a>
 							</li>
 							<li>
@@ -104,6 +119,7 @@ function deleteSlidePopup(id){
 							<li>
 								<a href="https://www.instagram.com/p/B9qxyl3J8dn/" target="_blank" style="background-image: url(/resources/img/temp/i6.jpg);">사진</a>
 							</li>
+							<!--
 							<li>
 								<a href="https://www.instagram.com/p/B9qwnRIpR3N/" target="_blank" style="background-image: url(/resources/img/temp/i7.jpg);">사진</a>
 							</li>
@@ -119,6 +135,7 @@ function deleteSlidePopup(id){
 							<li>
 								<a href="https://www.instagram.com/p/B8nJiGWpUjA/" target="_blank" style="background-image: url(/resources/img/temp/i11.jpg);">사진</a>
 							</li>
+							-->
 						</ul>
 					</div>
 				</div>
