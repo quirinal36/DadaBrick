@@ -15,6 +15,30 @@
 <script src="<c:url value="/resources/js/jquery.iframe-transport.js"/>"></script>
 <script src="<c:url value="/resources/js/jquery.fileupload.js"/>"></script>
 <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script> 
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#det-image").sortable({
+		paceholder:"highlights"
+	});
+	$("#det-image").on("sortupdate", function(event, ui){
+		var productOrder = $(this).sortable('toArray');
+		var positions = productOrder.join(';');
+		
+		var url = "/products/edit/sort";
+		var param = "ids="+positions;
+		
+		$.ajax({
+			url: url,
+			data: param,
+			type: 'POST',
+			dataType: 'json'
+		}).done(function(json){
+			console.log(json);	
+		});
+	});
+});
+</script>
 </head>
 <body>
 <div id="wrap">
@@ -136,6 +160,7 @@
                                     		</li>
 										</c:forEach>
 									</ul>
+									사진 삭제와 순서 변경은 저장 버튼을 누르지 않아도 즉시 적용됩니다.
 								</td>
 							</tr>
 						</tbody>

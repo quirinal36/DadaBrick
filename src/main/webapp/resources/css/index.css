@@ -98,8 +98,10 @@
 	width: 220px;
 	height: 220px;
 	margin-bottom: 28px;
+	box-sizing: border-box;
+	border: 1px solid #ddd;
 	border-radius: 300px;
-	background-color: #eee;
+	background-color: #fff;
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
 	background-size: 70%;

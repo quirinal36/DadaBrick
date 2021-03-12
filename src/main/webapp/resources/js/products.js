@@ -31,7 +31,7 @@ function submitProduct(){
 		}).done(function(json){
 			if(json.result > 0){
 				alert("등록되었습니다.");
-				window.location.replace("/products/list/"+json.category);
+				window.location.replace("/products/detail/"+json.productId);
 			}
 		});
 	}
@@ -52,15 +52,17 @@ function delImageClick(btn){
 	var url = "/upload/delete";
 	var param = "id="+id;
 
-	$.ajax({
-		url : url,
-		data: param,
-		type: "POST",
-		dataType: "json"
-	}).done(function(json){
-		$(btn).parent().remove();
-		$("#image-upload-btn").show();
-	});
+	if(confirm("삭제 하시겠습니까?")){
+		$.ajax({
+			url : url,
+			data: param,
+			type: "POST",
+			dataType: "json"
+		}).done(function(json){
+			$(btn).parent().remove();
+			$("#image-upload-btn").show();
+		});
+	}
 }
 $(document).ready(function(){
 	// 대표이미지

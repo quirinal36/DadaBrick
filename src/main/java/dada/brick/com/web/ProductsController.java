@@ -1,7 +1,6 @@
 package dada.brick.com.web;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,6 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,10 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import dada.brick.com.service.PhotoInfoService;
 import dada.brick.com.service.ProductsService;
 import dada.brick.com.service.SlidePhotoService;
-import dada.brick.com.vo.FileInfo;
 import dada.brick.com.vo.Menus;
 import dada.brick.com.vo.PhotoInfo;
 import dada.brick.com.vo.ProductsVO;
@@ -172,6 +168,7 @@ public class ProductsController extends DadaController{
 			}
 			json.put("category", product.getMenuId());
 			json.put("result", productsService.update(product));
+			json.put("productId", product.getId());
 		}else {
 			json.put("result", -1);
 		}
@@ -197,6 +194,7 @@ public class ProductsController extends DadaController{
 		}
 		json.put("result", result);
 		json.put("category", product.getMenuId());
+		json.put("productId", product.getId());
 		return json.toString();
 	}
 	
@@ -329,36 +327,28 @@ public class ProductsController extends DadaController{
 		}
 		return json.toString();
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value="/photo/move/{dest}", method=RequestMethod.POST, produces = "application/json; charset=utf8")
-	public String movePhotoOrder(PhotoInfo photo,
-			@PathVariable(value="dest", required = true)String dest) {
+	@RequestMapping(value="/edit/sort", method=RequestMethod.POST, produces = "application/json; charset=utf8")
+	public String detatilImageSort(@RequestParam(value="ids", required = true)String ids) {
 		JSONObject json = new JSONObject();
-		
-		if(dest.equals("prev")) {
-			PhotoInfo prevPhoto = photoInfoService.selectPrev(photo);
-			if(prevPhoto != null) {
-				int temp = photo.getOrderNum();
-				photo.setOrderNum(prevPhoto.getOrderNum());
-				prevPhoto.setOrderNum(temp);
-				List<PhotoInfo> editList = new ArrayList<PhotoInfo>();
-				editList.add(photo);
-				editList.add(prevPhoto);
-				json.put("result", photoInfoService.updateOrder(editList));
-			}
-		}else if(dest.equals("next")) {
-			PhotoInfo nextPhoto = photoInfoService.selectNext(photo);
-			if(nextPhoto != null) {
-				int temp = photo.getOrderNum();
-				photo.setOrderNum(nextPhoto.getOrderNum());
-				nextPhoto.setOrderNum(temp);
-				List<PhotoInfo> editList = new ArrayList<PhotoInfo>();
-				editList.add(photo);
-				editList.add(nextPhoto);
-				json.put("result", photoInfoService.updateOrder(editList));
+		String [] idArr = ids.split(";");
+		List<PhotoInfo> orderList = new ArrayList<>();
+		int odr = 1;
+		for(String id : idArr) {
+			try {
+				PhotoInfo photo = new PhotoInfo();
+				photo.setId(Integer.parseInt(id));
+				photo.setOrderNum(odr++);
+				orderList.add(photo);
+			}catch(NullPointerException e) {
+				logger.info(e.getMessage());
 			}
 		}
+		int result = photoInfoService.updateOrder(orderList);
+		json.put("result", result);
+		
 		return json.toString();
 	}
+	
 }

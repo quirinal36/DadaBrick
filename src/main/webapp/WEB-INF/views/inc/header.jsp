@@ -33,6 +33,16 @@ $(function(){
 		$("#gnbWrap_mobile .dep2").not($(this).find("+ul")).slideUp();
 		$(this).find("+ul").slideToggle();
 	});
+	
+	jQuery.i18n.properties({
+  		name: 'messages', 
+  		path:'/properties',
+  		mode:'map',
+  		language:"${locale}",
+  		callback: function(){ 
+  			
+  		}
+	});
 });
 </script>
 <header>
