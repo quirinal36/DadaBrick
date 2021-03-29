@@ -50,7 +50,7 @@
 <script src="<c:url value="/resources/js/sweetalert2.all.min.js"/>"></script>
 <script src="<c:url value="/resources/js/clientDetective.js"/>"></script>
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery.bxslider.css"/>">
-<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/fonts/NotoSans.css"/>">
+<!-- <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/fonts/NotoSans.css"/>"> -->
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/reset.css"><c:param name="dt" value="${nowDate }"/></c:url>">
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/common.css"><c:param name="dt" value="${nowDate }"/></c:url>">
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/board.css"><c:param name="dt" value="${nowDate }"/></c:url>">

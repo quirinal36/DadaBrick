@@ -22,14 +22,6 @@ public class BongInterceptor implements HandlerInterceptor{
 				HttpServletRequest request, 
 			HttpServletResponse response, Object handler)
 			throws Exception {
-		Map<String, String[]> parameters = request.getParameterMap();
-		Iterator<String> keys = parameters.keySet().iterator();
-		while(keys.hasNext()) {
-			final String key = keys.next();
-			for(String value : parameters.get(key)) {
-				logger.info("key : "+key + "|" + "value : "+value);
-			}
-		}
 		
 //		if(request.isUserInRole("ROLE_USER") || request.isUserInRole("ROLE_ADMIN"))
 //		{

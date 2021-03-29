@@ -192,12 +192,7 @@ public class AppConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(localeChangeInterceptor());
 		
-		BongInterceptor uffdaInterceptor = new BongInterceptor();
-		
-		registry.addInterceptor(uffdaInterceptor)
-				.addPathPatterns("/**");
 	}
 
 	@Bean
