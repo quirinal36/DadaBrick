@@ -13,7 +13,6 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.sendgrid.SendGrid;
 import com.sendgrid.SendGridException;
-import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.MimeUtility;
 
 import dada.brick.com.vo.EmailVO;
 import dada.brick.com.vo.FileInfo;
@@ -75,7 +74,7 @@ public class EmailUtil {
 			while(iter.hasNext()) {
 				FileInfo fileInfo = iter.next();
 				File attach = new File(uploadPath +File.separator + fileInfo.getNewFilename());
-				email.addAttachment(MimeUtility.encodeText(fileInfo.getName()), attach);
+//				email.addAttachment(MimeUtility.encodeText(fileInfo.getName()), attach);
 			}
 		}
 		SendGrid.Response response = sendGrid.send(email);

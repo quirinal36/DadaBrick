@@ -99,4 +99,9 @@ public class IncController extends DadaController{
 		
 		return mv;
 	}
+	@RequestMapping(value="/contentsTitle")
+	public ModelAndView getContentsTitleView(ModelAndView mv) {
+		
+		return mv;
+	}
 }
