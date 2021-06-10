@@ -16,7 +16,6 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.fileupload.FileUpload;
 import org.apache.commons.io.IOUtils;
 import org.imgscalr.Scalr;
 import org.json.JSONObject;
@@ -201,13 +200,11 @@ public class FileController extends DadaController {
     		HttpServletResponse response, @PathVariable int id) {
 		PhotoInfo param = new PhotoInfo();
 		param.setId(id);
-		String srcPath = new FileUtil().makeUserPath(); 
-		//request.getSession().getServletContext().getRealPath("/upload");
 		
 		PhotoInfo image = photoInfoService.selectOne(param);
-        File imageFile = new File(srcPath+"/"+image.getThumbnailFilename());
+        File imageFile = new File(getImageUploadPath()+"/"+image.getThumbnailFilename());
         response.setContentType(image.getContentType());
-        response.setContentLength(image.getSize());
+        response.setContentLength(image.getThumbnailSize());
 		
         try {
             InputStream is = new FileInputStream(imageFile);

@@ -29,6 +29,7 @@
 				${item.id}
 			</foreach>
 		</where>
+		order by order_num
 	</select>
 	
 	<select id="select_one" parameterType="menus" resultType="menus">
