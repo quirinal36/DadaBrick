@@ -48,9 +48,11 @@ function deleteProduct(productId){
 				<div class="detail_slider_wrap">
 					<div class="detail_slider">
 						<c:forEach items="${detailPhotoList }" var="item">
-							<div class="item" style="background-image: url(${item.url});">
-							사진
-							</div>
+							<a href="${item.url}" target="_blank">
+								<div class="item" style="background-image: url(${item.url});">
+								사진
+								</div>
+							</a>
 						</c:forEach>
 					</div>
 					<div class="detail_slider_pager">
