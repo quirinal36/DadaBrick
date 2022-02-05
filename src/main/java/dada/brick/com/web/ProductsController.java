@@ -29,6 +29,7 @@ import dada.brick.com.vo.Menus;
 import dada.brick.com.vo.PhotoInfo;
 import dada.brick.com.vo.ProductsVO;
 import dada.brick.com.vo.SlidePhotoInfo;
+import lombok.extern.log4j.Log4j;
 
 @Controller
 @RequestMapping("/products")
@@ -210,10 +211,15 @@ public class ProductsController extends DadaController{
 			
 			// 자식메뉴들
 			List<Menus> children = menuService.select(parents);
-			Map<Integer, Menus> map = children.stream().collect(Collectors.toMap(Menus::getMenuNum, menus->menus, (p1,p2)->p1));
+			Map<Integer, Menus> map = children.stream().collect(Collectors.toMap(Menus::getMenuNum, menus->menus, (p1,p2)->p2));
 			TreeMap<Integer, Menus> sortedMap = new TreeMap<Integer, Menus>(map);
+			/*
 			Iterator<Integer> iterKey = sortedMap.keySet().iterator();
-			
+			while(iterKey.hasNext()) {
+				Menus menu = sortedMap.get(iterKey.next());
+				logger.info(menu.toString());
+			}
+			*/
 			if(menuId.isPresent()) {
 				mv.addObject("currentMenuId", menuId.get());
 			}
@@ -240,7 +246,7 @@ public class ProductsController extends DadaController{
 				
 				// 자식메뉴들
 				List<Menus> children = menuService.select(parents);
-				Map<Integer, Menus> map = children.stream().collect(Collectors.toMap(Menus::getMenuNum, menus->menus, (p1,p2)->p1));
+				Map<Integer, Menus> map = children.stream().collect(Collectors.toMap(Menus::getMenuNum, menus->menus, (p1,p2)->p2));
 				TreeMap<Integer, Menus> sortedMap = new TreeMap<Integer, Menus>(map);
 				Iterator<Integer> iterKey = sortedMap.keySet().iterator();
 				

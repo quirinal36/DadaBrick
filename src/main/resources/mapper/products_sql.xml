@@ -11,11 +11,14 @@
 			primaryId,
 			size,
 			packaging,
-			delivery
+			delivery,
+			color,
+			material
 			<if test="representImage > 0">
 			,
 			representImage
 			</if>
+			
 		)
 		values
 		(
@@ -25,7 +28,9 @@
 			'${primaryId}',
 			'${size}',
 			'${packaging}',
-			'${delivery}'
+			'${delivery}',
+			'${color}',
+			'${material}'
 			<if test="representImage > 0">
 			,
 			${representImage}
@@ -42,6 +47,8 @@
 			size = '${size}',
 			packaging = '${packaging}',
 			delivery = '${delivery}',
+			color = '${color},
+			material = '${material}',
 			representImage = ${representImage}
 		</set>
 		<where>

@@ -87,6 +87,12 @@ function deleteProduct(productId){
 								<th>배송</th>
 								<td>${product.delivery }</td>
 							</tr>
+							<tr>
+								<th>색상</th>
+								<td>${product.color }</td>
+								<th>재질</th>
+								<td>${product.material }</td>
+							</tr>
 						</tbody>
 					</table>
 					<div class="bt_wrap">

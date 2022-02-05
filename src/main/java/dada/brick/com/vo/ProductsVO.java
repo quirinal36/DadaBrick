@@ -28,6 +28,8 @@ public class ProductsVO extends Paging{
 	int parentId;
 	int representImage;
 	SlidePhotoInfo slideInfo;
+	String color;
+	String material;
 	
 	public static ProductsVO newInstance(int id) {
 		ProductsVO result = new ProductsVO();

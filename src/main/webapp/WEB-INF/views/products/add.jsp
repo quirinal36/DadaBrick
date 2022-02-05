@@ -124,6 +124,18 @@ $(document).ready(function(){
 								</td>
 							</tr>
 							<tr>
+								<th>색상</th>
+								<td>
+									<input type="text" placeholder="색상 입력" value="" class="ipt1 w80"
+										name="color" value="${product.color }">
+								</td>
+								<th>재질</th>
+								<td>
+									<input type="text" placeholder="재질 입력" value="" class="ipt1 w80"
+										name="material" value="${product.material }">
+								</td>
+							</tr>
+							<tr>
 								<th>대표사진</th>
 								<td colspan="3" id="dropzone-img-rep">
 									<c:choose>
