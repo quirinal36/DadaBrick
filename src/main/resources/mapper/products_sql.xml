@@ -47,7 +47,7 @@
 			size = '${size}',
 			packaging = '${packaging}',
 			delivery = '${delivery}',
-			color = '${color},
+			color = '${color}',
 			material = '${material}',
 			representImage = ${representImage}
 		</set>
