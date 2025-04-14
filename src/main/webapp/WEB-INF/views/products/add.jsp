@@ -175,6 +175,13 @@ $(document).ready(function(){
 									사진 삭제와 순서 변경은 저장 버튼을 누르지 않아도 즉시 적용됩니다.
 								</td>
 							</tr>
+							<tr>
+								<th>동영상</th>
+								<td colspan="3" id="dropzone-img-det">
+									<a href="javascript:void(0);" class="bt1 on" id="openModalBtn">추가하기</a>
+									<div id="youtube-thumbnails" class="youtube-thumbnails-container"></div>
+								</td>
+							</tr>	
 						</tbody>
 					</table>
 					<div class="bt_wrap">
@@ -198,5 +205,140 @@ $(document).ready(function(){
 	</div>
 	<c:import url="/inc/footer"></c:import>
 </div>
+
+<!-- Modal Overlay -->
+<div id="modalOverlay" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-content">
+            <div class="youtube-input-container">
+                <input type="text" id="youtubeUrl" class="youtube-url-input" placeholder="YouTube URL을 입력하세요">
+                <button class="ok-button" id="confirmYoutubeBtn">확인</button>
+            </div>
+            
+            <div class="preview-container" id="youtubePreview">
+                <div class="preview-text">미리보기</div>
+                <div class="preview-placeholder">YouTube URL을 입력하면 미리보기가 표시됩니다.</div>
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="cancel-button" id="cancelBtn">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// YouTube Modal functionality
+const openModalBtn = document.getElementById('openModalBtn');
+const modalOverlay = document.getElementById('modalOverlay');
+const cancelBtn = document.getElementById('cancelBtn');
+const youtubeUrlInput = document.getElementById('youtubeUrl');
+const confirmYoutubeBtn = document.getElementById('confirmYoutubeBtn');
+const youtubePreview = document.getElementById('youtubePreview');
+const youtubeThumbnails = document.getElementById('youtube-thumbnails');
+
+// Open modal
+openModalBtn.addEventListener('click', function() {
+    modalOverlay.style.display = 'block';
+    youtubeUrlInput.value = '';
+    youtubePreview.querySelector('.preview-placeholder').style.display = 'block';
+    youtubePreview.querySelector('iframe')?.remove();
+});
+
+// Close modal (cancel button)
+cancelBtn.addEventListener('click', function() {
+    modalOverlay.style.display = 'none';
+});
+
+// Close modal when clicking outside
+modalOverlay.addEventListener('click', function(event) {
+    if (event.target === modalOverlay) {
+        modalOverlay.style.display = 'none';
+    }
+});
+
+// Handle YouTube URL input
+youtubeUrlInput.addEventListener('input', function() {
+    const url = this.value.trim();
+    if (url) {
+        const videoId = extractYoutubeId(url);
+		console.log("videoId:" +videoId);
+        if (videoId) {
+            updatePreview(videoId);
+        }
+    }
+});
+
+// Confirm YouTube URL
+confirmYoutubeBtn.addEventListener('click', function() {
+    const url = youtubeUrlInput.value.trim();
+    if (url) {
+        const videoId = extractYoutubeId(url);
+		//console.log("videoId:" +videoId);
+        if (videoId) {
+            addYoutubeThumbnail(videoId);
+            modalOverlay.style.display = 'none';
+        }
+    }
+});
+
+// Extract YouTube video ID from URL
+function extractYoutubeId(url) {
+    // Handle both youtu.be/ and youtube.com/watch?v= formats
+    const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    const match = url.match(regExp);
+	//console.log("match:" + match);
+
+    return (match && match[7].length === 11) ? match[7] : null;
+}
+
+// Update preview
+function updatePreview(videoId) {
+    const previewPlaceholder = youtubePreview.querySelector('.preview-placeholder');
+    previewPlaceholder.style.display = 'none';
+    
+    // Remove existing preview content
+    youtubePreview.querySelector('iframe')?.remove();
+    youtubePreview.querySelector('img')?.remove();
+    
+    // Add thumbnail image
+    const thumbnail = document.createElement('img');
+    thumbnail.src = 'https://img.youtube.com/vi/' + videoId +'/hqdefault.jpg';
+    thumbnail.alt = 'YouTube Thumbnail';
+    thumbnail.style.width = '100%';
+    thumbnail.style.maxWidth = '480px'; // 적절한 크기로 조정
+    
+    youtubePreview.appendChild(thumbnail);
+}
+
+// Add YouTube thumbnail (마우스오버 효과 제거된 버전)
+function addYoutubeThumbnail(videoId) {
+    const thumbnailContainer = document.createElement('div');
+    thumbnailContainer.className = 'youtube-thumbnail';
+    thumbnailContainer.dataset.videoId = videoId;
+    
+    const thumbnail = document.createElement('img');
+    thumbnail.src = 'https://img.youtube.com/vi/' + videoId +'/hqdefault.jpg';
+    thumbnail.alt = 'YouTube Thumbnail';
+    
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'bt_imgDelete';
+    deleteBtn.textContent = '삭제';
+    deleteBtn.onclick = function() {
+        thumbnailContainer.remove();
+    };
+    
+    // Add hidden input for videoId
+    const hiddenInput = document.createElement('input');
+    hiddenInput.type = 'hidden';
+    hiddenInput.value = videoId;
+    hiddenInput.name = 'videoId';
+    
+    thumbnailContainer.appendChild(thumbnail);
+    thumbnailContainer.appendChild(deleteBtn);
+    thumbnailContainer.appendChild(hiddenInput);  // Add hidden input to container
+    youtubeThumbnails.appendChild(thumbnailContainer);
+}
+</script>
 </body>
 </html>

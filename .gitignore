@@ -2,3 +2,5 @@
 target/classes/
 target/test-classes/log4j.xml
 target/**
+/.apt_generated/
+/.apt_generated_tests/

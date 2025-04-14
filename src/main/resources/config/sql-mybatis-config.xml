@@ -8,6 +8,7 @@
 		<typeAlias type="dada.brick.com.vo.UserRole" alias="user_role"/>
 		<typeAlias type="dada.brick.com.vo.PhotoInfo" alias="photoinfo"/>
 		<typeAlias type="dada.brick.com.vo.FileInfo" alias="fileinfo"/>
+		<typeAlias type="dada.brick.com.vo.VideoInfo" alias="videoinfo"/>
 		<typeAlias type="dada.brick.com.vo.Board" alias="board"/>
 		<typeAlias type="dada.brick.com.vo.Menus" alias="menus"/>
 		<typeAlias type="dada.brick.com.vo.Symposium" alias="symposium"/>

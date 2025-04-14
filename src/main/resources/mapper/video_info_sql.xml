@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="video_info_sql">
+	<insert id="insert" parameterType="videoinfo" useGeneratedKeys="true" keyProperty="id">
+		INSERT into VideoInfo
+		(
+			videoId,
+			userId,
+			productId
+		)
+		values
+		(
+			'${videoId}',
+			'${userId}',
+			'${productId}'
+		)		
+	</insert>
+	
+	<delete id="delete" parameterType="videoinfo">
+		DELETE FROM VideoInfo
+		<where>
+			id = ${id}
+		</where>
+	</delete>
+	
+	<select id="select" parameterType="videoinfo" resultType="videoinfo">
+		SELECT *
+		FROM VideoInfo
+		<where>
+			productId = ${productId}
+		</where>
+	</select>
+	
+</mapper>

@@ -16,6 +16,7 @@ import dada.brick.com.service.MenuService;
 import dada.brick.com.service.PhotoInfoService;
 import dada.brick.com.service.TokenService;
 import dada.brick.com.service.UserService;
+import dada.brick.com.service.VideoInfoService;
 import dada.brick.com.vo.Menus;
 import dada.brick.com.vo.UserVO;
 
@@ -34,6 +35,9 @@ public class DadaController {
 	protected UserService userService;	
 	@Autowired
 	protected PhotoInfoService photoInfoService;
+	@Autowired
+	protected VideoInfoService videoInfoService;
+	
 	@Autowired
 	protected FileInfoService fileInfoService;
 	@Autowired

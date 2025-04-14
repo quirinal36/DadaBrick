@@ -29,6 +29,7 @@ import dada.brick.com.vo.Menus;
 import dada.brick.com.vo.PhotoInfo;
 import dada.brick.com.vo.ProductsVO;
 import dada.brick.com.vo.SlidePhotoInfo;
+import dada.brick.com.vo.VideoInfo;
 import lombok.extern.log4j.Log4j;
 
 @Controller
@@ -134,10 +135,12 @@ public class ProductsController extends DadaController{
 		}
 		PhotoInfo photoInfo = PhotoInfo.newInstance(productId.get(), 0);
 		List<PhotoInfo> detailPhotoList = photoInfoService.select(photoInfo);
+		VideoInfo videoInfo = VideoInfo.newInstance(productId.get());
+		videoInfo = videoInfoService.selectOne(videoInfo);
 		
 		mv.addObject("product", productsService.selectOne(product));
 		mv.addObject("detailPhotoList", detailPhotoList);
-		
+		mv.addObject("videoInfo", videoInfo);
 		mv.setViewName("/products/detail");
 		return mv;
 	}
@@ -146,7 +149,8 @@ public class ProductsController extends DadaController{
 	@RequestMapping(value="/edit", method = RequestMethod.POST, produces = "application/json; charset=utf8")
 	public String postEditProduct(ProductsVO product, 
 			@RequestParam(value="detImage", required = false)Optional<int[]> detImages,
-			HttpServletRequest request, RedirectAttributes redirectAttr) {
+			HttpServletRequest request, RedirectAttributes redirectAttr,
+			@RequestParam(value="videoId", required=false)Optional<String> videoId) {
 		JSONObject json = new JSONObject();
 		if(request.isUserInRole("ADMIN")) {
 			// 1. detImages 적어졌는지 검사해서 빼거나 추가하기
@@ -167,6 +171,16 @@ public class ProductsController extends DadaController{
 					photoInfoService.updateProducts(appendPhotos);
 				}
 			}
+			
+			//-- 2. video가 수정이 되었는지 검사하기 --//
+			VideoInfo videoInfo = videoInfoService.selectOne(VideoInfo.newInstance(product.getId()));
+			if (videoInfo == null ) {
+				videoInfo = VideoInfo.newInstance(product.getId(), getUser().getId());
+			}else if(!videoInfo.getVideoId().equals(videoId.get())) {
+				videoInfo.setVideoId(videoId.get());
+				videoInfoService.update(videoInfo);
+			}
+			
 			json.put("category", product.getMenuId());
 			json.put("result", productsService.update(product));
 			json.put("productId", product.getId());
@@ -180,10 +194,17 @@ public class ProductsController extends DadaController{
 	@ResponseBody
 	@RequestMapping(value="/add", method = RequestMethod.POST, produces = "application/json; charset=utf8")
 	public String postProduct(ModelAndView mv, ProductsVO product,
-			HttpServletRequest request, @RequestParam(value="detImage", required=false)Optional<int[]> detImages) {
+			HttpServletRequest request, 
+			@RequestParam(value="detImage", required=false)Optional<int[]> detImages,
+			@RequestParam(value="videoId", required=false)Optional<String> videoId) {
 		JSONObject json = new JSONObject();
 		int result = productsService.insert(product);
 		
+		if(videoId.isPresent() && request.isUserInRole("ROLE_ADMIN")) {
+			VideoInfo video = VideoInfo.newInstance(product.getId(), getUser().getId());
+			video.setVideoId(videoId.get());
+			videoInfoService.insert(video);
+		}
 		if(detImages.isPresent()) {
 			if(detImages.get().length > 0) {
 				List<PhotoInfo> photoInfoList = new ArrayList<>();

@@ -72,8 +72,6 @@ $(document).ready(function(){
         done: function (e, data) {
         	var file = data.result.file;
         	
-        	console.log(file);
-        	
         	$("#rep-image").empty();
         	$("#image-upload-btn").hide();
         	$("#rep-image").append(makeLI(file, 'representImage'));
@@ -118,4 +116,5 @@ $(document).ready(function(){
         },
         dropZone: $('#dropzone-img-det')
 	});
+	
 });
