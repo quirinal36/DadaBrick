@@ -179,7 +179,15 @@ $(document).ready(function(){
 								<th>동영상</th>
 								<td colspan="3" id="dropzone-img-det">
 									<a href="javascript:void(0);" class="bt1 on" id="openModalBtn">추가하기</a>
-									<div id="youtube-thumbnails" class="youtube-thumbnails-container"></div>
+									<div id="youtube-thumbnails" class="youtube-thumbnails-container">
+										<c:forEach items="${videoList }" var="item">
+											<div class="youtube-thumbnail" data-video-id="${ item.videoId}">
+												<img src="https://img.youtube.com/vi/${item.videoId}/hqdefault.jpg" alt="동영상 썸네일" />
+												<button class="bt_imgDelete">삭제</button>
+												<input type="hidden" value="${item.videoId }" name="videoId"/>
+											</div>
+										</c:forEach>
+									</div>
 								</td>
 							</tr>	
 						</tbody>

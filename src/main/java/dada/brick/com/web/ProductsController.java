@@ -136,11 +136,11 @@ public class ProductsController extends DadaController{
 		PhotoInfo photoInfo = PhotoInfo.newInstance(productId.get(), 0);
 		List<PhotoInfo> detailPhotoList = photoInfoService.select(photoInfo);
 		VideoInfo videoInfo = VideoInfo.newInstance(productId.get());
-		videoInfo = videoInfoService.selectOne(videoInfo);
+		List<VideoInfo> videoInfoList = videoInfoService.select(videoInfo);
 		
 		mv.addObject("product", productsService.selectOne(product));
 		mv.addObject("detailPhotoList", detailPhotoList);
-		mv.addObject("videoInfo", videoInfo);
+		mv.addObject("videoInfoList", videoInfoList);
 		mv.setViewName("/products/detail");
 		return mv;
 	}
@@ -173,14 +173,17 @@ public class ProductsController extends DadaController{
 			}
 			
 			//-- 2. video가 수정이 되었는지 검사하기 --//
-			VideoInfo videoInfo = videoInfoService.selectOne(VideoInfo.newInstance(product.getId()));
+			List<VideoInfo> videoInfoList = videoInfoService.select(VideoInfo.newInstance(product.getId()));
+			
+			// photoInfoMap 에는 없지만, detImages에는 있다면 추가해야한다.
+			/*
 			if (videoInfo == null ) {
 				videoInfo = VideoInfo.newInstance(product.getId(), getUser().getId());
 			}else if(!videoInfo.getVideoId().equals(videoId.get())) {
 				videoInfo.setVideoId(videoId.get());
 				videoInfoService.update(videoInfo);
 			}
-			
+			*/
 			json.put("category", product.getMenuId());
 			json.put("result", productsService.update(product));
 			json.put("productId", product.getId());
@@ -279,6 +282,11 @@ public class ProductsController extends DadaController{
 				PhotoInfo photoInfo = PhotoInfo.newInstance(productId.get(), 0);
 				List<PhotoInfo> detailPhotoList = photoInfoService.select(photoInfo);
 				mv.addObject("detailPhotoList", detailPhotoList);
+				
+				VideoInfo videoInfo = VideoInfo.newInstance(productId.get());
+				List<VideoInfo> videoList = videoInfoService.select(videoInfo);
+				mv.addObject("videoList", videoList);
+				
 				mv.setViewName("/products/add");
 			}else {
 				redirectAttr.addAttribute("loginRedirect", "/products/add");
