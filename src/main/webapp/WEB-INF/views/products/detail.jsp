@@ -125,7 +125,9 @@ function deleteProduct(productId){
 					<div class="detail_slick_slider">
 						<c:forEach items="${detailPhotoList }" var="item">
 							<div class="slide">
-								<img src="${item.url}" class="slide-img" alt="제품 이미지" />
+								<a href="${item.url}" target="_blank">
+									<img src="${item.url}" class="slide-img" alt="제품 이미지" />
+								</a>
 							</div>
 						</c:forEach>
 						<c:forEach items="${videoInfoList }" var="item">

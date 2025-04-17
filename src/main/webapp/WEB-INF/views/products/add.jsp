@@ -183,7 +183,7 @@ $(document).ready(function(){
 										<c:forEach items="${videoList }" var="item">
 											<div class="youtube-thumbnail" data-video-id="${ item.videoId}">
 												<img src="https://img.youtube.com/vi/${item.videoId}/hqdefault.jpg" alt="동영상 썸네일" />
-												<button class="bt_imgDelete">삭제</button>
+												<button class="bt_imgDelete" onclick="removeDiv();">삭제</button>
 												<input type="hidden" value="${item.videoId }" name="videoId"/>
 											</div>
 										</c:forEach>
@@ -249,8 +249,14 @@ const youtubeThumbnails = document.getElementById('youtube-thumbnails');
 openModalBtn.addEventListener('click', function() {
     modalOverlay.style.display = 'block';
     youtubeUrlInput.value = '';
-    youtubePreview.querySelector('.preview-placeholder').style.display = 'block';
+    
+    // 미리보기 영역 초기화
+    const previewPlaceholder = youtubePreview.querySelector('.preview-placeholder');
+    previewPlaceholder.style.display = 'block';
+    
+    // 이전 미리보기 이미지나 iframe 제거
     youtubePreview.querySelector('iframe')?.remove();
+    youtubePreview.querySelector('img')?.remove();
 });
 
 // Close modal (cancel button)
@@ -346,6 +352,17 @@ function addYoutubeThumbnail(videoId) {
     thumbnailContainer.appendChild(deleteBtn);
     thumbnailContainer.appendChild(hiddenInput);  // Add hidden input to container
     youtubeThumbnails.appendChild(thumbnailContainer);
+}
+
+function removeDiv() {
+    // Get the clicked button element
+    const button = event.target;
+    // Find the closest parent div with class 'youtube-thumbnail'
+    const thumbnailDiv = button.closest('.youtube-thumbnail');
+    // Remove the div if found
+    if (thumbnailDiv) {
+        thumbnailDiv.remove();
+    }
 }
 </script>
 </body>

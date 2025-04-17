@@ -30,6 +30,13 @@ public class VideoInfo extends Cloneable {
 		result.setProductId(productId);
 		return result;
 	}
+	public static VideoInfo newInstance(int productId, int userId, String videoId) {
+		VideoInfo result = new VideoInfo();
+		result.setUserId(userId);
+		result.setProductId(productId);
+		result.setVideoId(videoId);
+		return result;
+	}
 	int id;
 	String videoId;
 	Date created;

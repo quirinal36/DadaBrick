@@ -27,11 +27,13 @@
 			</ul>
 			<div class="right">
 				<sec:authorize access="isAnonymous()">
-					<a href="<c:url value="/member/login"/>">LOGIN</a>
+					<a href="<c:url value="/member/login"><c:param name="loginRedirect" value="${currentUrl}" /></c:url>">
+					LOGIN
+					</a>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<a href="<c:url value="/member/myinfo"/>">INFO</a>
-					<a href="javascript:logout();">LOGOUT</a>
+					<a href="javascript:logout(`${currentUrl}`);">LOGOUT</a>
 				</sec:authorize>
 			</div>
 		</div>
@@ -39,9 +41,9 @@
 	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 	<script type="text/javascript">
 		Kakao.init('${apiKey}');
-		function logout(){
+		function logout(url){
 			Kakao.Auth.logout(function(){
-				window.location.replace("/j_spring_security_logout");
+				window.location.replace("/logout?logoutRedirect=" + url);
 			});
 		}
 	</script>

@@ -192,7 +192,7 @@ public class AppConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		
+		registry.addInterceptor(new BongInterceptor());
 	}
 
 	@Bean

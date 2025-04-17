@@ -26,12 +26,15 @@ public class CustomLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
-		String refererUrl = request.getHeader("Referer");
 		
-		if(refererUrl !=null && refererUrl.length() > 0) {
-			redirectStrategy.sendRedirect(request, response, refererUrl);
-		}else {
-			super.onLogoutSuccess(request, response, authentication);
-		}
+		String redirectUrl = request.getParameter("logoutRedirect");
+		logger.debug("onLogoutSuccess:" + redirectUrl);
+//		String refererUrl = (String) request.getSession().getAttribute("lastPageUrl");
+	    if (redirectUrl == null || redirectUrl.isEmpty()) {
+	        redirectUrl = "/";  // 기본 URL 설정
+	    }
+	    		
+		redirectStrategy.sendRedirect(request, response, redirectUrl);
+		
 	}
 }

@@ -17,7 +17,9 @@ public class VideoInfoService implements DataService<VideoInfo> {
 	public int insert(VideoInfo input) {
 		return dao.insert(input);
 	}
-
+	public int insert(List<VideoInfo> videoList) {
+		return dao.insert(videoList);
+	}
 	@Override
 	public int update(VideoInfo input) {
 		return 0;
@@ -25,6 +27,9 @@ public class VideoInfoService implements DataService<VideoInfo> {
 
 	@Override
 	public int delete(VideoInfo input) {
+		return dao.delete(input);
+	}
+	public int delete(List<VideoInfo> input) {
 		return dao.delete(input);
 	}
 
@@ -40,7 +45,7 @@ public class VideoInfoService implements DataService<VideoInfo> {
 
 	@Override
 	public VideoInfo selectOne(VideoInfo input) {
-		return null;
+		return dao.selectOne(input);
 	}
 
 	@Override

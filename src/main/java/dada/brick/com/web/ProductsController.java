@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -150,7 +151,7 @@ public class ProductsController extends DadaController{
 	public String postEditProduct(ProductsVO product, 
 			@RequestParam(value="detImage", required = false)Optional<int[]> detImages,
 			HttpServletRequest request, RedirectAttributes redirectAttr,
-			@RequestParam(value="videoId", required=false)Optional<String> videoId) {
+			@RequestParam(value="videoId", required=false)Optional<List<String>> videoId) {
 		JSONObject json = new JSONObject();
 		if(request.isUserInRole("ADMIN")) {
 			// 1. detImages 적어졌는지 검사해서 빼거나 추가하기
@@ -172,8 +173,46 @@ public class ProductsController extends DadaController{
 				}
 			}
 			
+			
 			//-- 2. video가 수정이 되었는지 검사하기 --//
 			List<VideoInfo> videoInfoList = videoInfoService.select(VideoInfo.newInstance(product.getId()));
+			
+			Map<String, VideoInfo> videoInfoMap = videoInfoList.stream().collect(Collectors.toMap(VideoInfo::getVideoId, videoInfo->videoInfo));
+			logger.log(Level.INFO, videoInfoMap.toString());
+			
+			List<VideoInfo> appendVideos = new ArrayList<VideoInfo>();
+			
+			if(videoId.isPresent()) {
+				// 새로 생긴 비디오에 대해 추가하기
+				for(String video : videoId.get()) {
+					logger.log(Level.INFO, "param video:" + video);
+					
+					if(!videoInfoMap.containsKey(video)) {
+						// 없던게 새로 생겼다.
+						VideoInfo newVideoInfo = VideoInfo.newInstance(product.getId(), getUser().getId(), video);
+						appendVideos.add(newVideoInfo);
+						videoInfoMap.remove(video);
+					}else {
+						videoInfoMap.remove(video);
+					}
+				}
+				if (appendVideos.size() > 0) {
+					videoInfoService.insert(appendVideos);
+				}
+				
+				// 없어진 비디오를 삭제하기
+				if (videoInfoMap.size() > 0) {
+					List<VideoInfo> removedVideos = new ArrayList<VideoInfo>();
+					for(Map.Entry<String, VideoInfo> entry  : videoInfoMap.entrySet()) {
+						VideoInfo delVideoInfo = VideoInfo.newInstance(product.getId(), getUser().getId(), entry.getKey());
+						removedVideos.add(videoInfoService.selectOne(delVideoInfo));						
+					}
+					videoInfoService.delete(removedVideos);
+				}
+			}else {
+				VideoInfo allVideoInProduct = VideoInfo.newInstance(product.getId());
+				videoInfoService.delete(videoInfoService.select(allVideoInProduct));
+			}
 			
 			// photoInfoMap 에는 없지만, detImages에는 있다면 추가해야한다.
 			/*
@@ -199,14 +238,19 @@ public class ProductsController extends DadaController{
 	public String postProduct(ModelAndView mv, ProductsVO product,
 			HttpServletRequest request, 
 			@RequestParam(value="detImage", required=false)Optional<int[]> detImages,
-			@RequestParam(value="videoId", required=false)Optional<String> videoId) {
+			@RequestParam(value="videoId", required=false)Optional<List<String>> videoIds) {
 		JSONObject json = new JSONObject();
 		int result = productsService.insert(product);
 		
-		if(videoId.isPresent() && request.isUserInRole("ROLE_ADMIN")) {
-			VideoInfo video = VideoInfo.newInstance(product.getId(), getUser().getId());
-			video.setVideoId(videoId.get());
-			videoInfoService.insert(video);
+		if(videoIds.isPresent() && request.isUserInRole("ROLE_ADMIN")) {
+			List<VideoInfo> videoList = new ArrayList<>();
+			for(String videoId : videoIds.get()) {
+				logger.info("param video:" + videoId);
+				VideoInfo video = VideoInfo.newInstance(product.getId(), getUser().getId());
+				video.setVideoId(videoId);
+				videoList.add(video);
+			}
+			videoInfoService.insert(videoList);
 		}
 		if(detImages.isPresent()) {
 			if(detImages.get().length > 0) {

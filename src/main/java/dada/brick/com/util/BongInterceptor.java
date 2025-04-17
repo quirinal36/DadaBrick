@@ -36,11 +36,26 @@ public class BongInterceptor implements HandlerInterceptor{
 	}
 
 	@Override
-	public void postHandle(HttpServletRequest request, 
-			HttpServletResponse response, Object handler,
-			ModelAndView mv) throws Exception {
-		
-	}
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, 
+            Object handler, ModelAndView modelAndView) throws Exception {
+        
+        if (modelAndView != null) {
+            String requestUri = request.getRequestURI();
+            String queryString = request.getQueryString();
+            
+            // 현재 URL 생성
+            String currentUrl = requestUri;
+            if (queryString != null && !queryString.isEmpty()) {
+                currentUrl += "?" + queryString;
+            }
+            
+            if (!currentUrl.endsWith(".jsp")) {
+            	//logger.info("interceptor currentUrl: "+currentUrl);
+            	modelAndView.addObject("currentUrl", currentUrl);
+//            	request.getSession().setAttribute("lastPageUrl", currentUrl);
+            }            
+        }
+    }
 
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)

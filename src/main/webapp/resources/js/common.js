@@ -6,15 +6,7 @@ $(function(){
 		auto: true,
 		pager: true,
 		pause: 5000
-	});
-	// detail_slider
-	$(".detail_slider").bxSlider({
-		controls: true,
-		auto: true,
-		pager: true,
-		pause: 5000,
-		pagerCustom: ".detail_slider_pager"
-	});
+	});	
 });
 
 function idxProductsSlider() {

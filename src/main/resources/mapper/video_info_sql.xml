@@ -17,11 +17,32 @@
 			'${productId}'
 		)		
 	</insert>
-	
+	<insert id="insert_list" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+		INSERT into VideoInfo
+		(
+			videoId,
+			userId,
+			productId
+		)
+		values
+		<foreach collection="list" item="elem" index="i" open="(" separator="),(" close=")">
+			'${elem.videoId}',
+			${elem.userId},
+			${elem.productId}
+		</foreach>
+	</insert>
 	<delete id="delete" parameterType="videoinfo">
 		DELETE FROM VideoInfo
 		<where>
 			id = ${id}
+		</where>
+	</delete>
+	<delete id="delete_list" parameterType="videoinfo">
+		DELETE FROM VideoInfo
+		<where>
+			<foreach collection="list" item="elem" index="i" open="id IN(" separator="," close=")">
+				${elem.id}
+			</foreach>
 		</where>
 	</delete>
 	
@@ -32,5 +53,13 @@
 			productId = ${productId}
 		</where>
 	</select>
-	
+	<select id="select_one" parameterType="videoinfo" resultType="videoinfo">
+		SELECT *
+		FROM VideoInfo
+		<where>
+			productId = ${productId}
+			AND
+			videoId = '${videoId}'
+		</where>
+	</select>
 </mapper>

@@ -18,6 +18,10 @@ public class VideoInfoDAO implements DataAccess<VideoInfo> {
 	public int insert(VideoInfo input) {
 		return sqlSession.insert(namespace + ".insert", input);
 	}
+	
+	public int insert(List<VideoInfo> input) {
+		return sqlSession.insert(namespace +".insert_list", input);
+	}
 
 	@Override
 	public int update(VideoInfo input) {
@@ -27,6 +31,10 @@ public class VideoInfoDAO implements DataAccess<VideoInfo> {
 	@Override
 	public int delete(VideoInfo input) {
 		return sqlSession.delete(namespace +".delete", input);
+	}
+	
+	public int delete(List<VideoInfo> input) {
+		return sqlSession.delete(namespace +".delete_list", input);
 	}
 
 	@Override
@@ -41,7 +49,7 @@ public class VideoInfoDAO implements DataAccess<VideoInfo> {
 
 	@Override
 	public VideoInfo selectOne(VideoInfo input) {
-		return null;
+		return sqlSession.selectOne(namespace + ".select_one", input);
 	}
 
 	@Override
