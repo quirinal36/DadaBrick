@@ -193,7 +193,7 @@ public class HomeController extends DadaController {
 		
 		ExcelMaker maker = new ExcelMaker();
 		List<ProductsVO> list = maker.getExcelFileToProductsVO();
-		logger.info("list size: " + list.size());
+//		logger.info("list size: " + list.size());
 		Iterator<ProductsVO> iter = list.iterator();
 		while(iter.hasNext()) {
 			try {
@@ -204,6 +204,11 @@ public class HomeController extends DadaController {
 		}
 		
 		return result + " succed";
+	}
+	@RequestMapping(value = "/.well-known/pki-validation/")
+	@ResponseBody
+	public String getPkiValidation() {		
+		return "0FCD6D3F0AB565F3592FA4FE66AAC168069D2D96A63F002A85EF5FC63935B7AE\ncomodoca.com";
 	}
 	@RequestMapping(value="/robots.txt")
 	public ModelAndView getRobotsView(ModelAndView mv) {

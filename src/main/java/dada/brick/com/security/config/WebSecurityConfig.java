@@ -30,7 +30,7 @@ import dada.brick.com.security.CustomLogoutSuccessHandler;
 @EnableWebSecurity // 웹 보안설정
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	private static final String[] IGNORED_RESOURCE_LIST = new String[] {"/resources/**", "/robots.txt", "/sitemap.xml"};
+	private static final String[] IGNORED_RESOURCE_LIST = new String[] {"/resources/**", "/robots.txt", "/sitemap.xml", "/pki-validation.txt"};
 	@Autowired
 	private CustomAuthenticationSuccessHandler loginSuccessHandler;
 	
