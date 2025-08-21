@@ -208,7 +208,7 @@ public class HomeController extends DadaController {
 	@RequestMapping(value = "/.well-known/pki-validation/")
 	@ResponseBody
 	public String getPkiValidation() {		
-		return "0FCD6D3F0AB565F3592FA4FE66AAC168069D2D96A63F002A85EF5FC63935B7AE\ncomodoca.com";
+		return "A0BE011080EF16BF9EC2062B2FEB5C808F486B6C27AF1BC6D2CC8AEBDDA437AB\ncomodoca.com";
 	}
 	@RequestMapping(value="/robots.txt")
 	public ModelAndView getRobotsView(ModelAndView mv) {
